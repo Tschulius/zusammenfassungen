@@ -1,0 +1,941 @@
+\documentclass{kit}
+
+\newcommand\f{(a_n)}
+
+\author{Julius Vater\\ 2603322}
+\title{HM1 Zusammenfassung}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+\pagenumbering{arabic}
+\section{Reelle Zahlen}
+  \subsection{Körperaxiome}
+    Zu je zwei Zahlen $a,b\in\mathbb{R}$ gibt es \underline{genau ein} $a+b\in\mathbb{R}$
+    \begin{enumerate}
+      \item $\forall a,b,c\in\mathbb{R}:a+(b+c)=(a+b)+c$ (Assoziativgesetz für "+")
+      \item $\exists0\in\mathbb{R}\forall a\in\mathbb{R}:a+0=a$ (Existenz einer Null)
+      \item $\forall a\in\mathbb{R}\exists-a\in\mathbb{R}:a+(-a)=0$ (Inverse bzgl. "+")
+      \item $\forall a,b\in\mathbb{R}:a+b=b+a$ (Kommutativtgesetz für "+")
+      \item $\forall a,b,c\in\mathbb{R}:a\cdot(b\cdot c)=(a\cdot b)\cdot c$ (Assoziativgesetz für "$\cdot$")
+      \item $\exists1\in\mathbb{R}\forall a\in\mathbb{R}:a\cdot1=a$ und $1\neq0$ (Existenz einer Eins)
+      \item $\forall a\in\mathbb{R}\setminus\{0\}\exists a^{-1}\cdot a\in\mathbb{R}:a\cdot a^{-1}=1$ (Inverse bzgl. "$\cdot$")
+      \item $\forall a,b\in\mathbb{R}:a\cdot b=b\cdot a$ (Kommutativtgesetz für "$\cdot$")
+      \item $\forall a,b,c\in\mathbb{R}:a\cdot(b+c)=a\cdot b+a\cdot c$ (Distributivgesetz)
+    \end{enumerate}
+  \subsection{Die Anordnungsaxiom}
+    \begin{enumerate}
+      \setcounter{enumi}{9}
+      \item $\forall a,b\in\reell:a\le b$ oder $b\le a$
+      \item $a\le b$ und $b\le a\Rightarrow a=b$
+      \item $a\le b$ und $b\le c\Rightarrow a\le c$
+      \item $a\le b$ und $c\in\reell\Rightarrow a+c\le b+c$
+      \item $a\le b$ und $0\le c\Rightarrow ac\le bc$
+    \end{enumerate}
+  \subsection{Das Supremumsaxiom}
+    \subsubsection{Betrag}
+      Für $a\in\reell$ heißt
+      $$\abs{a}=\begin{cases}
+        a, &\text{ falls }a\ge 0\\
+        -a, & \text{ falls }a<0
+      \end{cases}$$
+      der \textbf{Betrag} von $a$. Für $a,b\in\reell$ heißt die Zahl $\abs{a-b}$ der \textbf{Abstand von $a$ zu $b$}
+    \subsubsection{Beschränktheit}
+      \begin{enumerate}[label=\arabic*)]
+        \item $M$ heißt \textbf{nach oben beschränkt}, falls ein $\gamma\in\reell$ existiert, sodass für alle $x\in M$ gilt: $x\le \gamma$.\\
+          Die Zahl $\gamma$ heißt dann \textbf{obere Schranke} von $M$.
+        \item Ist $\gamma$ eine obere Schranke von $M$ und $\gamma\le\delta$ für jede weiter obere Schranke $\delta$ von $M$, so heißt $\gamma$ das \textbf{Supremum} (oder die \textbf{kleinste obere Schranke}) von $M$.\\
+          Man schreibt: $\gamma=\sup(M)$.
+        \item Existiert $\sup(M)$ und gilt $\sup(M)\in M$, so heißt $\sup(M)$ das \textbf{Maximum} von $M$ und man schreibt $\max(M)$ anstatt $\sup(M)$
+          $M$ heißt \textbf{nach unten beschränkt}, falls ein $\gamma\in\reell$ existiert, sodass für alle $x\in M$ gilt: $\gamma\le x$:\\
+          Die Zahl $\gamma$ heißt dann eine \textbf{untere Schranke} von $M$.
+        \item Ist $\gamma$ eine untere Schranke von $M$ und gilt $\gamma\ge\delta$ für jede weiter untere Schranke $\delta$ von $M$, so heißt $\gamma$ das \textbf{Infimum} (oder \textbf{die größte untere Schranke}) von $M$\\
+          Man schreibt: $\gamma=\inf(M)$
+        \item Existiert $\inf(M)$ und gilt $\inf(M)\in M$ so heißt $\inf(M)$ das \textbf{Minimum} von $M$ undman schreibt $\min(M)$ anstatt $\inf(M)$
+      \end{enumerate}
+      Eine Menge heißt \textbf{beschränkt} falls sie nach oben und nach unten beschränkt ist.
+    \subsubsection{Eigenschaften der Beschränktheit}
+      Sei $\emptyset\neq B\subseteq A\subseteq\reell$\\
+      \begin{enumerate}[label=\arabic*)]
+        \item Ist $A$ beschränkt, so ist $\inf(A)\le\sup(A)$
+        \item Ist $A$ nach oben bzw. unten beschränkt, so ist $B$ nach oben beschränkt und $\sup(B)\le\sup(A)$ bzw. nach unten beschränkt und $\inf(B)\ge\inf(A)$
+        \item $A$ sei nach oben beschränkt und $\gamma$ eine obere Schranke von $A$. Dann ist genau dann $\gamma=\sup(A)$, wenn für alle $\varepsilon>0$ ein $x=x(\varepsilon)\in A$ existiert, sodass $x>\gamma-\varepsilon$
+        \item $A$ sei nach unten beschränkt und $\gamma$ eine untere Schranke von $A$. Dann ist genau dann $\gamma=\inf(A)$, wenn für alle $\varepsilon>0$ ein $x=x(\varepsilon)\in A$ existiert, sodass $x<\gamma+\varepsilon$
+      \end{enumerate}
+\pagebreak
+  \subsection{Die natürlichen Zahlen}
+    \subsubsection{Definitionsmenge}
+      Eine Menge $A\subseteq\reell$ heißt \textbf{Induktionsmenge}, falls
+      \begin{enumerate}
+        \item $1\in A$
+        \item aus $x\in A$ folgt stets $x+1\in A$
+      \end{enumerate}
+    \subsubsection{Natürliche Zahlen}
+      Wir definieren die Menge der \textbf{Natürlichen Zahlen} durch
+      $$\nat:=\{x\in\reell\mid x\text{ gehört zu jeder Induktionsmenge}\}$$
+      $$= \text{Durchschnitt aller Induktionsmengen}$$
+      Ferner definieren wir $\nat_0:=\nat\cup\{0\}$\\
+      Für Natürliche Zaheln gilt stets
+      \begin{enumerate}
+        \item $\nat$ ist eine Induktionsmenge
+        \item $\nat$ ist nicht nach oben beschränkt
+        \item Für alle $x\in\reell$ existiert ein $n\in\nat$ mit $n>x$
+      \end{enumerate}
+  \subsection{Beweisverfahren durch vollständige Induktion}
+    Für ale $n\in\nat$ sei $A(n)$ eine Aussage mit den Eigenschaften
+    \begin{enumerate}
+      \item $A(1)$ ist wahr
+      \item ist $n\in\nat$ und $A(n)$ wahr, so ist auch $A(n+1)$ wahr
+    \end{enumerate}
+    Dann ist $A(n)$ wahr für \textbf{jedes} $n\in\nat$
+    \subsubsection{Beispiel}
+      Aussage: $1+2+3+\dots+n=\frac{n(n+1)}{2}$\\
+      Beweis:\\
+      \underline{Induktionsanfang (IA):}\\
+      Für $n=1$ gilt $1=\frac{1(1+1)}{2}$. Also ist $A(1)$ wahr\\
+      \underline{Induktionsvorraussetzung (IV):}\\
+      Es sei $n\in\nat$ derart, dass $A(n)$ wahr ist. Es gelte Also
+      $$1+2+\dots+n=\frac{n(n+1)}{2}.$$
+      \underline{Induktionsschritt (IS) (von $n$ auf $n+1$):}\\
+      $$1+2+\dots+n+(n+1)\stackrel{\text{(IV)}}{=}\frac{n(n+1)}{2}+(n+1)=(n+1)(\frac{n}{2}+1)=\frac{(n+1)(n+2)}{2}$$
+      Also gilt die Formel für alle $n\in\nat$.
+    \subsubsection{Die ganzen Zahlen}
+      Die Menge der \textbf{ganzen Zahlen} $\ganz$ ist definiert durch
+      $$\ganz:=\nat_o\cup\{-n\mid n\in\nat\}$$
+    \subsubsection{Ganzzahlige Potenz}
+      Für alle $a\in\reell$ und $n\in\nat$ ist definiert:
+      $$a^n:=a\in\reell\underbrace{a\cdot\dots\cdot a}_{n \text{ Faktoren}}\text{ und } a^0:=1$$
+      Es gelten die Rechenregeln
+      $$a^na^m=a^{n+m}\text{ und }(a^n)^m=a^{nm}$$
+    \subsubsection{Fakultät und Binomialkoffizient}
+      \begin{enumerate}
+        \item Für $n\in\nat$ definieren wir die \textbf{Fakultät} von $n$ durch $n!:=1\cdot2\cdot3\cdot\dots\cdot n$ und $0!:=1$
+        \item Für $n,k\in\nat_0$ mit $k\le n$ definieren wir den \textbf{Binomialkoffizienten} "$n$ über $k$" durch
+          $$\binom{n}{k}:=\frac{n!}{k!(n-k)!}$$
+      \end{enumerate}
+  \subsection{Die Rationalen Zahlen}
+    \subsubsection{Die Rationalen Zahlen}
+      Wir definieren die \textbf{rationalen Zahlen} $\rat$ durch
+      $$\rat:=\left\{\frac{p}{q}\mid p\in\ganz,q\in\nat\right\}$$
+      Für alle $x,y\in\reell$ mit $y<y$ existiert eine rationale Zahl $r\in\rat$ mit $x<r<y$\\
+      Für $x,y\ge0$ und $n\in\nat$ gilt: $x\le y\Longleftrightarrow x^n\le y^n$
+    \subsubsection{Wurzeln}
+      Für $a\ge0$ und $n\in\nat$ gibt es genau ein $x\ge0$ mit $x^n=a$\\
+      Dieses $x$ heißt \textbf{die $n$-te Wurzel aus} a. Bezeichnung:
+      $$\sqrt[n]{a}:=a^{\frac{1}{n}}:=x\text{ und } \sqrt{a}:=\sqrt[2]{a}$$
+    \subsubsection{Regeln der Wurzel}
+      \begin{enumerate}
+        \item $\sqrt{2}\notin\rat$
+        \item $\sqrt{x^2}=\abs{x}$
+        \item $0\le x\le y\Rightarrow\sqrt[n]{x}\le\sqrt[n]{y}$ und $0\le x< y\Rightarrow\sqrt[n]x<\sqrt[n]{x}$
+        \item Für $a\ge0,\rat\ni r>0$ und $m,n\in\nat$ mit $r=\frac{m}{n}$ gilt:
+          $$a^r:=\left(a^{\frac{1}{n}}\right)^m$$
+        \item Für $a>0$ und $\rat\ni r<0$, so gilt:
+          $$a^r:=\frac{1}{a^{-r}}$$
+      \end{enumerate}
+\section{Folgen und Konvergenz}
+  \subsection{Grundlegendes}
+    \subsubsection{Folge}
+      Eine Folge ist eine Auflistung $(a_1,a_2,a_3,\dots)$ von Elementen $a_n\in X$\\
+      Falls $X=\reell$, so ist jedes $a_n$ eine Reelle Zahl
+    \subsubsection{Reelle Folgen}
+      Für eine Menge $X\neq\emptyset$ heißt die Funktion $a:\nat\longrightarrow X$ eine \textbf{Folge in X}.\\
+      Ist $X=\reell$, dann heißt $a$ eine \textbf{reelle Folge}.
+    \subsubsection{Schreibweisen}
+      \begin{itemize}
+        \item Meistens schreibt man $a_n$ anstatt $a(n)$ und nennt dies das \textbf{$n$-te Folgenglied}
+        \item Anstatt der Funktion $a:\nat\longrightarrow X$ schr3eibt man oft $(a_n),(a_n)^{\infty}_{n=1},(a_n)_{n\in\nat}$ oder $(a_1,a_2,\dots)$
+        \item Wenn man sagen will, dass $(a_n)$ eine Folge in $X$ ist, schreibt man oft kurz $(a_n)\subseteq X$
+      \end{itemize}
+    \subsubsection{Bemerkung}
+      Ist $p\in\ganz$ und $a:\{p,p+1,p+2,\dots\}\longrightarrow X$ eine Funktion, so spircht man ebenfalls von einer Folge $X$. Bezeichnung: $(a_n)^\infty_{n=p}$
+  \subsection{Abzählbarkeit}
+    \subsubsection{Abzählbarkeit}
+      \begin{enumerate}
+        \item $X$ heißt \textbf{abzählbar}, falls eine Folge $(a_n)\subseteq X$ mit $X=\{a_1,a_2,\dots\}$ existiert
+        \item $X$ heißt \textbf{überabzählbar}, falls $X$ nicht abzählbar ist
+      \end{enumerate}
+  \subsection{Konvergenz von Folgen}
+    \subsubsection{Beschränktheit von Folgen}
+      Sei $(a_n)$ eine Folge und $M:=\{a_1,a_2,\dots\}$
+      \begin{enumerate}
+        \item $(a_n)$ heißt \textbf{nach oben beschränkt}, falls $M$ nach oben beschränkt ist.\\
+          In diseem Fall schreiben wir:
+          $$\sup_{n\in\nat}a_n:=\sup(M)$$
+        \item $(a_n)$ heißt \textbf{nach unten beschränkt}, falls $M$ nach unten beschränkt ist.\\
+          In diesem Fall schreiben wir
+          $$\inf_{n\in\nat}a_n:=\inf(M)$$
+        \item $(a_n)$ heißt \textbf{beschränkt}, falls $M$ beschänkt ist.\\
+          Äquivalent ist:
+          $$\exists c\ge0\forall n\in\nat:\abs{a_n}\le c$$
+      \end{enumerate}
+      \subsubsection{\texorpdfstring{$\varepsilon$}{}-Umgebung}
+      Für $a\in\reell$ uund $\varepsilon>0$ heißt das Intervall
+      $$U_\varepsilon(a):=(a-\varepsilon,a+\varepsilon)=\{x\in\reell\mid\abs{x-a}<\varepsilon\}$$
+      die \textbf{$\varepsilon$-Umgebung von} a
+    \subsubsection{Konvergenz}
+      Eine Folge heißt \textbf{Konvergent}, falls ein $a\in\reell$ existiert, sodass für jedes $\varepsilon>0$ ein $n_0=n_0(\varepsilon)\in\nat$ existiert, sodass für alle $n\in\nat$ mit $n\ge n_0$ gilt:
+      $$\abs{a_n-a}<\varepsilon$$
+      In diesem Fall heißt $a$ \textbf{Grenzwert} oder \textbf{Limes} von $(a_n)$ und man schreibt
+      $$a_n\longrightarrow a\ (n\rightarrow\infty)\quad \text{ oder }\quad a_n\rightarrow a\quad \text{ oder }\quad \lim_{n\rightarrow\infty}a_n=a$$
+      Im Spezialfall $a=0$ heißt $8a_n)$ eine \textbf{Nullfolge}. Ist $(a_n)$ nicht konvergent, so heißt $(a_n)$ \textbf{divergent}. Beachte:
+      \begin{align*}
+        a_n\rightarrow a\ (n\rightarrow\infty) & \Longleftrightarrow\forall\varepsilon>0\exists n_0\in\nat\forall n\ge n_0:a_n\in U_\varepsilon(a)\\
+         & \Longleftrightarrow\forall\varepsilon>0\text{ gilt: }a_n\notin U_\varepsilon(a)\text{ für höchstens endlich viele }n\in\nat
+      \end{align*}
+    \subsubsection{Eigenschaften Konvergenter Folgen}
+      Sei $(a_n)$ konvergent und $a=\lim_{n\rightarrow\infty}a_n$. Dann gilt:
+      \begin{enumerate}
+        \item Gilt auch noch $a_n\rightarrow b$, so ist $a=b$
+        \item $(a_n)$ ist beschränkt
+      \end{enumerate}
+    \subsubsection{Rechenregeln}
+      Seien $(a_n),(b_n)$ Folgen und $\alpha\in\reell$. Dann gilt:
+      \begin{align*}
+        (a_n)\pm(b_n) & :=(a_n\pm b_n) && \text{(Summe)}\\
+        (a_n)(b_n)&:=(a_nb_n) && \text{(Multiplikation)}\\
+        \alpha(a_n) & :=(\alpha a_n) && \text{(skalare Multiplikation)}
+      \end{align*}
+      Gilt $b_n\neq0\ (n\ge M)$, so ist die Folge $\left(\frac{a_n}{b_n}\right)^\infty_{n=m}$
+    \subsubsection{Wichtige Eigenschaften}
+      \begin{enumerate}
+        \item $a_n\rightarrow a\Longleftrightarrow\abs{a_n-a}\rightarrow0$
+        \item Existiert ein $m\in\nat$ sodass für alle $n\in\nat$ mit $n\ge m$ gilt, dass $\abs{a_n-a}\le\alpha_n$ und gilt $a_n\rightarrow0$, so konvergiert $(a_n)$ gegen $a$
+        \item Es gelte $a_n\rightarrow a$ und $b_n\rightarrow b$. Dann gilt:\\
+        \begin{enumerate}[label=\roman*)]
+          \item $\abs{a_n}\rightarrow\abs{a}$
+          \item $a_n+b_n\rightarrow a+b$
+          \item $\alpha a_n\rightarrow\alpha a$
+          \item $a_nb_n\rightarrow ab$
+          \item ist $a\neq0$, so existiert ein $m\in\nat$ mit
+            $$a_n\neq0\ (n\ge m)\text{ und für die Folge }\left(\frac{1}{a_n}\right)^\infty_{n=m}\text{ gilt: }\frac{1}{a_n}\rightarrow\frac{1}{a}$$
+        \end{enumerate}
+      \end{enumerate}
+      Seien nun $(a_n)$ und $(b_n)$ konvergente Folgen mit $a_n\rightarrow a$ und $b_n\rightarrow b$
+      \begin{enumerate}
+        \item Existiert ein $m\in\nat$ derart, dass für alle $n\ge m$ gilt $a_n\le b_n$, so gilt $a\le b$
+        \item Ist $(c_n)$ eine weitere Folge mit der Eigentschaft, dass ein $m\in\nat$ existiere, sodass für alle $n\ge m$ gilt $a_n\le c_n\le b_n$, und gilt $a=b$, so ist auch $(c_n)$ konvergent und es gilt $c_n\rightarrow a$
+      \end{enumerate}
+      Strikte Ungleichungen $a_n<b_n$ konvergenter Folgen werden in der Regel nicht auf die Grenzwerte übertragen (d.h. es gilt im Allgemeinen nicht $a<b$).
+      Ein Beisplie hierzu wäre $a_n:=0$ und $b_n:=\frac{1}{n}$. Hier gilt $a_n<b_n$ für alle $n\in\nat$, aber $\lim_{n\rightarrow\infty}a_n=0=\lim_{n\rightarrow\infty}b_n$
+\pagebreak
+    \subsubsection{Monotonie}
+      Sei $(a_n)$ eine Folge
+      \begin{enumerate}
+        \item $(a_n)$ heißt \textbf{monoton wachsend}, falls für alle $n\in\nat$ gilt $a_n\le a_{n+1}$
+        \item $(a_n)$ heißt \textbf{streng monoton wachsend}, falls für alle $n\in\nat$ gilt $a_n<a_{n+1}$
+        \item Ensprechend definiert man \textbf{monoton fallen} und \textbf{streng monoton fallend}
+        \item $(a_n)$ heißt \textbf{(streng) monoton}, falls $(a_n)$ (streng) monoton wachsend oder (streng) monoton fallend ist
+      \end{enumerate}
+      Jede Folge $(a_n)$ enthält eine Monotone Teilfoge.
+    \subsubsection{Monotoniekriterien}
+      \begin{enumerate}
+        \item Die Folge $(a_n)$ sei monoton wachsend und nach oben beschränkt. Dann ist $(a_n)$ konvergent und
+          $$\lim_{n\rai}a_n=\sup_{n\in\nat}a_n$$
+        \item Die Folge $(a_n)$ sei monoton fallend und nach unten beschränkt. Dann ist $(a_n)$ konvergent und
+          $$\lim_{n\rai}a_n=\inf_{n\in\nat}a_n$$
+      \end{enumerate}
+    \subsubsection{Die eulersche Zahl}
+      Den Grenzwert der beiden Folgen
+      $$e:=\lim_{n\rai}\left(1+\frac{1}{n}\right)^n=\lim_{n\rai}\sum^n_{k=0}\frac{1}{k!}$$
+      nennt man \textbf{eulersche Zahl}
+    \subsubsection{Teilfolgen}
+      Es sei $(a_n)$ eine Folge und $(n_1,n_2,\dots)$ eine Folge von natürlichen Zahlen mit $n_1<n_2<\dots$ Wir definieren für $k\in\nat$
+      $$b_k;=a_{n_k}\quad \text{ also }\quad b_1=a_{n_1}, b_2=a_{n_2},\ \dots$$
+      Dann heißt $(b_k)=(a_{n_k})$ eine \textbf{Teilfolge} (TF) von $(a_n)$\\
+      Ist die Folge $(a_n)$ konvergent, $a:=\lim_{n\rai}a_n$ und $(a_{n_k})$ eine Teilfoge von $(a_n)$. Dann gilt:
+      $$a_{n_k}\ra a\ (k\rai)$$
+    \subsubsection{Häufungswert}
+      Es sei $(a_n)$ eine Folge. Eine Zahl $\alpha\in\reell$ heißt ein \textbf{Häufungswert} (HW) von $(a_n)$, wenn eine Teilfolge $(a_{n_k})$ von $(a_n)$ existiert mit $a_{n_k}\ra\alpha\ (k\rai)$\\
+      Weiter sei
+      $$H(a_n):=\{\alpha\in\reell\mid\alpha\text{ ist Häufungswert von }(a_n)\}$$
+      Für $\alpha\in\reell$ gilt
+      $$\alpha\in H(a_n)\Longleftrightarrow\forall\varepsilon>0:a_n\in U_\varepsilon(\alpha)\text{ für unendlich viele }n\in\nat$$
+    \subsubsection{Niedrig}
+      Es sei $(a_n)$ eine Folge. Eine Zahl $m\in\nat$ heißt \textbf{niedrig} (für $(a_n$)), falls $a_n\ge a_m$ für alle $n\ge m$ gilt.\\
+      Also ist $m\in\nat$ nicht niedrig, falls ein $n>m$ existiert mit $a_n<a_m$
+    \subsubsection{Satz von Bolzano-Weierstraß}
+      Jede beschränkte Folge $\f$ enthält eine konvergente Teilfoge, d.h. es gilt $h(\f)\neq\emptyset$
+    \subsubsection{Eigenschaften eines Häufungswertes}
+      Sei $\f$ beschränkt. Dann gilt:
+      \begin{enumerate}
+        \item $H\f$ ist beschränkt
+        \item $\sup H\f,\inf H\f\in H\f$; es existieren also $\max H\f$ und $\min H\f$
+      \end{enumerate}
+    \subsubsection{Limes superior/ inferior}
+      Es sei $\f$ eine beschränkte Folge.
+      \begin{enumerate}
+        \item Die Zahl
+          $$\limsup_\nrai a_n:=\overline{\lim_\nrai}a_n:=\max H\f$$
+          heißt \textbf{Limes superior} von $\f$
+        \item Die Zahl
+          $$\liminf_\nrai a_n:=\underline{\lim_\nrai}a_n:=\min H\f$$
+          heißt \textbf{Limes inferior} von $\f$
+      \end{enumerate}
+    \subsubsection{Eigenscharften beschränkter Folgen}
+      Sei $\f$ beschränkt. Dann gilt:
+      \begin{enumerate}
+        \item Für alle $\alpha\in H\f$ gilt $\liminf_\nrai a_n\le\alpha\le\limsup_\nrai a_n$
+        \item $\f$ konvergiert genau dann, wenn $\limsup_\nrai a_n=\liminf_\nrai a_n=:a$. In diesem Fall gilt $\lim_\nrai a_n=a$
+        \item Für alle $\alpha\ge0$ gilt $\limsup_\nrai(\alpha a_n)=\alpha\limsup_\nrai a_n$
+        \item Es gilt $\limsup_\nrai(-a_n)=-\liminf_\nrai a_n$ 
+      \end{enumerate}
+    \subsubsection{Cauchyfolgen}
+      Eine Folge $\f$ heißt \textbf{Cauchyfolge}, falls $\f$ die Eigenschaft
+      $$\forall\varepsilon>0\ \exists n_0\in\nat\ \forall n,m\ge n_0:\abs{a_n-a_m}<\varepsilon$$
+      besitzt
+    \subsubsection{Cauchykriteium}
+      Eine Reelle Folge ist genau dann konvergent, wenn sie eine Cauchyfolge ist.
+\section{Unendliche Reihen}
+  \subsection{Definitionen}
+    \subsubsection{Unendliche Reihen}
+      \begin{enumerate}
+        \item Wir setzen
+          $$s_n:=\sum^n_{k=1}a_k:=a_1+a_2+\dots +a_n\qquad (n\in\nat).$$
+          Die Folge $(s_n)$ heißt \textbf{(unendliche) Reihe} und wird mit $\sum^\infty_{k=1}a_k$ bezeichnet. Wir sagen, dasss $\sum^\infty_{k=1}a_k$ \textbf{konvergiert} bzw. \textbf{divergiert}, falls $(s_n)$ konvergiert bzw. divergiert.
+        \item $s_n$ heißt \textbf{$n$-te Partialsumme} von $\sum^\infty_{k=1}a_k$
+        \item Ist $\sum^\infty_{k=1}$ konvergent, so heißt $\lim_\nrai s_n$ der \textbf{Reihenwert} und wird ebenfalls mit $\sum^\infty_{k=1}a_k$ bezeichnet
+      \end{enumerate}
+      Reihen sind somit nichts anderes als speziell defineierte Folgen. In einigen Fällen, startet man die summation nicht bei Index $n=1$ sondern bei einem anderen Index.
+    \subsubsection{Besondere Reihen}
+      \begin{enumerate}
+        \item Für $x\in\reell$ heißt die Reihe
+        $$\sum^\infty_{k=0}x^k=1+x+x^2+x^3+\dots$$
+        \textbf{geometrische Reihe}. Diese Reihe konvergiert genau dann, wenn $\abs{x}<1$. Der Reihenwert ist in diesem Fall gegeben durch
+        $$\sum^\infty_{k=0}x^k=\lim_\nrai\frac{1-x^{n+1}}{1-x}=\frac{1}{1-x}\qquad(\abs{x}<1)$$
+      \item Die Reihe
+        $$\sum^\infty_{k=1}\frac{1}{k}$$
+        heißt \textbf{harmonische Reihe}. Die n-te Partialsumme ist gegeben  durch
+      $$s_n=1+\frac{1}{2}+\dots+\frac{1}{n}\qquad (n\in\nat)$$
+      Die harmonische Reihe divergiert.
+      \end{enumerate}
+    \subsubsection{Eigenschaften konvergenter Reihen}
+      Es sei $\f$ eine Folge und $\sum^\infty_{k=1}a_k$ sei konvergent
+      \begin{enumerate}
+        \item Es gilt $a_k\ra0$ für $k\rai$
+        \item Für jedes $m\in\nat$ ist die Reihe $\sum^\infty_{k=m+1}a_k$ konvergent und für $r_m:=\sum^\infty_{k=m+1}a_k$ gilt $r_m\ra0$ für $m\rai$
+      \end{enumerate}
+      Also gilt:
+      $$\text{Ist }(a_k)\text{ eine Folge und gilt }a_k\not\ra0\text{, so ist }\sum^\infty_{k=1}a_k\text{ divergent}$$
+      Sind $\sum^\infty_{k=1}a_k$ und $\sum^\infty_{k=1}b_k$ konvergent und $\alpha,\beta\in\reell$, so konvergiert
+      $$\sum^\infty_{k=1}(\alpha a_k+\beta b_k)$$
+      und es gilt 
+      $$\sumk(\alpha a_k+\beta b_k)=\alpha\sumk a_k+\beta\sumk b_k$$
+  \subsection{Konvergenzkriterien für Reihen}
+    \subsubsection{Monotonie und Cauchykriterium}
+      \begin{enumerate}
+        \item \textbf{Monotoniekriterium}: Sind alle $a_k\ge0$ und ist $(s_n)$ beschränkt, so ist $\sumk a_k$ konvergent
+        \item \textbf{Cauchykriterium}: Die Reihe $\sumka$ konvergiert genau dann, wenn für alle $\varepsilon>0$ ein $n_0\in\nat$ derart exisstiert, dass für alle $m\ge n\ge n_0$ gilt
+          $$\abs{\sum^m-{k=n}a_k}<\varepsilon$$
+      \end{enumerate}
+    \subsubsection{Leibnizkriterium}
+      Es sei $(b_k)$ eine Folge mit den Eigenschaften
+      \begin{enumerate}
+        \item $(b_k)$ its monoton fallend
+        \item $b_k\ra0$ für $k\rai$
+      \end{enumerate}
+      Dann ist $\sumk(-1)^{k+1}b_k$ konvergent
+    \subsubsection{Absolute Konvergenz}
+      Die Reihe $\sumka$ heißt \textbf{absolut konvergent}, falls $\sumk\abs{a_k}$ konvergiert\\
+      Isst $\sumka$ absolut konvergent, so ist ist $\sumka$ konvergent. Insbesondere gilt die Dreiecksungleichung für Reihen
+      $$\abs*{\sumka}\le\sumk\abs{a_k}$$
+    \subsubsection{Majoranten-/ Minorantenkriterium}
+      \begin{enumerate}
+        \item \textbf{Majorantenkriteium}: Existiert ein $k_0\in\nat$ derart, dass für alle $k\ge k_0$ gilt $\abs{a_k}\le b_k$ und ist $\sumk b_k$ konvergent, so ist $\sumka$ absolut konvergent
+        \item \textbf{Minorantenkriterium}: Existiert ein $k_0\in\nat$ derart, dass für alle $k\ge k_0$ gilt $a_k\ge b_k\ge 0$ und ist $\sumk b_k$ divergent, so ist $\sumka$ divergent
+      \end{enumerate}
+    \subsubsection{Hilfsatz}
+      Es sei $(c_k)$ eine beschränkte Folge.
+      \begin{enumerate}
+        \item Ist $\alpha:=\limsup_\krai c_k$ und $x>\alpha$, so existeirt ein $k_0\in\nat$ derart, dass $c_k<x$ für alle $k\ge k_0$ gilt
+        \item Ist $\alpha:=\liminf_\krai c_k$ und $x<\alpha$, so existert ein $k_0\in\nat$ derart, dass $c_k>x$ für alle $k\ge k_0$ gilt
+        \item Ist $c_k\ge0,k\in\nat$, und $\limsup_\krai c_k=0$, so gilt $c_k\ra0$ für $k\rai$
+      \end{enumerate}
+    \subsubsection{Wurzelkriterium}
+      \begin{enumerate}
+        \item Ist $(c_k)$ unbeschränkt, so ist $\sumka$ divergent
+        \item Es sei $(c_k)$ beschränkt und $\alpha:=\limsup_\krai$.
+          \begin{enumerate}[label=
+oman*)]
+            \item Ist $\alpha<1$, so ist $\sumka$ absolut konvergent
+            \item Ist $\alpha>1$, so ist $\sumka$ divergent
+          \end{enumerate}
+          Im Falle $\alpha=1$ ist keine allgemeine Aussage möglich
+      \end{enumerate}
+    \subsubsection{Quottientenkriterium}
+      Es sei $(a_k)$ eine Folge, für die ein $k_0\in\nat$ derart existiere, dass $a_k\neq0$ für alle $k\ge k_0$ gelte. Ferne sei $c_k:=\abs*{\frac{a_{k+1}}{a_k}}$ für $k\ge k_0$
+      \begin{enumerate}
+        \item Existtiert ein $k_1\ge k_0$ mit $c_k\ge1$ für alle $k\ge k_1$, so ist $\sumka$ divergent
+        \item Es sei $(c_k)$ beschränkt, $\alpha:=\limsup_\krai c_k$ und $\beta:=\liminf_\krai c_k$. Dann gilt:
+          \begin{enumerate}[label=
+oman*)]
+            \item Ist $\alpha<1$, so ist $\sum^\infty_{n=1}a_n$ absolut konvergent
+            \item Ist $\beta>1$, so ist $\sum^\infty_{n=1}a_n$ divergent
+          \end{enumerate}
+      \end{enumerate}
+      Ist $(c_k)$ sogar konvergent, so gilt sogar
+      $$\alpha=\beta=\limk c_k$$
+      In diesem Fall vereinfacht sich die Aussage des Quottientenkriteriums Zusammenfassung
+      $$\sumka \text{ ist }\begin{cases}
+      \text{absolut konvergent}, & \text{ falls }\alpha<1\\
+      \text{divergent}, & \text{ falls } \alpha>1
+      \end{cases}$$
+      Im Falle $\alpha=1$ ist keine allgemeine Aussage möglich
+    \subsubsection{Exponentialfunktion}
+      Die \textbf{Exponentialfunktion} $\exp:\reell\ra\reell$ ist definiert durch
+      $$\exp(r):=\sum^\infty_{k=0}\frac{x^k}{k!}=e^r$$
+      Für alle $x,y\in\reell$ unr $r\in\rat$ gilt
+      $$\exp(x+y)=\exp(x)\exp(y)$$
+      $$\exp(-x)=\frac{1}{\exp(x)}$$
+      $$\exp(rx)=\exp(x)^r$$
+      $$\exp(r)=e^r$$
+      $$e^a=\lim_{x\ra\infty}\left(1+\frac{a}{x}\right)^x$$
+  \subsection{Umordung von Reihen}
+    \subsubsection{Umordnung}
+      Sei $(a_k)_{k\in\nat_0}$ eine Folge und $\phi:\nat_0\ra\nat_0$ eine Bijektion. Setzt $b_k:=a_{\phi(k)}$ für $k\in\nat_0$. Also
+      $$b_0=a_{\phi(0)},\quad b_1=a_{\phi(1)},\dots$$
+      Dann heißt $(b_k)_{k\in\nat_0}$ eine \textbf{Umordnung} von $(a_k)_{k\in\nat_o}$ (Man kann hier auch $\nat_0$ durch $\nat$ ersetzen)\\
+      Es sei $(b_k)$ eine Umordung von $(a_k)$. Dann gilt:
+      \begin{enumerate}
+        \item Ist $(a_k)$ konvergent, so ist $(b_k)$ konvergent und $\limk b_k=\limk a_k$
+        \item Ist $\sum^\infty_{k=0}a_k$ absolut konvergent, so ist $\sum^\infty_{k=0}b_k$ absolut konvergent und
+          $$\sum^\infty_{k=0}a_k=\sum^\infty_{k=0}b_k$$
+      \end{enumerate}
+      Es sei $\sum^\infty_{k=0}a_k$ konvergent, aber nicht absolut konvergent. Dann gilt:
+      \begin{enumerate}
+        \item Ist $s\in\reell$, so existiert eine Umordung $(b_k)$ von $(a_k)$ mit:
+          $$\sum^\infty_{k=0}\quad\text{ ist konvergent und }\quad\sum^\infty_{k=0}b_k=s$$
+        \item Es existiert eine Umordung $(c_k)$ von $(a_k)$ mit:$\sum^\infty_{k=0}c_k$ ist divergent
+      \end{enumerate}
+    \subsubsection{Cauchyprodukt}
+      Das \textbf{Cauchyprodukt} zweier Reihen $\sum^\infty_{k=0}a_k$ und $\sum^\infty_{k=0}b_k$ ist die Reihe gegeben durch
+      $$\sum^\infty_{n=0}\left(\sum^n_{k=0}a_kb_{n-k}\right)=\sum^\infty_{n=0}\left(\sum^n_{k=0}a_{n-k}b_k\right)$$
+      Es seien $\sumknull a_k$ und $\sumknull b_k$ absolut konvergent. Für ihr Cauchyprodukt gilt dann:
+      $$\sum^\infty_{n=0}\left(\sum^n_{k=0}a_kb_{n-k}\right)\quad\text{ ist absolut konvergent und }\quad \sum^\infty_{n=0}\left(\sum^n_{k=0}a_kb_{n-k}\right)=\left(\sumknull a_k\right)\left(\sumknull b_k\right)$$
+\section{Potenzreihen}
+  \subsection{Grundlegendes}
+    \subsubsection{Potenzreihe}
+      Es sei $(a_k)_{k\in\nat_0}\subseteq\reell$ eine Folge und $x_0\in\reell$. EIne Reihe der Form
+      $$\sumknull a_k(x-x_o)^k=a_0+a_1(x-x0)+a_2(x-x_o)^2+\dots$$
+      Heißt \textbf{Potenzreihe}.
+    \subsubsection{Konvergenzradius}
+      Für eine Folge $(a_k)_{k\in\nat}\subseteq\reell$ sei
+      $$\rho:=\begin{cases}
+        \infty, & \text{ falls }(\sqrt[k]{\abs{a_k}})\text{ unbeschränkt}\\
+        \limsup_\krai ()\sqrt[k]{\abs{a_k}}), & \text{ falls } (\sqrt[k]{\abs{a_k}})\text{ beschränkt}
+      \end{cases}$$
+      Der \textbf{Konvergenzradius} der zugehörigen Potenzreihe $\sumknull a_k(x-x_0)^k,\ x_0\in\reell$, ist definiert durch
+      $$r:=\begin{cases}
+        0, & \text{ falls }\rho=\infty\\
+        \infty, & \text{ falls }\rho=0\\
+        \frac{1}{\rho}, & \text{ falls }\rho\in(0,\infty)
+      \end{cases}$$
+      (Formal ist also "$r=\frac{1}{\rho}$").\\
+      Es gilt:
+      \begin{enumerate}
+        \item Ist $r=0$, so konvergiert die Potenzreuihe nur für $x=x_0$
+        \item Ist $r=\infty$, so konvergiert die Potenzreihe absolut für jedes $x\in\reell$
+        \item Ist $r\in(0,\infty)$, so konvergiert die Potenzreihe absolut für jedes $x\in\reell$ mit $\abs{x-x_0}<r$ und sie divergiert für jedes $x\in\reell$ mit $\abs{x-x_0}>r$. Für $x=\pm r$ ist keine allgemeine Aussage möglich
+      \end{enumerate}
+    \subsubsection{Sinus/ Cosinus}
+      Wir definiren den \textbf{Cosinus} und den \textbf{Sinus} durch
+      $$\cos:\reell\ra\reell,\quad\cos(x):=\sumknull(-1)^k\frac{x^{2k}}{(2k)!}\quad\text{ und}$$
+      $$\sin:\reell\ra\reell,\quad\sin(x):=\sumknull(-1)^k\frac{x^{2k+1}}{(2k+1)!}$$
+      Wir können bereits einige Eigenschaften des Cosinus und des Sinus festhalten. Es gelten
+      \begin{itemize}
+        \item $\sin(0)=0$ und $\cos(0)=1$
+        \item Da im Cosinus nur gerade Exponenten von $x$ und im Sinus nur ungerade Exponenten von $x$ summiert werden, gelten für alle $x\in\reell$
+          $$\cos(-x)=\cos(x)\quad\text{ und }\quad\sin(-x)=-\sin(x)$$
+        \item Man kann mit hilfe des Cauchyproduktes die folgenden \textbf{Additionstheoreme} beweisen: Für alle $x,y\in\reell$ gelten
+          $$\sin(x+y)=\sin(x)\cos(y)+\cos(x)\sin(y)$$
+          $$\cos(x+y)=\cos(x)\cos(y)-\sin(x)\sin(y)$$
+        \item Da Additionstheorem für den Cosinus zusammen mit den Symmetrie-Eigenschaften von oben liefern für alle $x\in\reell$ die Identität (den sogenannten trigonometrischen Pythagoras)
+          $$1=\cos(0)=\cos(x+(-x))=\cos(x)\cos(-x)-\sin(x)\sin(-x)=\cos^2(x)+\sin^2(x)$$
+        \item Die letzte Ungleichung impliziert, für alle $x\in\reell$ die Ungleichungen $\abs{\cos(x)}\le1$ und $\abs{\sin(x)}\le1$, den
+          $$\cos(x)^2\le\cos(x)^2+\sin(x)^2=1\quad\text{ und }\quad\sin(x)^2\le\sin(x)^2+\cos(x)^2=1$$
+      \end{itemize}
+\section{q-adische Entwicklung}
+  \subsection{Grundlegendes}
+    \subsubsection{Gaußklammern}
+      Es sei $x\in\reell$. Dann existiert genau eine größte Zahl $k\in\ganz$, die kleiner oder gleich $x$ ist. Diese erfüllt $k\le x<k+1$ und wir schreiben hierfür
+      $$\lfloor x\rfloor:=k$$
+      Dies Klammern um das $x$ nennt man \textbf{Gaußklammern} diese Gaußklammern runden ab, analog gibt es allerdings auch Gaußklammern, die aufrunden ($\lceil x\rceil$)
+    \subsubsection{q-adischer Bruch}
+      Ist $(y_k)_{k\in\nat}$ eine Folge mit $y_k\in\{0,1,\dots,q-1\},k\in\nat$, so schreibt man
+      $$(0,y_1y_2y_3\dots)_q:=\sumk\frac{y_k}{q^k}$$
+      und nennt $(0,y_1y_2y_3\dots)_q$ einen \textbf{q-adischen Bruch}
+    \subsubsection{q-adiische Entwicklung}
+      Ist $a=(0,z_1z_2\dots)_q$ mit einer Folge $(z_k)_{k\in\nat}$, die 
+      $$\begin{cases}
+        z_k\in\{0,1\dots,q-1\} & \text{ für }k\in\nat\text{ und}\\
+        \frac{z_1}{q}+\dots+\frac{z_n}{q^n}\le a<\frac{z_1}{q}+\dots+\frac{z_n}{q^n}+\frac{1}{q^n} & \text{ für }n\in\nat
+      \end{cases}$$
+      erfüllt, so nennt man $(0,z_1z_2\dots)_q$ die \textbf{q-adische Entwickliiung von a}\\
+      Ist $(\overline{z}_k)_{k\in\nat}$ eine weiter Folge mit den gleichen Eigenschaften, so gilt $z_k=\overline{z}_k$ für alle $k\in\nat$
+    \subsubsection{Algorithmus zur Berechnung einer q-adischen Entwicklung}
+      Seien $a\in[0,1),q\in\nat\setminus\{1\},a=(0,z_1z_2\dots)_q=\sumk\frac{z_k}{q^k}$
+      $$z_1=\ab{a\cdot q}\quad a_1=a\cdot q-z_1$$
+      $$z_2=\ab{a_1\cdot q}\quad a_2=a_1\cdot q-z_2$$
+      $$\vdots$$
+      $$z_{n+1}=\ab{a_n\cdot q}\quad a_{n+1}=a_n\cdot q-z_{n+1}$$
+\section{Grenzwerte bei Funktionen}
+  \subsection{Grundlegendes}
+    \subsubsection{Häufungpunkte}
+      Es sei $D\subseteq\reell$ und $x_0\in\reell$. $x_0$ heißt ein \textbf{Häufungspunkt} (HP) von $D$, falls eine Folge $(x_n)\subseteq D\setminus\{x_0\}$ existiert mit $x_n\ra x_0$\\
+      Es gilt
+      $$x_0\text{ ist Häufungspunkt von }D\Longleftrightarrow\text{ Für alle }\varepsilon>0\text{ ist }U_\varepsilon(x_0)\cap(D\setminus\{x_0\})\neq\emptyset$$
+    \subsubsection{Grenzwert}
+      Wir ssagen, das der \textbf{Grenzwert} $\lim_{x\ra x_0}f(x)$ existiert, falls ein $a\in\reell$ derart existiert, dass für alle Folgen $(x_n)\subseteq D\setminus\{x_0\}$ mit $x_n\ra x_0$ gilt:
+      $$f(x_n)\ra a\quad\text{ für }\quad \nrai$$
+      In diesem Fall ist $a$ eindeutig bestimmt und wir schreiben:
+      $$\lim_{x\ra x_0}f(x)=a\quad\text{ oder }\quad f(x)\ra a\quad\text{ für }\quad x\ra x_0$$
+      Es gilt:
+      \begin{enumerate}
+        \item Es sei $a\in\reell$ gegeben. Dann sind äquivalent:
+          \begin{enumerate}[label=
+oman*)]
+            \item Der Grenzwert $\lim_\xrax f(x)$ existiert und es gilt $\lim_\xrax f(x)=a$
+            \item Für alle $\varepsilon>0$ existiert ein $\delta>0$ derart, das für alle $x\in D\setminus\{x_0\}$ mit $\abs{x-x_0}<\delta$ gilt: $\abs{f(x)-a}<\varepsilon$
+          \end{enumerate}
+        \item Es sind äquivalent:
+          \begin{enumerate}[label=
+oman*)]
+            \item Der Grenzwert $\lim_\xrax f(x)$ existiert
+            \item Für jede Folge $(x_n)\subseteq D\setminus\{x_0\}$ mit $x_n\ra x_0$ ist $(f(x_n))$ konvergent
+            \item (\textbf{Cauchykriterium}) Für alle $\varepsilon>0$ existiert ein $\delta>0$ derart, dass für alle $x_1,x_2\in D\setminus\{x_0\}$ mit $x_1,x_2\in U_\delta(x_0)$ gilt: $\abs{f(x_1)-f(x_2)}<\varepsilon$
+          \end{enumerate}
+      \end{enumerate}
+    \subsubsection{Rechts-/ Linsseitiger Grenzwert}
+      Einige Funktionen haben unterschiedliche Grenzwert im gleichem Punkt, je nachdem, ob man die Funktion "von links" oder "von rechts" betrachtet. Um diese zu Untescheiden gibt den \textbf{linksseitigen Grenzwert}:
+      $$\lim_{x\ra x_0-}f(x)$$
+      und den \textbf{rechtsseitigen Grenzwert}
+      $$\lim_\xrax f(x)$$
+    \subsubsection{Bestimmte divergentz}
+      \begin{enumerate}
+        \item \begin{enumerate}[label=
+oman*)]
+            \item Wir sagen $(x_n)$ \textbf{divergiere bestimmt gegen} $\infty$, falls für alle $C>0$ ein $n_0\in\nat$ derart existiert, dass für alle $n\ge n_0$ gilt: $x_n\ge C$\\
+              Wir schreiben hierfür kurz: $x_n\rai$ für $\nrai$
+            \item Analog sagen wir, $(x_n)$ \textbf{divergiere bestimmt gegen} $-\infty$, falls für alle $C<0$ ein $n_0\in\nat$ derart existiert, dass für alle $n\ge n_0$ gilt: $x_n\le C$\\
+              Wir schreiben hierfür kurz: $x_n\ra -\infty$ für $\nrai$
+          \end{enumerate}
+          $$x_n\rai\Longleftrightarrow x_n>0\text{ für }n\in\nat\text{ genügend groß und }\frac{1}{z_n}\ra0$$
+          $$x_n\ra-\infty\Longleftrightarrow x_n<0\text{ für }n\in\nat\text{ genügend groß und }\frac{1}{z_n}\ra0$$
+        \item Es sei $D\subseteq\reell$, $x_0$ sei ein Häufungswwert von $D$ und $g:D\ra\reell$ eine FUnktion. Wir schreiben
+          $$\lim_\xrax g(x)=\infty,\text{ falls }g(x_n)\rai\text{ für jede Folge }(x_n)\subseteq D\setminus\{x_0\}\text{ mit }x_n\ra x_0$$
+          $$\lim_\xrax g(x)=-\infty,\text{ falls }g(x_n)\ra-\infty\text{ für jede Folge }(x_n)\subseteq D\setminus\{x_0\}\text{ mit }x_n\ra x_0$$
+        \item Es sei $D$ nicht nach oben beschränkt, $g:D\ra\reell$ sei eine Funktion und es sei $a\in\reell\cup\{\infty,-\infty\}$. Wir schreiben
+          $$\lim_{x\rai} g(x)=a,\text{ falls }g(x_n)\ra a\text{ für jede Folge }(x_n)\subseteq D\text{ mit }x_n\rai$$
+        \item Es sei $D$ nicht nach unten beschränkt, $g;D\ra\reell$ sei eine Funktion und es sei $a\in\reell\cup\{\infty,-\infty\}$. Wir schreiben
+          $$\lim_{x\ra-\infty}g(x)=a,\text{ falls }g(x_n)\ra a\text{ für jede Folge }(x_n)\subseteq D\text{ mit }x_n\ra-\infty$$
+      \end{enumerate}
+\section{Stetigkeit}
+  \subsection{Definiton und grundlegende Eigentschaften}
+    \subsubsection{Stetigkeit}
+      Es sei $D\subseteq\reell$, $f:D\ra\reell$ eine Funktion und $x_0\in D$
+      \begin{enumerate}
+        \item $f$ heißt \textbf{in} $x_0$ \textbf{stetig}, falls für jede Folge $(x_n)\subseteq D$ mit $x_n\ra x_0$ gilt:\\
+          $f(x_n)\ra f(x_n)$
+        \item $f$ heißt \textbf{auf} $D$ \textbf{stetig}, falls $f$ in jedem $x\in D$ stetig ist
+        \item Wir setzen
+          $$C(D):=C(D,\reell):=\{g:D\ra\reell:\ g\text{ ist stetig auf }D$$
+      \end{enumerate}
+      Ist $x_0$ ein Häufungspunkt von $D$, so gilt:
+      $$f\text{ ist in $x_0$ stetig}\Longleftrightarrow\lim_\xrax f(x)=f(x_0)$$
+      \subsubsection{\texorpdfstring{$\varepsilon-\delta$}{} -Kriterium}
+      $f$ ist genau dann stetig in $x_0$, wenn für alle $\varepsilon>0$ ein $\delta>0$ derart existiert, dass für alle $x\in D$ mit $\abs{x-x_0}<\delta$ gilt: $\abs{f(x)-f(x_0)}<\varepsilon$
+    \subsubsection{grundlegenede Rechenregeln}
+      \begin{enumerate}
+        \item Es seien $f,g:D\ra\reell$ stetig in $x_0\in D$ und es seien $\alpha,\beta\in\reell$. Dann sind 
+          $$\alpha f+\beta g,fg\text{ und }\abs{f}\text{ stetig in }x_0$$
+          Ist $s_0\in\tilde D:=\{x\in D:f(x)\neq0\}$, so ist
+          $$\frac{1}{f}:\tilde D\ra\reell,\ \frac{1}{f}(x):=\frac{1}{f(x)}$$
+          stetig in $x_0$
+        \item Sind $f,g\in C(D)$ und $\alpha,\beta\in\reell$, so gilt:
+          $$\alpha f+\beta g,\ fg,\ \abs{f}\in C(D)$$
+        \item Es seien $D,D_0\subseteq\reell,f:D\ra\reell,g:D_0\ra\reell$ Funktionen mit $f(D)\subseteq D_0,x_0\in D$ und $y_0:=f(x_0)$. Ist $f$ in $x_0$ stetig und ist $g$ in $y_0$ stetig, so ist
+          $$g\circ f:D\ra\reell,\ (g\circ f)(x):=g(f(x))$$
+          stetig in $x_0$
+      \end{enumerate}
+  \subsection{Abbildungseigenschaften stetiger Funktionen}
+    \subsubsection{Zwischenwertsatz}
+      Es seien $a,b\in\reell$ mit $a<b,f\in C([a,b])$ und $y_0$ sei zwischen $f(a)$ und $f(b)$, d.h. es gelte
+      $$\min\{f(a),f(b)\}\le y_0\le\max\{f(a),f(b)\}$$
+      Dann existiert ein $x_0\in[a,b]$ mit $f(x_0)=y_0$
+    \subsubsection{Nullstellensatz von Bolzano}
+      Ist $f\in C([a,b])$ und $f(a)f(b)\le0$, so existeirt ein $x_0\in[a,b]$ mit $f(x_0)=0$
+    \subsubsection{Abgeschlossenheit}
+      \begin{enumerate}
+        \item $D$ heißt \textbf{abgeschlossen}, falls für jede konvergente Folge $(x_n)$ mit $(x_n)\subseteq D$ gilt
+          $$\lim_\nrai x_n\in D$$
+      \item $D$ heißt \textbf{kompakt}, falls jede Folge $(x_n)\subseteq D$ eine konvergente Teilfolge $(x_{n_k})$ enthält mit
+          $$\lim_\krai x_{n_k}\in D$$
+      \end{enumerate}
+      Folgende Eigenschaften gelten:
+      \begin{enumerate}
+        \item $D$ ist abgeschlossen $\Longleftrightarrow$ Jeder Häufungpunkt von $D$ gehört zu $D$
+        \item $D$ ist kompakt $\Longleftrightarrow$ $D$ ist beschränkt und abgeschlossen
+        \item Ist $D$ kompakt und $D\neq\emptyset$, so existieren $\max D$ und $\min D$
+      \end{enumerate}
+      Es sei $\emptyset\neq D\subseteq\reell$ kompakt und $f\in C(D)$. Dann ist $f(D)$ kompakt
+    \subsubsection{Beschränktheit}
+      Eine Funktion $F:D\ra\reell$ heißt \textbf{beschränkt}, falls $f(D)$ beschänkt ist.\\
+      Äquivalent ist:
+      $$\exists c\ge0\ \forall x\in D:\quad\abs{f(x)}\le c$$
+    \subsubsection{Stetigkeit bei Intervallen}
+      \begin{enumerate}
+        \item Ist $I\subseteq\reell$ ein Intervall und ist $f\in Clabel=
+oman*)$, so ist $flabel=
+oman*)$ ein Intervall
+        \item Sei $f\in C([a,b]),A:=\min f([a,b])$ und $B:=\max f([a,b])$, so ist $f([a,b])=[A,B]$
+      \end{enumerate}
+  \subsection{Stetigkeit und Umkehrfunktionen}
+    \subsubsection{Monotonie}
+      \begin{enumerate}
+        \item $f:D\ra\reell$ heißt \textbf{monoton fallend}, falls aus $x,y\in D$ und $x<y$ stets folgt, dass $f(x)\le f(y)$.\\
+          $f:D\ra\reell$ heißt \textbf{streng monoton wachsend}, falls aus $x,y\in D$ und $x<y$ stets folgt, dass $f(x)<f(y)$
+        \item Analog definiert man \textbf{(streng) monoton fallend}
+        \item $f$ heißt \textbf{(streng) monoton}, falls $f$ (streng) monoton wachsend oder (streng) monoton fallend ist
+      \end{enumerate}
+    \subsubsection{Logarithmus}
+      Die Funktion
+      $$\log:(0,\infty)\ra\reell,\quad\log(x)=\exp^{-1}(x)\quad (x\in(0,\infty))$$
+      heißt \textbf{Logarithmus}. Oft schreibt man auch \textbf{ln} anstatt $\log$.\\
+      Es gelten:
+      \begin{enumerate}
+        \item $\log(1)=0,\log(e)=1$
+        \item $\log((0,\infty))=\reell$
+        \item $\log:(0,\infty)\ra\reell$ ist stetig und streng monoton wachsend
+        \item $\log(x)\rai\ (x\rai),\log(xy)=\log(x)+\log(y)$
+        \item Für alle $x,y>0:\ \log(xy)=\log(x)+\log(y)$
+        \item Für alle $x,y>0:\ \log(\frac{x}{y})=\log(x)-\log(y)$
+      \end{enumerate}
+      Wir definieren für $a>0$ und $x\in\reell\setminus\rat$
+      $$a^x:=\exp(x\log(a))$$
+    \subsubsection{Rechenregeln}
+      Es seien $a>0$ und $x,y\in\reell$. Dann gilt:
+      \begin{itemize}
+        \item $a^x>0$
+        \item DIe Funktion $x\mapsto a^x$ ist auf $\reell$ stetig
+        \item $a^{x+y}=e^{(x+y)\log(a)}=e^{x\log(a)+y\log(a)}=e^{x\log(a)}e^{y\log(a)}=a^xa^y$
+        \item $a^{-x}=e^{-x\log(a)}=\frac{1}{e^{x\log(a)}}=\frac{1}{a^x}$
+        \item $\log(a^z)=\log(e^{x\log(a)})=x\log(a)$
+        \item $(a^x)^z=e^{y\log(a^x)}=e^{xy\log(a)}=a^{xy}$
+        \item Ist auch $x>0$, so ist $a^{x^y}:=a^{(x^y)}$. Im Allgemeinen ist $a^{x^y}\neq(a^x)^y$
+      \end{itemize}
+  \subsection{Gleichmäßige und Lipschitz-Stetigkeit}
+    \subsubsection{Gleichmäßige Stetigkeit}
+      $f:D\ra\reell$ heißt \textbf{gleichmäßig stetig} auf $D$, falls für alle $\varepsilon>0$ ein $\delta>0$ derart existiert, dass für alle $x,y\in D$ mit $\abs{x-y}<\delta$ gilt
+      $$\abs{f(x)-f(y)}<\varepsilon$$
+    \subsubsection{Satz von Heine}
+      Ist $D\subseteq\reell$ kompakt und ist $f\in C(D)$, so ist $f$ auf $D$ gleichmäpig stetig
+    \subsubsection{Lipschitz-Stetigkeit}
+      $f:D\ra\reell$ heißt auf $D$ \textbf{Lipschitz-stetig}, falls ein $L\ge0$ derart existiert, dass für alle $x,y\in D$ gilt
+      $$\abs{f(x)-f(y)}\le L\abs{x-y}$$
+      Jede Lipschitz-stetige Funktion $f$ auf $D$ ist gleichmäßig stetig auf $D$. In der Tat, im Fall $L=0$ ist $f$ konstant. 
+      Im Fall $L>0$ wählt man für gegebenes $\varepsilon>0$ die Zahl $\delta=\frac{\varepsilon}{L}$ und erhält für alle $x,y\in D$ mit $\abs{x-y}<\delta$
+      $$\abs{f(x)-f(y)}\le L\abs{x-y}<L\delta=\varepsilon$$
+\section{Funktionenfolgen und -reihen}
+  \subsection{Grundlegendes}
+    \subsubsection{Punktweise Konvergenz}
+      \begin{enumerate}
+        \item Die Funktionenfolge $(f_n)$ heißt \textbf{auf} $D$ \textbf{punktweise konvergent}, falls für jedes $x\in D$ die Folge $(f_n(x))$ konvergiert. In diesem Fall heißt die Funktion $f:D\ra\reell$ definiert durch
+          $$f(x):=\lim_\nrai f_n(x)\qquad(x\in D)$$
+          die \textbf{Grenzwertfunktion} von $(f_n)$
+        \item Die \textbf{Funktionenreihe} $\sumk f_k$ heißt \textbf{auf} $D$ \textbf{punktweise konvergent}, falls für jedes $x\in D$ die Folge $(s_n(x))$ konvergiert. In diesem Fall heißt die Funktion $f:D\ra\reell$ definiert durch
+          $$f(x):=\sumk f_k(x)\qquad(x\in D)$$
+          die \textbf{Summenfunktion} von $(f_n)$
+      \end{enumerate}
+      Punktweise Konvergenz von $(f_n)$ gegen $f$ auf $D$ bedeutet:
+      $$\forall x\in D\forall\varepsilon>0\exists n_0=n_0(\varepsilon,x)\in/nat\forall n\ge n_0:\quad\abs{f_n(x)-f(x)}<\varepsilon$$
+      also darf $n_0$ in der Regel vom Punkt $x$ abhängen
+    \subsubsection{Gleichmäßige Konvergenz}
+      \begin{enumerate}
+        \item Die Funktionenfolge $(f_n)$ konvergiert \textbf{gleichmäßig auf} $D$ gegen die Grenzfunktion $f:D\ra\reell$, falls
+          $$\forall\varepsilon>0\exists n_0=n_0(\varepsilon)\in\nat\forall n\ge n_0\forall x\in D:\qquad\abs{f_n(x)-f(x)}<\varepsilon$$
+        \item Die Funktionenreihe $\sumk f_k$ konvergiert \textbf{auf} $D$ \textbf{gleichmäßig} gegen die Summenfunktion $f:D\ra\reell$, falls
+          $$\forall\varepsilon>0\exists n_0=n_0(\varepsilon)\in\nat\forall n\ge n_0\forall x\in D:\qquad\abs{s_n(x)-f(x)}<\varepsilon$$
+      \end{enumerate}
+      Aus gleichmäßiger Konvergenz folgt stets punktweise Konvergenz. Die Umkehrung ist im Allgemeinen falsch\\
+      Die Folge $(f_n)$ konvergiere auf $D$ punktweise gegen $f:D\ra\reell$. Weiter sei $(\alpha_n)$ eine Folge in $[0,\infty)$ mit $\alpha_n\ra0,\ m\in\nat$ und
+      $$\forall n\ge m\forall x\in D:\qquad\abs{f_n(x)-f(x)}\le\alpha_n$$
+      Dann konvergiert $(f_n)$ auf $D$ gleichmäßig gegen $f$
+    \subsubsection{Kriterium von Weierstraß}
+      Es sei $m\in\nat,(c_n)$ eine Folge in $[0,\infty),\sum^\infty_{n=1}c_n$ sei konvergent und
+      $$\forall n\ge m\forall x\in D:\qquad\abs{f_n(x)}\le c_n$$
+      Dann konvergiert $\sum^\infty_{n=1}f_n$ auf $D$ gleichmäßig
+    \subsubsection{Eigenschaften}
+      Es sei $\sumknull a_k(x-x_0)^k$ eine Potenzreihe mit Konvergenzradius $r>0$ und
+      $$D:=\begin{cases}
+        (x_0-r,x_0+r), & \text{falls }r\in(0,\infty)\\
+        \reell, & \text{falls }r=\infty
+      \end{cases}$$
+      Ist $[a,b]\subseteq D$, so konvergiert die Potenzreihe auf $[a,b]$ gleihmäßig\\
+      \\
+      $(f_n)$ bzw. $\sum^\infty_{n=1}f_n$ konvergiere gleichmäßig auf $D$ gegen $f:D\ra\reell$. Dann gilt:
+      \begin{enumerate}
+        \item Sind alle $f_n$ in $x_0\in D$ stetig, so ist $f$ in $x_0$ stetig
+        \item Sind alle $f_n\in C(D)$, so ist $f\in C(D)$
+      \end{enumerate}
+\section{Differentialrechnung}
+  \subsection{Definition und grundlegende Eigenschaften}
+    \subsubsection{Differenzierbarkeit}
+      $f$ heißt \textbf{in} $x_0\in I$ \textbf{differenzierbar}, falls der Limes der \textbf{Differenzenquotienten}
+      $$\lim_\xrax\frac{f(x)-f(x_0)}{x-x_0}\in\reell$$
+      existiert. Ersetzt man $x$ durch $x_0+h$, so sieht man, dass dies zur Existenz von
+      $$\lim_{h\ra0}\frac{f(x_0+h)-f(x_0)}{h}\in\reell$$
+      äquivalent ist. In diesem Fall heißt obiger Grenzwert die \textbf{Ableitung von $f$ in} $x_0$ und man schreibt
+      $$\frac{df}{dx}(x_0):=f'(x_0):=\lim_\xrax\frac{f(x)-f(x_0)}{x-x_0}$$
+      Ist $f$ in jedem $x\in I$ differenzierbar, so heißt $f$ \textbf{auf $I$ differenzierbar} und die \textbf{Ableitung} $f':I\ra\reell$ \textbf{von $f$ auf $I$} ist gegenben durch $x\mapsto f'(x)$\\
+      Ist $f$ in $x_0\in I$ differenzierbar, so ist $f$ in $x_0$ stetig.
+    \subsubsection{Differenzierbarkeits Regeln}
+      Die Funktionen $f,g:I\ra\reell$ seien in $x_0\in I$ differenzierbar. Dann gelten:
+      \begin{enumerate}
+        \item (Linearität der Ableitung) Für $\alpha,\beta\in\reell$ ist $\alpha f+\beta g$ differenzierbar in $x_0$ und
+          $$(\alpha f+\beta g)'(x_0)=\alpha f'(x_0)+\beta f'(x_0)$$
+        \item (Produktregel) $fg$ ist differenzierbar in $x_0$ und
+          $$(fg)'(x_0)=f'(x_0)g(x_0)+f(x_0)g'(x_0)$$
+        \item (Quotientenregel) Ist $g(x_0)\neq0$, so existiert ein $\delta>0$ mit $g(x)/neq0$ für alle $x\in J:=I\cap U_\delta(x_0)$. Die Funktion $\frac{f}{g}:J\ra\reell$ ist differenzierbar in $x_0$ und
+          $$\left(\frac{f}{g}\right)'(x_0)=\frac{f'(x_0)g(x_0)-f(x_0)g'(x_0)}{g(x_0)^2}$$
+        \item Es sei $f\in Clabel=
+oman*)$ streng monoton, in $x_0\in I$ differenzierbar und es sei $f'(x_0)\neq0$. Dann ist $f^{-1}:flabel=
+oman*)\ra\reell$ differenzierbar in $y_0:=f(x_0)$ und
+          $$(f^{-1})'(y_0)=\frac{1}{f'(x_0)}=\frac{1}{f'(f^{-1}(y_0))}$$
+      \end{enumerate}
+    \subsubsection{Kettenregel}
+      Es sei $J\subseteq\reell$ ein Intervall, $g:J\ra\reell$ eine Funktion und $flabel=
+oman*)\subseteq J$. Weiter sei $f$ in $x_0\in I$ differenzierbar und $g$ sei in $y_0:=f(x_0)$ differenzierbar. Dann ist
+      $$g\circ f:I\ra\reell\text{ in }x_0\text{ differenzierbar}$$
+      und
+      $$(g\circ f)'(x_0)=g'(f(x_0))f'(x_0)$$
+  \subsection{Monotonie, Extrema und Grenzwerte}
+    \subsubsection{Innerer Punkt, lokales- und globales Maximum/ Minimum}
+      \begin{enumerate}
+        \item $x_0\in M$ heißt ein \textbf{innerer Punkt von M}, falls ein $\delta<0$ derart existiert, dass 
+          $$U_\delta(x_0)=\{y\in\reell:\abs{x-y}<\delta\}\subseteq M$$
+        \item $g$ hat in $x_0\in M$ ein \textbf{lokales Maximum [bzw. Minimum]}, falls ein $\delta>0$ derart existiert, dass
+          $$g(x)\le g(x_0)\quad [\text{bzw.} g(x)\ge g(x_0)]\quad\text{für alle }\quad x\in U_\delta(x_0)\cap M$$
+        \item $g$ hat in $x_0\in M$ ein \textbf{globales Maximum [bzw. Minimum]}, falls
+          $$g(x)\le g(x_0)\quad[\text{bzw.}g(x)\ge g(x_0)]\quad\text{für alle }\quad x\in M$$ 
+        \item \textbf{"Extremum"} bedeutet "Maximum oder Minimum"
+      \end{enumerate}
+    \subsubsection{Kritische Punkte}
+      Die Funktion $f:I\ra\reell$ habe in $x_0\in I$ ein lokales Extremum und sei in $x_0$ differenzierbar. Ist $x_0$ ein innerer Punkt von $I$, so ist $x_0$ ein \textbf{kritischer Punkt von $f$}, d.h. es gilt $f'(x_0)=0$
+    \subsubsection{Der Mittelwertsatz der Differentialrechnung}
+      Es sei $f\in C([a,b])$ und $f$ sei auf $(a,b)$ differenzierbar. Dann existiert ein $\zeta\in(a,b)$ mit
+      $$\frac{f(b)-f(a)}{b-a}=f'(\zeta)$$
+      Es sei $f:I\ra\reell$ differenzierbar auf $I$. Dann gilt:
+      $$f\text{ ist auf }I\text{ konstant}\quad\Longleftrightarrow\quad\forall x\in I:f'(x)=0$$
+    \subsubsection{Monotonie}
+      \begin{enumerate}
+        \item Ist $f'=g'$ auf $I$, so existiert ein $c\in\reell$ mit $f=g+c$ auf $I$
+        \item Ist $f'\ge0$ auf $I$, so ist $f$ monoton wachsend auf $I$\\
+          Ist $f'>0$ auf $I$, so ist $f$ streng monoton wachsend auf $I$
+        \item Ist $f'\le0$ auf $I$, so ist $f$ monoton fallend auf $I$\\
+          Ist $f'<0$ auf $I$, so ist $f$ streng monoton fallend auf $I$
+      \end{enumerate}
+    \subsubsection{2. Ableitung}
+      \begin{enumerate}
+        \item Es sei $f:I\ra\reell$ auf $I$ differenzierbar. Ist $f'$ in $x_0\in I$ differenzierbar, so heißt $f$ \textbf{in} $x_0$ \textbf{zweimal differenzierbar} und
+          $$f''(x_0):=\frac{d^2f}{dx^2}(x_0):=(f')'(x_0)$$
+          heißt \textbf{die 2. Ableitung von $f$ in $x_0$}
+        \item Ist $f'$ auf $I$ differnzierbar, so heißt $f$ \textbf{auf $I$ zweimal differenzierbar} und
+          $$f'':=(f')'$$
+          \textbf{die 2. Ableitung von $f$ auf $I$}. Entsprechend definiert man, falls vorhanden:
+          $$f'''(x_0),f^{(4)}(x_0),f^{(5)}(x_0),\dots\quad\text{ und }\quad f''',f^{(4)},f^{(5)},\dots$$
+        \item Für $n\in\nat$ heißt $f$ \textbf{auf $I$ $n$-mal stetig differenzierbar}, falls $f$ auf $I$ $n$-mal differenzierbar ist und $f^{(n)}\in clabel=
+oman*)$. In diesem Fall gilt: $f,f',\dots,f^{(n)}\in Clabel=
+oman*)$. Wir setzen
+          $$\begin{aligned}
+            & C^0label=
+oman*):=Clabel=
+oman*)\quad\text{sowie}\quad f^{(0)}:=f & \\
+            & C^nlabel=
+oman*):=\{f:I\ra\reell\mid f\text{ ist auf $I$ $n$-mal stetig differenzierbar}\quad(n\in\nat)\\
+            & C^\infty(i):=\bigcap_{n\ge0}C^nlabel=
+oman*)
+            \end{aligned}$$
+      \end{enumerate}
+    \subsubsection{Satz von Taylor}
+      Es sei $n\in\nat_0$ und $f$ sei auf $I$ $(n+1)$-mal differenzierbar. Es seien $x,x_0\in i$ und $x\neq x_0$. Dann existiert ein $\zeta\in(\min\{x,x_0\},\max\{x,x_0\})$ mit
+      $$f(x)=\sum^n_{k=0}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k+\frac{f^{(n+1)}(\zeta)}{(n+1)!}(x-x_0)^{n+1}$$
+      $T_nf(x,x_0):=\sum^n_{k=0}\frac{f^{(k)}(x_0)}{k!}(x-x_0)^k$ ist ein Polynom vom Grad $\le n$ und heißt \textbf{$n$-tes Taylorpolynom von $f$ im Punkt $x_0$}. Der Term $\frac{f^{(n+1)}(\zeta)}{(n+1)!}(x-x_0)^{n+1}$ heißt \textbf{Restglied}
+    \subsubsection{Satz de l'Hospital}
+      Sei $I=(a,b)$, wobei $a=-\infty$ oder $b=\infty$ zugelassen ist. Seien $f,g:I\ra\reell$ auf $I$ differenzierbar mit $g(x)\neq0\neq g'{x}$ für alle $x\in I$, und sei $c=a$ oder $c=b$. Ferner gelte entweder
+      \begin{enumerate}
+        \item $\lim_{x\ra c}f(x)=0=\lim_{x\ra c}g(x)$\\
+          oder
+        \item $\lim_{x\ra c}f(x)=\pm\infty=\lim_{x\ra c}g(x)$
+      \end{enumerate}
+      und es existiere zusätlich der Grenzwert
+      $$L:=\lim_{x\ra x}\frac{f'(x)}{g'(x)}\in\reell\cup\{-\infty,\infty\}$$
+      (mit bestimmter Divergenz im Falle $L=\pm\infty$). Dann gilt
+      $$\lim{x\ra c}\frac{f(x)}{g(x)}=L$$
+  \subsection{Eigenschaften trigonometrischer Funktionen}
+    \subsubsection{Die Zahl \texorpdfstring{$\pi$}j}
+      Die Zahl $\pi$ ist definiert durch 
+      $$\pi:=2\zeta_0$$
+      Wegen $\zeta_0\in(0,2)$ gilt $\pi\in(0,4)$ (es gilt $\pi\simeq3,14159\dots$). Ferner können wir aus $\cos(\pi\setminus2)=0$ und dem trigonometrischen Pythagoras folgern, dass
+      $$\sin^2\left(\frac{\pi}{2}\right)=1-\cos^2\left(\frac{\pi}{2}\right)=1$$
+      Es folgt, dass $\sin(\pi\setminus2)>0$, sodass
+      $$\sin(\frac{\pi}{2})=1$$
+    \subsubsection{Tanges}
+      Die Funktion
+      $$\tan:\reell\setminus\left\{(2k+1)\frac{\pi}{2}\mid k\in\ganz\right\}\ra\reell,\quad\tan(x):=\frac{\sin(x)}{\cos(x)}$$
+      heißt \textbf{Tangens}
+    \subsubsection{Arkustangens}
+      Der \textbf{Arkustangens} $\arctan:\reell\ra(-\frac{\pi}{2},\frac{\pi}{2})$ ist die Umkehrfunktion der Tangens, also $\arctan:=\tan^{-1}$
+\section{Das Riemann-Integral}
+  \subsection{Definition und grundlegende Eigenschaften}
+    \subsubsection{Zerlegung}
+      \begin{enumerate}
+        \item Eine endliche Teilmenge $\ganz=\{x_0,x_1,\dots,x_n\}$ heißt eine \textbf{Zerlegung} von $[a,b]$, falls
+          $$a=x_0<x_1<\dots<x_n=b$$
+          Die Menge aller Zerlegungen $[a,b]$ bezeichnen wir mit $\mathcal{Z}:=\{Z\mid Z\text{ ist eine Zerlegung von }[a,b]$
+          \item Es sei $Z=\{x_0,\dots,x_n\}\in\mathcal{Z}$. Für $j=1,\dots,n$ definieren wir
+          $$I_j:=[x_{j-1},x_j]\quad\text{und}\quad\abs{I_j}:=x_j-x_{j-1}\quad\text{()\textbf{Intervalllänge} von }I_j$$
+          sowie
+          $$U:f(Z):=\sum^n_{j=1}\abs{I_j}\inf_{I_j}f\quad\text{(die \textbf{Untersumme von $f$ bzgl $Z$})}$$
+          $$O_f(Z):=\sum^n_{j=1}\abs{I_j}\sup_{I_j}f\quad\text{(die \textbf{Obersumme} von $f$ bzgl. $Z$)}$$
+      \end{enumerate}
+    \subsubsection{Unter-/ Oberintegrale}
+      Das \textbf{Unterintegral} von $f$ auf $[a,b]$ ist definiert als
+      $$\underline{\int^b_a}f(x)\ dx:=\sup_{Z\in\mathcal{Z}}U_f(Z)$$
+      und das \textbf{Oberintegral} von $f$ auf $[a,b]$ ist definiert als
+      $$\overline{\int^b_a}f(x)\ dx:=\inf_{Z\in\mathcal{Z}}=O_f(Z)$$
+      Es seien $Z_1,Z_2\in\mathcal{Z}$
+      \begin{enumerate}
+        \item $U_f(Z_1)\le O_f(Z_2)$
+        \item Ist $Z_1\subseteq Z_2$, so gilt:
+          $$U_f(Z_1)\le U_f(Z_2)\qquad\text{und}\qquad O_f(Z_2)\le O_f(Z_1)$$
+      \end{enumerate}
+    \subsubsection{(Riemann-)integrierbarkeit}
+      Die Funktion $f$ heißt \textbf{(Riemann-)integrierbar über} $[a,b]$, falls
+      $$\underline{\int^b_a}f(x)dx=\overline{\int^b_a}f(x)dx$$
+      In diesem Fall heißt
+      $$\int^b_afdx:=\int^b_af(x)dx:=\underline{\int^b_a}f(x)dx\left(=\overline{\int^b_a}f(x)dx\right)$$
+      das \textbf{(Riemann-)Integral von $f$ über} $[a,b]$ und wir schreiben:
+      $$f\in R([a,b])\quad\text{oder}\quad f\in R([a,b];\reell)$$
+    \subsubsection{Wichtige Eigenschaften}
+      Es seien $f,g\in R([a,b])$. Dann gilt:
+      \begin{enumerate}
+        \item Für $\alpha,\beta\in\reell$ ist $\alpha f+\beta g\in R([a,b])$ und
+          $$\int^b_a(\alpha f+\beta g)\ dx=\alpha\int^b_af\ dx+\beta\int^b_ag\ dx$$
+        \item $fg\in R([a,b])$
+        \item Ist $g(x)\neq0$ für alle $x\in[a,b]$ und $\frac{1}{g}$ beschränkt auf $[a,b]$, so ist $\frac{1}{g}\in R([a,b])$
+        \item Es sei $D:=f([a,b])$ und $h:D\ra\reell$ sei Lipschitz-stetig auf $D$ mit Lipschitz-Konstante $L\ge0$, d.h.
+          $$\abs{h(s)-h(t)}\le L\abs{s-t}\quad(t,s\in D)$$
+          Dann ist $h\circ f\in R([a,b])$
+        \item Das Riemann-Integral ist \textbf{monoton}, d.h. ist $f\le g$ auf $[a,b]$, so ist
+          $$\int^b_af\ dx\le\int^b_ag\ dx$$
+        \item $\abs{f}\in R([a,b])$ und es gilt die \textbf{Dreiecksungleichung für Integral}
+          $$\abs*{\int^b_af(x)\ dx}\le\int^b_a\abs*{f(x)}\ dx$$
+        \item Es sei $c\in(a,b)$. Dann gilt:
+          $$f\in R([a,b])\quad\Longleftrightarrow\quad f\in R([a,c])\text{ und }f\in R([c,b])$$
+          In diesem Fall gilt:
+          $$\int^b_af\ dx=\int^c_af\ dx+\int^b_cf\ dx$$
+        \item Ist $f:[a,b]\ra\reell$ monoton, so ist $f\in R([a,b])$
+        \item Es gilt: $C([a,b])\subseteq R([a,b])$
+        \item $$\int^\alpha_\alpha f(x)\ dx:=0$$
+        \item $$\int^\alpha_\beta f(x)\ dx:=-\int^\beta_\alpha f(x)\ dx$$
+      \end{enumerate}
+    \subsubsection{Riemannsches Integrabilitätskriterium}
+      Es gilt:
+      $$f\in R([a,b])\quad\Longleftrightarrow\quad\forall\varepsilon>0\exists Z=Z(\varepsilon)\in\mathcal{Z}:O_f(Z)-U_f(Z)<\varepsilon$$
+  \subsection{Der Hauptsatz der Differential- und Integralrechnung}
+    \subsubsection{Stammfunktion}
+      Es sei $I\subseteq\reell$ ein Intervall und $G,g:I\ra\reell$ Funktionen. Die Funktionen. Die Funktion $G$ heißt \textbf{Stammfunktion von $g$ auf $I$}, falls $G$ auf $I$ differenzierbar ist mit $G'=g$ auf $I$\\
+      Sind $G$ und $H$ Stammfunktionen von $g$ auf $I$, so ist $G'=g=H'$ auf $I$ und es existiert ein $c\in\reell$ mit
+      $$G(x)=H(x)+c\qquad\text{für alle }x\in I$$
+    \subsubsection{Erster Hauptsatz der Differenztil- und Integralrechnung}
+      Ist $f\in R([a,b])$ und besitzt $f$ auf $[a,b]$ eine Stammfunktion $F$, so ist
+      $$\int^b_af(x)\ dx=F(b)-F(a)$$
+    \subsubsection{Zweiter Hauptsatz der Differential- und Integralrechnung}
+      Es sei $f\in R([a,b])$ und
+      $$F(x):=\int^x_af(t)\ dt\quad(x\in[a,b])$$
+      Dann gilt:
+      \begin{enumerate}
+        \item $F(y)-F(x)=\int^y_xf(t)\ dt$ für alle $x,y\in[a,b]$
+        \item $F$ ist Lipschitz-stetig
+        \item Ist $f\in C([a,b])$, so ist $F\in C^1([a,b])$ und $F'(x)=f(x)$ für alle $x\in[a,b]$
+      \end{enumerate}
+    \subsubsection{unbestimmte Integrale}
+      Es sei $I\subseteq\reell$ ein Integral. Besitzt $g_I\ra\reell$ eine Stammfunktion auf $I$, so schreibt man für diese auch
+      $$\int g\ dx\qquad\text{oder}\qquad f(x)\ dx$$
+      und nennt dies ein \textbf{unbestimmtes Integral} von $g$
+  \subsection{Partielle Integration und Substitutionregel}
+    \subsubsection{Partielle Integration}
+      Es sei $I\subseteq\reell$ ein Intervall, $\alpha,\beta\in I$ und $f,g\in C^1label=
+oman*)$. Dann gilt
+      $$\int^\beta_\alpha f'g\ dx=fg\bigg\rvert^\beta_\alpha-\int^\beta_\alpha fg'\ dx$$
+    \subsubsection{Substitutionsregel}
+      Es seien $I$ und $J$ Intervall in $\reell$, es sei $f\in Clabel=
+oman*),g\in C(J)$ und $g(J)\subseteq I$. Dann gilt für alle $\alpha,\beta\in J$
+    \subsubsection{Substitutionsregel}
+      Es seien $I$ und $J$ Intervalle in $\reell$, es sei $f\in Clabel=
+oman*)$ und $g(J)\subseteq I$. Dann gilt für alle $\alpha,\beta\in J$
+      $$\int^{g(\beta)}_{g(\alpha)}f(x)\ dx=\int^\beta_\alpha f(g(t))g'(t)\ dt$$
+      Ist $g$ zusätzlich invertierbar, so gilt für alle $a,b\in g(J)$
+      $$\int^b_af(x)\ dx=\int^{g^{-1}(b)}_{g^{-1}(a)}f(g(t))g'(t)\ dt$$
+      \textbf{Merkregel}: "Substituiert" man $x=g(t)$ und fasst somit $x$ als Funktion von $t$ auf, so ist die Ableitung von $x$ durch $\frac{dx}{dt}=g'(t)$ gegeben. Multipliziert man formal mit $dt$ erhält man
+      $$"dx=g'(t)\ dt"$$
+  \subsection{Integration und Grenzwerte}
+    Es sei $(f_n)$ eine Folge in $R([a,b])$ und $(f_n)$ konvergiere auf $[a,b]$ gleichmäßig gegen $f:[a,b]\ra\reell$. Dann gilt: $f\in R([a,b])$ und
+    $$\lim_\nrai\int^b_af_n(x)\ dx=\int^b_af(x)\ dx$$
+
+    Es sei $(f_n)$ eine Folge mit
+    \begin{enumerate}[label=\roman*)]
+      \item $f_n\in c^1([a,b]),n\in\nat$
+      \item $(f_n(a))$ ist konvergent
+      \item $(f'_n)$ konvergiert auf $[a,b]$ gleichmäßig gegen $g:[a,b]\ra\reell$
+    \end{enumerate}
+    Dann konvergiert $(f_n)$ auf $[a,b]$ gleichmäßig und für
+    $$f(x):=\lim_\nrai f_n(x)\qquad(x\in[a,b])$$
+    gilt:
+    $$f\in C^1([a,b])\quad\text{und}\quad f'(x)=g(x)\quad(x\in[a,b])$$
+\section{Uneigentliche Integrale}
+  \subsection{Grundlegendes}
+    \subsubsection{Uneigentliche Integrale}
+      \begin{enumerate}
+        \item Es sei $a\in\reell,\beta\in\reell\cup\{\infty\},a<\beta$ und $f:[a,\beta)\ra\reell$ eine Funktion mit $f\in R([a,b])$ für alle $a<b<\beta$. Wir nennen das \textbf{uneigentliche Integral}
+          $$\int^b_af(x)\ dx\text{\textbf{ konvergent}},$$
+          falls der Grenzwert
+          $$\lim_{t\ra\beta-}\int^t_af(x)\ dx\in\reell$$
+          existiert. In diesem Fall definieren wir
+          $$\int^\beta_af(x)\ dx:=\lim_{t\ra\beta-}\int^t_af(x)\ dx$$
+        \item Es sei $b\in\reell,\alpha\in\reell\cup\{\infty\},\alpha<b$ und $f:(a,b]\ra\reell$ eine Funktion mit $f\in R([a,b])$ für alle $\alpha<a<b$. Wir nennen das \textbf{uneigentliche Integral}
+          $$\int^b_af(x)\ dx$$
+          \textbf{ konvergent}, falls der Grenzwert
+          $$\lim_{t\ra\alpha+}\int^b_tf(x)\ dx\in\reell$$
+          existiert. In diesem Fall definieren wir
+          $$\int^b_af(x)\ dx:=\lim_{t\ra\alpha+}\int^b_tf(x)\ dx$$
+      \end{enumerate}
+    \subsubsection{Konvergenz}
+      Es sei $\alpha<\beta,\alpha\in\reell\cup\{-\infty\},\beta\in\reell\cup\{\infty\}$ und $f:(\alpha,\beta)\ra\reell$ eine Funktion mit $f\in R([a,b])$ für alle $a,b\in\reell$ mit $\alpha<a<b<\beta$. Wir nenn das \textbf{uneigentliche Integral}
+      $$\int^\beta_\alpha f(x)\ dx$$
+      \textbf{ konvergent}, falls ein $c\in(\alpha,\beta)$ derart existiert, dass die uneigentlichen Integrale
+      $$\int^c_\alpha f(x)\ dx\quad\text{und}\quad\int^\beta_cf(x)\ dx$$
+      konvergieren. In diesem Fall definieren wir
+      $$\int^\beta_\alpha f(x)\ dx:=\int^c_\alpha f(x)\ dx+\int^\beta_cf(x)\ dx$$
+      Im anderen Fall heißt das Integral \textbf{divergent}\\
+      Diese Definition ist unabhängig von $c\in(\alpha,\beta)$
+    \subsubsection{Cauchykriterium}
+      Es gilt:
+      $$\int^\beta_af(x)\ dx\text{ konvergiert}\quad\Longleftrightarrow\quad\forall\varepsilon>0\exists c\in(a,\beta)\forall u,v\in(c,\beta):\abs*{\int^v_uf(x)\ dx}<\varepsilon$$
+    \subsubsection{Absolute konvergenz}
+      Wir nennen das Integral
+      $$\int^\beta_af(x)\ dx$$
+      \textbf{absolut konvergent}, falls
+      $$\int^\beta_a\abs{f(x)}\ dx$$
+      konvergiert
+    \subsubsection{Majoranten-/ Minorantenkriterium}
+      \begin{enumerate}
+        \item Ist $\int^\beta_af(x)\ dx$ absolut konvergent, so ist $\int^\beta_af(x)\ dx$ konvergent und
+          $$\abs*{\int^\beta_af(x)\ dx}\le\\int^\beta_a\abs{f(x)}\ dx$$
+        \item \textbf{Majorantenkriteium}: Ist $\abs{f}\le h$ auf $[a,b)$ und $\int^\beta_ah(x)\ dx$ konvergent, so ist $\int^\beta_af(x)\ dx$ absolut konvergent
+        \item \textbf{Minorantenkriterium}: Ist $f\ge h\ge0$ auf $[a,\beta)$ und $\int^\beta_ah(x)\ dx$ divergent, so ist $\int^\beta_af(x)\ dx$ divergent
+      \end{enumerate}
+\end{document}

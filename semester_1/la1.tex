@@ -1,0 +1,777 @@
+\documentclass{kit}
+
+%Packages
+\usepackage{amsmath, amssymb, stmaryrd}
+\usepackage{enumerate}
+\usepackage{mathtools}
+\usepackage{hyperref}
+%Packages
+
+%Shortcuts
+% \DeclarePairedDelimiter\abs{\lvert}{\rvert}
+% \DeclarePairedDelimiter\lh{\langle}{\rangle}
+\renewcommand{\contentsname}{Inhalt}
+%Shortcuts
+
+\author{Julius Vater\\ 2603322}
+\title{LA 1 Zusammenfassung}
+
+\begin{document}
+\pagenumbering{gobble}
+\maketitle
+\pagebreak
+\tableofcontents
+\pagebreak
+\pagenumbering{arabic}
+\section{Allgemeine Grundlagen}
+  \subsection{Logisches}
+    \begin{itemize}
+      \item Die \textbf{Konjuktion} $A\land B$ (ist wahr, wenn sowohl $A$ als auch $B$ wahr sind)
+      \item Die \textbf{Negation} $\lnot A$ (ist wahr, wenn $A$ falsch ist)
+      \item Die \textbf{Disjunktion} $A\lor B$ (ist wahr, wenn $A$, oder $B$, oder beide wahr sind)
+      \item Die \textbf{Implikation} $A\Rightarrow B$ (ist wahr, wenn $A$ falsch ist oder sowhol $A$ als auch $B$ wahr)
+    \end{itemize}
+    \subsubsection{Beweis durch Widerspruch}
+      Man versucht nachzuweisen, dass etwas nicht gilt mit Hilfe einer Aussage bei der man weiß, dass sie falsch ist.
+    \subsubsection{Äquivalenz von Aussagen}
+      Zwei Aussagen heißen Äquivalnet, wenn sie sich gegenseitig implizieren.
+      \[A\Leftrightarrow B=(A\Rightarrow B)\land(B\Rightarrow A)\]
+  \subsection{Mengen}
+    Eine Menge ist eine Gesamtheit von Objetkten, sodass von allen Objetkten feststeht ob sie zu der Menge gehören oder nicht.
+    \subsubsection{Teilmengen}
+      Eine Menge N heißt Teilmenge von M, wenn alle ihre Elemente auch in M liegen.\\
+      Man schreibt: $N\subseteq M$ oder $M\supseteq N$
+    \subsubsection{Konsturktion neuer Mengen}
+      \begin{itemize}
+        \item Der \textbf{Durchschnitt} $M\cap N:=\{x\in M$ und $x\in N$\}
+        \item Die \textbf{Vereiningung} $M\cup N:=\{x\in M$ oder $x\in N\}$
+        \item Die \textbf{Differentmenge} $M\setminus N:=\{x\in M$ und $x\notin N$\}
+        \item Für $k\in\mathbb{N}$ ist $M^k:=\{(m_1,m_2,\dots,m_k)\mid \forall i:\ m_i\in M\}$
+        \item Die \textbf{Potenzmenge} $\mathcal{P}(\{0,1,2\})=\{\emptyset,\{0\},\{1\},\{2\},\{0,1\},\{0,2\},\{1,2\},\{0,1,2\}\}$
+      \end{itemize}
+    \subsubsection{Die Kardinalität}
+    Die Kardinalität oder auch Mächtigkeit einer Menge ist die Anzahl ihrer Elemente. Man schreibt $\abs{M}$
+  \subsection{Abbildungen}
+    \subsubsection{Abbildug}
+      Eine Abbildung von Menge $M$ nach Menge $N$ ist eine Teilmenge $f\subseteq M\times N$, soadss für alle $x\in M$ genau ein $y\in N$ existiert, 
+      sodass $(x,y)\in f$Eine Abbildung von Menge $M$ nach Menge $N$ ist eine Teilmenge $f\subseteq M\times N$, 
+      soadss für alle $x\in M$ genau ein $y\in N$ existiert, sodass $(x,y)\in f$. Für dieses $y$ scheiben wir kurz $y=f(x)$.\\
+      $M$ hießt hierbei der \textbf{Definitonsbereich} und $N$ die \textbf{Wertebereich} von $f$\\
+      Wir schreiben: \[f:M\longrightarrow N, x\mapsto f(x)\]
+    \subsubsection{Die Identität}
+      Die Abbildung $Id_M:M\longrightarrow M$, die durch 
+      \[\forall x\in M:Id_M(x):=x\]
+      definiert ist, heißt die \textbf{Identität} auf M.
+    \subsubsection{Die Komposition von Abbildungen}
+      Die Kompostion zweier Abbildungen $f:M\longrightarrow N,\ g:N\longrightarrow P$ ist definiert durch 
+      \[f\circ g: M\longrightarrow P,\ x\mapsto g(f(x))\]
+      Kompositionen sind assoziativ. Also gilt:
+      \[(h\circ g)\circ f=h\circ(g\circ f)\]
+    \subsubsection{Urbild und Bild}
+      Für eine Abbildung $f:M\longrightarrow N$ und $B\subseteq N$ heißt 
+      \[f^{-1}(B):=\{x\in M\mid f(x)\in B\}\]
+      Urbild von $B$ unter $f$. (Alle $x$, deren $f(x)$ in $B$ liegen)\\
+      Für eine Abbildung $f:M\longrightarrow N$ und $A\subseteq M$ heißt
+      \[f(A):=\{f(a)\mid a\in A\}\subseteq N\]
+      Bild von $A$ unter $f$.
+    \subsubsection{Die Umkehrfunktion}
+      Eine Abbdildung $f^{-1}:N\longrightarrow M$ hießt Umkehrfunktion, wenn $f(m)=n$ und $m=f^{-1}(n)$.
+    \subsubsection{injektiv, surjektiv, bijektiv}
+      \begin{itemize}
+        \item $f:M\longrightarrow N$ heißt \textbf{injektiv}, wenn für alle $m_1,m_2\in M$ gilt: 
+          \[f(m_1)=f(m_2)\Rightarrow m_1=m_2\]
+          Also: es gibt \underline{höchstens} ein $m$ mit $f(m)=n$.\\
+          $(\exists g:N\longrightarrow M$ mit $g\circ f=Id_M)$
+        \item $f:M\longrightarrow N$ heißt \textbf{surjekitv}, wenn gilt:
+          \[f(M)=N\]
+          Also: es gibt \underline{mindestens} ein $m$ mit $f(m)=n$.\\
+          $(\exists h:N\longrightarrow M$ mit $f\circ h=Id_M)$
+        \item $f:M\longrightarrow N$ heißt \textbf{bijektiv}, wenn sie sowohl injektiv als auch surjektiv ist.\\
+          Also: es gibt \underline{genau} ein $m$ mit $f(m)=n$.
+      \end{itemize}
+    \subsubsection{Einschränkung einer Abbildung}
+      Für $f:M\longrightarrow N$ und $T\subseteq M$ heißt
+      \[f\mid_T:T\longrightarrow N, t\mapsto f(t)\]
+      die Einschränkung von $f$ nach $T$.
+  \subsection{Relationen}
+    Eine Relation auf die Menge $M$ ist eine Teilmenge $R\subseteq M\times M$. Wir schreiben $xRy$ statt $(x,y)\in R$
+    \subsubsection{Eigenschaften von Relationen}
+      \begin{itemize}
+        \item \textbf{reflexiv}, wenn $\forall x\in M:(x,x)\in R$.
+        \item \textbf{symmetrisch}, wenn $\forall x,y\in M:xRy\Rightarrow yRx$.
+        \item \textbf{antisymmetrisch}, wenn $\forall x,y\in M:[xRy\land yRx]\Rightarrow x=y$.
+        \item \textbf{transitiv}, wenn $\forall x,y,z\in M:[xRy\land yRz]\Rightarrow xRz$.
+      \end{itemize}
+    \subsubsection{Äqivalenzrelation}
+      Eine Relation heißt Äquivalenzrelation, wenn sie reflexiv, symmetrisch und transitiv ist
+    \subsubsection{Äquivalenzklassen}
+      Es sei $\sim$ eine Äquivalentzrelation auf der Menge $M$. Dann heißt für $x\in M$ die Teilmenge
+      \[[x]_\sim:=\{y\in M\mid x\sim y\}\subseteq M\]
+      die Äquivalenzklasse von $x$ (bezüglich $\sim$)\footnotesize{(Die Menge aller $y$, die zu $x$ in Relation stehen)}.
+      \begin{itemize}
+        \item Für jede Äquivalenzrelation $\sim$ auf $M$ sind die Äquivalenzlklassen betüglich $\sim$ nicht leer und es gilt
+          \[M=\bigcup_{x\in M}[x]_\sim\]
+          und es gilt
+          \[[x]_\sim\cap[y]_\sim=\emptyset\text{ oder }[x]_\sim=[y]_\sim\]
+        \item Ist umgekehrt $S\subseteq\mathcal{P}(M)$ ein System von Teilmengen von $M$, sowie
+          \[M=\bigcup_{A\in S}A\text{ und }\forall A,B\in S:[A\cap B=\emptyset\lor A=B],\]
+          dann gibt es eine Äquivalentrelation $\sim$ auf $M$, für die $S$ die Menge Äquivalenzklassen ist.
+      \end{itemize}
+\section{Gruppen}
+  \subsection{Gruppen - Definitionen und Beispiele}
+    \subsubsection{Verknüpfung, Asoziativitä, Kommututivität}
+      Eine Verknüpfung auf $M$ ist eine Abbildung $*:M\times M\longrightarrow M,(x,y)\mapsto x*y$\\
+      Die Verknügung * heißt
+      \begin{itemize}
+        \item assozistiv, wenn $\forall x,y,z\in M:(x*y)*z=x*(y*z)$
+        \item kommutativ, wenn $\forall x,y\in M:x*y=y*x$
+      \end{itemize}
+    \subsubsection{Gruppe}
+      Ein Paar $(M,*)$ heißt eine Gruppe, wenn:
+      \begin{enumerate}[label=\roman*]
+        \item * ist assoziativ
+        \item $\exists e:\forall x\in M:x*e=e*x=x$
+        \item $\forall x\in M\exists y\in M: x*y=e=y*x$
+      \end{enumerate}
+    \subsubsection{Abelsche Gruppe}
+      Eine Gruppe $(G,*)$ hießt kommutativ, wenn * eine kommututive Verknüpfung ist.  Oft sagt man dann auch, die Gruppe sei abelsch
+  \subsection{Untergruppen}
+    \subsubsection{Untergruppe}
+      $H$ ist genau dann eine Untergruppe von $G$, wenn gilt:
+      \[H\neq\emptyset\text{ und }\forall h_1,h_2\in H:h_1*h_2^{-1}\in H\]
+    \subsubsection{Gruppenerzeugnis, zyklische Gruppe}
+      \begin{itemize}
+        \item Sei $M\subseteq G$ und $I$ die Menge aller Untergruppen von $G$, die $M$ enthalten. Dann ist
+          $$\langle M\rangle:=\bigcup_{i\in I}i$$
+          eine Gruppe. Sie heißt das (Gruppen-)Erzeugnis von $M$ oder die von $M$ erzeugte Untergruppe von $G$. Sie ist die kleinste Untergruppe von $G$, die $M$ enthält.
+        \item Eine Gruppe $G$ heißt Zyklisch, wenn es ein Element $a\in G$ gibt, sodass $G=\langle\{a\}\rangle$. Hierfür schreibt man kürzer auch $G=\langle a\rangle$
+      \end{itemize}
+    \subsubsection{Ordnung}
+      Die Kardinalität einer Gruppe nennt man auch ihre Ordnung. Die Ordnung eines Elementes $g\in G$ ist definert als die Ordnung der von $g$ erzeugten Untergruppe
+    \subsubsection{Satz von Lagrange}
+      Es sei $G$ eine endliche Gruppe und $H$ eine Untergruppe von $G$. Dann ist die Ordnung von $H$ ein Teiler der Ordnung von $G$
+  \subsection{Homomorphismen von Gruppen}
+    \subsubsection{Gruppenhomomorphismus}
+      Seien $(G,*)$ und $(H,\bullet)$ zwei Gruppen. Ein (Gruppen-)Homomorphismus von $G$ nach $H$ ist eine Abbildung $f:G\longrightarrow H$ mit
+      $$\forall x,y\in G: f:(x*y)=f(x)\bullet f(y)$$
+    \subsubsection{Eigenschaften von Homomorphismen}
+      \begin{itemize}
+        \item $f(e_G)=e_H$
+        \item $\forall g\in G:f(g^{-1})=f(g)^{-1}$(links das Inverse in $G$, rechts das inverse in $H$)
+        \item $f^{-1}(\{e_H\})$(das Urbild des neutralen Elementes von $H$) ist eine Untergruppe von $G$
+        \item $f(G)$ ist Untergruppe von $H$
+        \item $f$ ist genau dann injektiv, wenn $f^{-1}(\{e_H\})=\{e_G\}$
+      \end{itemize}
+    \subsubsection{Kern}
+      Sei $f:G\longrightarrow H$ Gruppenhomomorphismus. Dann heißt $f^{-1}(\{e_H\})$ der Kern von f
+      $$f\in\text{Hom}(G,H)\text{ injektiv }\Leftrightarrow\text{Kern}(f)=\{e_G\}$$
+    \subsubsection{Endo-, Auto-, Isomorphismus}
+      \begin{itemize}
+        \item Für eine Gruppe $G$ heißt ein Homomorphismus von $G$ nach $G$ auch ein \textbf{Endomorphismus} (End($G$))
+        \item Ein bijektiver Homomorphismus zwischen zwei Gruppen $G$ und $H$ heißt \textbf{Isomorphismus} zwischen $G$ und $H$
+      \item Einen bijketiver Endomorphismus der Gruppe $G$ nennt man \textbf{Automorphismus}
+      \end{itemize}
+\section{Ringe und Körper}
+  \subsection{Ringe und Rinhomomorphismen}
+    \subsubsection{Ring und Teilring}
+      Eine Menge $R$ mit zwei Verknüpfungen + (Addition) und $\cdot$ (Multiplikation) heißt \textbf{Ring}, wenn:
+      \begin{itemize}
+        \item $(R,+)$ kommutative Gruppe ist mit neutralem Element: $0_R$
+        \item die Verknüpfung $\cdot$ assoziativ ist mit neutralem Element $1_R$(Einselement)
+        \item die Distributivgesetzte gelten:
+          $$x\cdot(y+z)=(x\cdot y)+(x\cdot z)$$
+          $$(y+z)\cdot x=(y\cdot x)+(z\cdot x)$$
+      \end{itemize}
+      Ein Ring $(R,+,\cdot)$ mit kommutativer Multiplikation heißt kommutativer Ring\\
+      $T\subseteq R$ heißt \textbf{Teilirng} von R, wenn:
+      \begin{itemize}
+        \item $1_R\in T$
+        \item $\forall t_1,t_2\in T:t_1+t_2,t_1\cdot t_2\in T$
+        \item $(T,+,\cdot)$ ein Ring ist
+      \end{itemize}
+    \subsubsection{Ringhomomophismus}
+      Ein Homomorphismus zwischen zwei Ringen $(R,+_R,\cdot_R)$ und $(S,+_S,\cdot_S)$ ist eine Abbildung $\Phi:R\longrightarrow S$, sodass:
+      \begin{itemize}
+        \item $\forall x,y\in R:\Phi(x+_Ry)=\Phi(x)+_S\Phi(y)$
+        \item $\forall x,y\in R:\Phi(x\cdot_Ry)=\Phi(x)\cdot_S\Phi(y)$
+        \item $\Phi(1_R)=1_S$
+        \item Kern$(\Phi):=\{x\in R\mid \Phi(x)=0_S\}$
+      \end{itemize}
+      In diesem Fall gilt: $\Phi$ ist injektiv $\Leftrightarrow$ Kern($f$)=$\{0_R\}$
+    \subsubsection{Einheiten und Einheitengruppe}
+      Ein Element $x\in R$ heißt \textbf{invertierbar} in R oder Einheit in R, wenn
+      $$\exists y\in R:x\cdot y=y\cdot x=1_R$$
+      Dieses y ist eindeutig bestimmbar und man nennt es $x^{-1}$\\
+      Die \textbf{Einheitengruppe} $R^\times$ ist die Menge aller Einhieten von R. Sie wird durch die Multiplikation zur Gruppe.
+    \subsubsection{Rinhomomorphismen und Einheiten}
+      Sei $\Phi:R\longrightarrow S$ ein Ringhomomophismus. Dann ist die Einschränkung $\Phi^\times$ von $\Phi$ auf die Einhitengruppe 
+      $R^\times$ ein Gruppenhomomorphismus:
+      $$\Phi^\times:R^\times\longrightarrow S^\times$$
+  \subsection{Körper}
+    \subsubsection{Körper}
+      Ein \textbf{Körper} ist ein kommutuativer Ring $K$, in dem $0_K\neq 1_K$ gilt und jedes von Null verschiedene Element invertierbar ist: 
+      $K^\times=K\setminus\{0\}$\\
+      Wenn $K$ ein Körper und $R$ ein Ring mit $1_R\neq 0_R$ ist jeder Ringhomomophismus von $K$ nach $R$ injektiv.
+    \subsubsection{Komplexe Zahlen}
+      Handelt es sich bei $K$ um den Körper der Reelen Zahlen und $d=-a$, dann heißt der konstruierte größere Köper 
+      $\mathbb{C}$ der \textbf{komplexen Zahlen}. Es gilt $i^2=-1$, sowie:
+      $$\mathbb{C}=\mathbb{R}(i)=\{a+bi\mid a,b\in\mathbb{R}\}$$
+      $$(a+bi)+(c+di)=a+c+(b+d)i$$
+      $$(a+bi)\cdot(c+di)=ac-bd+(ad+bc)i$$\\
+      Die reelle Zahl a heißt \textbf{Realteil} und b \textbf{Imaginärteil} von $a+bi$\\
+      Zwei komplexe Zahlen sind genau dann gleich, wenn sie den selben Real- und den selben Imaginärteil haben.
+  \subsection{Polynomringe}
+    Im folgenden sei $R$ ein kommututaiver Ring der Gestalt
+    $$\sum_{i=0}^da_iX^i$$
+    \subsubsection{Polynome, Polynomringe}
+      Ein \textbf{Polynom} über $R$ ist eine Folge $(a_i)_{i\in\mathbb{N}_0}$ mit Einrägen aus $R$, 
+      sodass $N\in\mathbb{N}$ existiert, für die die "Abbruchsbedingung"
+      $$\forall i\ge N:a_i=0$$
+      erfüllt ist\\
+      Der \textbf{Polynomring} $R[X]$ über $R$ bezeichnet die Menge aller Polynome mit Koeffizienten in $R$\\
+      Für Polynome $(a_i)$ und $(b_i)$ gilt:
+      $$(a_i)_{i\in\mathbb{N}_0}+(b_i)_{i\in\mathbb{N}_0}:=(a_i+b_i)_{i\in\mathbb{N}_0}$$
+      $$(a_i)_{i\in\mathbb{N}_0}\cdot(b_i)_{i\in\mathbb{N}_0}:=(c_k)_{k\in\mathbb{N}_0},\text{ wobei }c_k:=\sum_{i=0}^ka_ib_{k-i}$$
+    \subsubsection{Grad eines Polynoms und Leitkoeffizient}
+      Der \textbf{Grad des Polynoms} $f=\sum_{i=0}^dr_iX^i\in R[X]$ ist definiert als
+      $$\text{Grad}(f):=\begin{cases}
+        \text{max}(\{i\in\mathbb{N}_0\mid r_i\neq0\}), &f\neq0\\
+        -\infty, & f=0
+      \end{cases}$$
+    \subsubsection{Rechenregeln für den Grad}
+      Für Polynome $f,g\in R[X]$ gilt stets:
+      \begin{itemize}
+        \item Grad$(f+g)\le$ max(Grad$(f)$ + Grad$(g)$)
+        \item Grad$(f\cdot g)\le$ Grad$(f)$ + Grad$(g)$
+        \item Grad$(f\cdot g)$ = Grad$(f)$ + Grad$(g)$, falls $\forall a,b\in R\setminus\{0\}:a\cdot b\neq0$
+      \end{itemize}
+    \subsubsection{Nullteilerfreiheit}
+      Ein Ring $R\neq\{0_R\}$ mit der Eigentschaft $\forall a,b\in R\setminus\{0_r\}:a\cdot b\neq0$ nennt man einen \textbf{nullteilergreien Ring}
+    \subsubsection{Zentrum}
+      Die Menge
+      $$Z(A):=\{a\in A\mid\forall x\in A:a\cdot x=x\cdot a\}$$
+      heißt das Zentrum von A. Das Zentrum ist ein Kommutativer Teilring von $A$. Ist $A$ kommutativ, so gilt $Z(A)=A$
+    \subsubsection{Teilbarkeit im Polynomring}
+      $g$ heißt \textbf{Teiler} von $f$ $(f,g\in R[X])$, wenn $\exists h\in R[X]$, sodass $f=g\cdot h$
+\section{Lineare Gleichungssysteme und Matrizen}
+  \subsection{Grundlegenedes}
+    \subsubsection{Lineares Gleichungssystem}
+      Ein \textbf{Lineares Gleichungssystem} über $R$ mit $p$ Gleichungen und $q$ Unbekannten ist ein System
+      $$\begin{matrix}
+        a_{11}x_1 & + & a_{12}x_2 & + & \cdots & + & a_{a1q}x_q & = & b_1\\
+        a_{21}x_1 & + & a_{22}x_2 & + & \cdots & + & a_{a2q}x_q & = & b_2\\
+        \vdots & & \vdots & & \vdots & & \vdots & & \vdots\\
+        a_{p1}x_1 & + & a_{p2}x_2 & + & \cdots & + & a_{apq}x_q & = & b_p
+      \end{matrix}(*)$$
+      wobei die \textbf{Koeffizienten} $a_{ij},1\le i\le p,1\le j\le q$ und auch die $b_i,1\le i\le p$, in $R$ liegen.\\
+      Die Menge aller Lösungen bezeichnen wir mit $\mathcal{L}(*)$(Lösungsraum)
+      Statt $(*)$ schreiben wir 
+      $$\sum_{j=1}^qa_{ij}x_j=b_i,\ 1\le i\le p$$
+      $R^q$ ist hierbei die Menge aller $q$-Tupel in $R$. Das Nullelement ist das Tupel, dessen Einträge alle 0 sind
+    \subsubsection{LGS aus Sichtweise der Gruppentheorie}
+      Die Abbildung
+      $$\Phi:R^q\longrightarrow R^p,\Phi((x_j)_{1\le j\le q})=(\sum_{j=1}1qa_{ij}x_j)_{a\le i\le p}$$
+      ist ein Gruppenhomomorphismus. Statt $\mathcal{L}(*)$ schreiben wir $\mathcal{L}(\Phi,b)$\\
+      Wenn $\mathcal{L}(\Phi,b)$ nicht leer ist, so gilt für jede beliebeige "spezielle Löusng" $x^{(s)}$ von (*) die Aussage
+      $$\mathcal{L}(\Phi,b)=\{x^{(h)}+x^{(s)}\mid x^{(h)}\in \text{Kern}(\Phi)\}$$
+    \subsubsection{Matrizen}
+      Eine $p\times q$-\textbf{Matrix} mit Einträgen in $R$ ist eine Abbildung
+      $$A:\{1,\dots,p\}\times\{1,\dots,q\}\longrightarrow R$$
+      Dabei heißt $p$ die Anzahl der Zeilen und $q$ die Anzahl der Spalten von $A$. Wir schreiben $a_{ij}=A(i,j)$ und notieren die Matrix $A$ als
+      $$A=\begin{pmatrix}
+        a_{11} & a_{12} & \dots & a_{1q}\\
+        a_{21} & a_{22} & \dots & a_{2q}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        a_{11} & a_{p2} & \dots & a_{pq}\\
+        a_{p1} & a_{12} & \dots & a_{1q}\\
+      \end{pmatrix}$$
+      Die Menge aller $p\times q$-Matrizen notieren wir als $R^{p\times q}$ und $R^p:=R^{p\times1}$
+    \subsubsection{\texorpdfstring{$\Phi_A$}\ und das Produkt zweier Matrizen}
+      Die oben definierte Abbildung $\Phi$ und die Matrix $A$ legen sich gegenseitig fest. Wenn $A$ gegeben ist schreibe $\Phi_A$ für die zugehörige Abbildung von $R^q$ nach $R^p$. Statt $\mathcal{L}(\Phi_A,b)$ schreibe $\mathcal{L}(A,b)$.\\
+      Das Produkt zweier Matrizen $F=A\cdot C(A\in \mathbb{R}^{p\times q},C\in \mathbb{R}^{q\times r})$ ist definiert durch
+      $$f_{ik}:=\sum_{j=1}^qa_{ij}c_{jk},\ 1\le i\le p, 1\le k\le r$$
+      Das Matrixprodukt ist so gemacht, dass $\Phi_A\circ\Phi_C=\Phi_{A\cdot C}$ gilt.\\
+      Im Allgemeinen ist der Eintrag von $A\cdot C$ an der Stelle $(i,k)$ die Multiplikation der $i$-ten Zeile von $A$ mit der $k$-ten Spalte von $C$\\
+      Desweiteren ist die Multiplikation von Matrizen Assoziativ.
+    \subsubsection{Summe zweier Matrizen}
+      Die Summer $S=A+B(A\in R^{p\times q},B\in R^{p\times q})$ zweier Matrizen der selben Größt gitl:
+      $$S(i,j):=A(i,j)+B(i,j)$$
+      Außerdem gilt $\forall x\in R^{q}:A\cdot x+B\cdot x=(A+B)\cdot x$, also gilt auch
+      $$\Phi_{A+B}=\Phi_A+\Phi_B$$
+      Somit gilt also auch das Distributivgesetz. Die Addition von Matrizen ist auüerdem assoziativ und kommutatuv.
+    \subsubsection{Die Einheitsmatrix}
+      Die Matrix $I_p\in R^{p\times p}$, definiert durch
+      $$I_P(i,j);=\begin{cases}
+        1 & \text{ falls } i=j\\
+        0 & \text{ falls } i\neq j
+      \end{cases}$$
+      Die Einheitsmatrix ist das Multiplikativ neutrale.
+    \subsubsection{Multiplikation mit Skalaren}
+      Für eine Matrix $A=(a_{ij})_{ij}\in R^{p\times q}$ und $r\in R$ gilt
+      $$r\cdot A:=A\cdot r:=(r\cdot a_{ij})_{ij}$$
+      Also wird jeder Eintrag von $A$ mit $r$ mutlipliziert
+    \subsubsection{Transponieren}
+      Die Transposition einer Matrix $A\in R^{p\times q}$ ist definiert durch
+      $$A^T(j,i):=A(i,j)$$
+      Außerdem gilt $(A\cdot B)^T=B^T\cdot A^T$
+    \subsubsection{Fazit}
+      Also ist $(R^{p\times p},+,\cdot)$ ein Ring, genannt Matrizenring, mit Einselement $I_p$\\
+      Die Abbildung 
+      $$\sigma:R\longrightarrow R^{p\times p},r\mapsto r\cdot I_p$$
+      ist ein injektiver Ringhomomorphismus.\\
+      Wir können auch Polynome $R[X]$ bei Matrizen auswerten: 
+      $$f(x)=\sum_{i=0}^jc_iX^i$$
+      $$f(A)=\sum_{i=0}^jc_iA^i$$
+  \subsection{Invertierbare Matrizen}
+    \subsubsection{Invertierbare Matrizen}
+      Die Einheitsgruppe des Ringes $R^{p\times p}$ bezeichnet man mit $\text{GL}_p(R)$, was "general linear group" abküzrt:
+      $$\text{GL}_p(R)=\{A\in R^{p\times 9}\mid\exists B\in R^{p\times p}:AB=BA=I_p\}$$
+    \subsubsection{Elementarmatrizen}
+      Für zwei natürliche Zahlen $1\le i\le p,1\le j\le q$ ist die \textbf{Elementarmatrix} $E_{i,j}\in R^{p\times q}$ definiert durch ihre Einträge $E_{i,j}(k,l),1\le k\le p,1\le l\le q$, die auf folgenede Art festgelegt wird:
+      $$E_{i,j}(k,l):=\begin{cases}
+        1 & \text{ falls }i=k\text{ und }j=l\\
+        0 & \text{ sonst}
+      \end{cases}$$
+      $$\text{Beispiel}:R^{3\times 4}\ni E_{2,3}=\begin{pmatrix}
+        0 & 0 & 0 & 0\\
+        0 & 0 & 1 & 0\\
+        0 & 0 & 0 & 0\\
+      \end{pmatrix}$$
+      Ein Spezialfall ist der einer einzelnen Spalte. In dem Fall schreiben wir kürzer
+      $$e_j:=E_{j,1}\in R^q$$
+      $A\cdot e_j$ gibt die $j$-te Spalte von $A$ aus.
+    \subsubsection{Addtionsmatrizen}
+      Für $1\le i\neq j\le p$ und $\alpha\in R$ definieren wir die Matrix $A_{i,j}(\alpha)\in R^{p\times p}$ durch
+      $$A_{i,j}(\alpha):=I_p+\alpha E_{i,j}$$
+      Diese Matrix heißt \textbf{Additionsmatrix}. Sie als Einträge Einsen auf der Diagonalen, $\alpha$ an der Stelle $(i,j)$ und Null überall sonst. Es gilt:
+      $$A_{i,j}(\alpha)\cdot A_{i,j}(-\alpha)=I_p\text{, sowie:}$$
+      $$A_{i,j}(-\alpha)\cdot A_{i,j}(\alpha)=I_p\text{, also: } A_{i,j}(\alpha)\in \text{GL}_p(R)$$
+      da $i\neq j$. Also sind Additionsmatrizen invertierbar.\\
+      Für $M=\sum_{i,j}m_{ij}\cdot E_{i,j}\in R^{p\times q}$ gilt nun
+      $$A_{i,j}(\alpha)\cdot M=M+\Sigma_l\alpha m_{jl}E_{i,l}$$
+      Also entsteht M, indem man zur $i$-ten Zeile das $\alpha$-fache der $j$-ten Zeile addiert
+    \subsubsection{Vertaurschungsmatrizen}
+      Für $1\le i,j\le p$ ist die \textbf{Vertauschungsmatrix} $V_{i,j}\in R^{p\times p}$ definiert durch
+      $$V_{i,j}:=I_p-E_{i,i}-E_{j,j}+E_{i,j}+E_{j,i}$$
+      Bildlich ersetzt man also die Einsen der Einheistmatrix an den Stellen $(i,i)$ und $(j,j)$ durch einsen an den Stellen $(i,j)$ und $(j,i)$\\
+      Mulitpliziert man $V_{i,j}$ von links an M, erhält man die Matrix $M$ mit vertauschten Zeilen $i$ und $j$. Außerdem gilt:
+      $$V_{i,j}\cdot V_{i,j}=I_p\text{, also: }V_{i,j}\in \text{GL}_p(R)$$
+    \subsubsection{Diagonalmatrizen}
+      Die \textbf{Diagonalmatrix} $\text{diag}(\alpha_1,\dots,\alpha_p)$ ist definiert durch
+      $$\text{diag}(\alpha_1,\dots,\alpha_p):=\sum_{i=1}^p\alpha_iE_{i,i}\in R^{p\times p}$$
+      Also die Matrix mit $(\alpha_1,\dots,\alpha_p)$ als Einträgen auf der Diagonalen\\
+      Diagonalmatrizen sind auch invertierbar, also:
+      $$\text{diag}(\alpha_1,\dots,\alpha_p)\in \text{GL}_p(R)$$
+  \subsection{Die Gauß-Normalform}
+    \subsubsection{Treppenform/Guaß-Normalform und Rang}
+      Eine Matrix $T$ hat \textbf{Treppenform} oder auch \textbf{Gauß-Normalform}, wenn es eine Zahlt $r\in\mathbb{N}_0$ und natürliche Zahlen $1\le s_1<s_2\cdots<s_r\le q$ gibt, sodass die folgenden Bdinungen erfüllt sind:
+      \begin{itemize}
+        \item $\forall i(1\le i\le r)$ gilt: $t_{i,s_i}=1$ und $\forall k\neq i:t_{k,s_i}=0$ und $\forall k<s_i:t_{i,k}=0$  
+        \item $\forall i\ge r+1$ und $\forall j\in\{1,\dots,q\}$ gilt $t_{i,j}=0$
+      \end{itemize}
+      Wenn $T$ Treppenform hat, so heißt die Zahl $r$ \textbf{Rang} von $T$, und $s_1,\dots,s_r$ heißen \textbf{Stufenindizes} von $T$\\
+      Beispiel:
+      $$\begin{pmatrix}
+        0 & 1 & 0 & * & 0 & *\\
+        0 & 0 & 1 & * & 0 & *\\
+        0 & 0 & 0 & 0 & 1 & *\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+      \end{pmatrix}$$
+      Wobei an der Stelle der Sterne beliebige Einträge aus $R$ stehen können
+    \subsubsection{Lösen eines LGS mit einer Matrix in Treppenform}
+      \begin{itemize}
+        \item Das LGS $T\cdot x=b$ ist genau dann lösbar, wenn die Einträge einer Spalte der Treppenform 0 ist. In diesem Fall ist zum Beispiel
+          $$x^{(s)}:=\sum_{i=1}^rb_ie_{s_i}\in\mathcal{L}(T,b)$$
+          eine \textbf{spezielle Lösung}
+        \item Für $j\in J:=F\{1,\dots,q\}\setminus\{s_1,\dots,s_r\}$ ist $F^{(j)}:e_j-\sum_{i=1}^rt_{ij}e_{s_i}$ eine Lösung des homogenen Gleichungssystems $T\cdot x=0$. Die $F^{(j)}$ nenne wir \textbf{Fundamentallösungn}
+        \item Die Lösungsmenge $\mathcal{L}(T,0)$ des zu $T$ gehörigen homogenen Gleichungssystems ist gegeben durch
+          $$\mathcal{L}(T,0)=\{\sum_{j\in J}x_jF^{(j)}\mid x_j\in R\}$$
+      \end{itemize}
+    \subsubsection{Der (-1)-Trick}
+      Für jedes $1<i<r$ sei die $i$-te Zeile von $T$ die $s_i$-te Zeile einer neuen $q\times q$-Matrix $S$, deren übrige Zeilen 0 sind.\\
+      Dann sind die von Null verschiedenen Spatlten der Matrix
+      $$I_q-S$$
+      genau die Fundamentallösugen von $Ty=0$. Genauer ist $f^{(j)}$ die $j$-te Spalte in $I_q-S$
+      Beispiel mit $p=4, q=6,r=3,s_1=2,s_2=3,s_3=5$:
+      $$T=\begin{pmatrix}
+        0 & 1 & 0 & 0 & 0 & c\\
+        0 & 0 & 1 & b & 0 & d\\
+        0 & 0 & 0 & 0 & 1 & e\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+      \end{pmatrix}$$
+      "Einpflanzen" der von Null verschiedenen Zeilen an der richtigen Stelle:
+      $$S=\begin{pmatrix}
+        0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 1 & 0 & a & 0 & c\\
+        0 & 0 & 1 & b & 0 & d\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & 0 & 1 & e\\
+        0 & 0 & 0 & 0 & 0 & 0\\
+      \end{pmatrix}$$
+      Daraus folgt:
+      $$I_6-S=\begin{pmatrix}
+        1 & 0 & 0 & 0 & 0 & 0\\
+        0 & 0 & 0 & -a & 0 & -c\\
+        0 & 0 & 0 & -b & 0 & -d\\
+        0 & 0 & 0 & 1 & 0 & 0\\
+        0 & 0 & 0 & 0 & o & -e\\
+        0 & 0 & 0 & 0 & 0 & 1\\
+      \end{pmatrix}$$
+      In der ersten, vierten und sechsten Spalte stehen jetzt die drei Fundamentallösugen:
+      $$\begin{pmatrix}
+        1\\0\\0\\0\\0\\0
+      \end{pmatrix},
+      \begin{pmatrix}
+        0\\-a\\-b\\1\\0\\0
+      \end{pmatrix},
+      \begin{pmatrix}
+        0\\-c\\-d\\0\\-e\\1
+      \end{pmatrix}$$
+  \subsection{Das Gauß-Verfahren}
+    \subsubsection{Hilfestellung}
+      Für eine Matrix $A\in K^{p\times q}$ eine Matrix. Dann exististiert eine invertierbare Matrix $C\in GL_p(K)$, sodass $C\cdot A$ Gauß-Normalform hat.\\
+      Dies Gauß-Normalform (aber nicht $C$!) ist eindeutig durch $A$ bestimmt.
+    \subsubsection{Der Rang einer Matrix}
+      Der \textbf{Rang} von $A$ ist der Rang dieser Treppenform, die Stufenindizes von A sind die Treppenform
+    \subsubsection{Lösungsstrategie eines LGS (Satz 4.4.4)}
+      $$\mathcal{L}(A,b)\neq\emptyset\Longleftrightarrow\text{Rang}(A)=\text{Rang}(A\mid b)$$
+      $$\Phi_A\text{ ist injektiv}\Longleftrightarrow\text{Rang}(A)=q$$
+      $$\Phi_A\text{ ist surjektiv}\Longleftrightarrow\text{Rang}(A)=p$$
+    \subsubsection{Regularität und Rang}
+      $$A\text{ ist regulär}\Longleftrightarrow\text{Rang}(A)=p \Longleftrightarrow\exists S\in K^{p\times p}:AS=I_p$$
+    \subsubsection{Invertieren einer Matrix}
+      Eine Matrix $A$ ist genau dann invertierbar, wenn der Rang von $A=p$ ist. Wenn wir gaußen, bis für die Matrix
+      $$(A\mid I_p)\in K^{p\times 2p}$$
+      links vom Strich die Einheitsmatrix steht, dann steht rechts vom Strich die Inverse $A^{-a}$.
+\section{Vektorräume}
+  \subsection{Grundlegende Definitionen}
+    \subsubsection{Vektorraum}
+      Ein \textbf{Vektorraum} über dem Körper $K$($K$-VR) ist eine kommutative Gruppe $(V,+)$, für die zusätzlich eine Abbilung
+      $$ \cdot:=K\times V\longrightarrow V,(a,v)\mapsto a\cdot v$$
+      definiert ist, sodass:\\
+      \begin{itemize}
+        \item $\forall v\in V:1_K\cdot v=v$
+        \item $\forall a,b\in K,v\in V:a\cdot(b\cdot v)=(a\cdot b)\cdot v$
+        \item $\forall a,b\in K,u,v\in V:\\
+          a\cdot(u+v)=a\cdot u+a\cdot v\\ 
+          (a+b)\cdot v=a\cdot v+b\cdot v$
+      \end{itemize}
+    \subsubsection{Untervektorraum}
+      Ein \textbf{$(K-)$Untervekotrraum} von $V(K-VR)$ ist eine Teilmenge $U\subseteq V$, die bezüglich der Addition eine Untergruppe von $V$ ist und für die gilt:
+      $$\forall a\in K,u\in U:a\cdot u\in U$$
+      Dann ist $U$ selber auch ein Vektorraum. Um $U$ von belibiegen Teilmengen zu unterscheiden schreiben wir $U\le V$
+    \subsubsection{Untervektorraumkriterium}
+      $$U\text{ ist ein UVR von }U\Longleftrightarrow U\neq\emptyset,\forall u_1,u_2\in U:u_1+u_2\in U,\forall a\in K,u\in U:a\cdot u\in U$$
+    \subsubsection{Linearkombination}
+      Für eine Abbildung $\alpha:V\supseteq M\longrightarrow K$, die für alle bis auf endlich viele Elemente $m\in M$ den Wert 0 annimmt, die Summe
+      $$\sum_{m\in M}\alpha(m)\cdot m\in V$$
+      eine \textbf{Linearkombination} von $M$
+    \subsubsection{Linerare Hülle}
+      Die Menge $\lh{M}$ aller Linearkombinationen von $M$ heißt \textbf{linerare Hülle} von $M$ und $M$ heißt \textbf{Erzeugendensystem} von $\lh{M}$
+  \subsection{Homomorphismen}
+    \subsubsection{Vektorraumhomomorphismen}
+      Ein Homomorphismus zweier Vektorräum $\Phi:V\longrightarrow W$ ist eine Abbildung, sodass:
+      $$\forall v_1,v_2\in V:\Phi(v_1+v_2)=\Phi(v_1)+\Phi(v_2)$$
+      $$\forall a\in K,v\in V:\Phi(av)=a\Phi(v)$$
+      $$\text{Kern}(\Phi):=\{v\in V\mid\Phi(v)=0_v\}=\Phi^{-1}(\{o\})$$
+      $$\Phi\text{ ist injektiv}\Longleftrightarrow\text{Kern}(\Phi)=\{0\}$$
+  \subsection{Basen}
+    \subsubsection{Basis}
+      Eine Teilmenge $B\subseteq V$ heißt eine \textbf{Basis} von $V$, falls sich jeder Vektor $v\in V$ auf \underline{genau eine} Art als Linerakombination von $B$ schreiben lässt:
+      $$\forall v\in V:\exists_1\lambda\in\text{Abb}(B,K)_0:v=\sum_{b\in B}\lambda(b)\cdot b$$
+      Jede Basis von $K^p$ hat genau $p$ Elemente.\\
+      Wenn $B$ Basis von $V$ ist, gibt es einen Isomorphismus zwischen Abb$(B,K)_0$ und $V$
+    \subsubsection{Koordinatenvektoren}
+      Für $v\in B$ hießt die Abbildung
+      $$D_B:V\longrightarrow\text{Abb}(B,K)_0$$
+      der \textbf{Koordinatenvektor} von $u$ bezüglich der Basis $B$, der Isomorphismus $D_B$ heißt \textbf{Koordinatenabbildung} bezüglich der Basis $B$
+    \subsubsection{Linerare Unabhängigkeit}
+      $M\subset V$ heißt \textbf{linear unabhänging}, wenn die einzige Möglichkeit den Nullvektor als Linearkombination von $M$ zu schreiben die trivieal ist:
+      $$\forall\lambda\in\text{Abb}(M,K)_0:[\sum_m\in M\lambda(m)\cdot m=0\Leftrightarrow \lambda=0]$$
+    \subsubsection{Charakterisierende Eigenschaften}
+      Es sind äquivalent:
+      \begin{itemize}
+        \item B ist eine Basis 
+        \item B ist maximal unter den linear unabhängigen Teilmengen von $V$
+        \item B ist minimal unter den Erzeugendensystemen von $V$
+        \item B ist linear unabhängiges Erzeugendensystem
+      \end{itemize}
+    \subsubsection{Existenz einer Basis}
+      Der $K-VR\ V$ besitze ein endliches Erzeugendensystem. Dann gelten:
+      \begin{itemize}
+        \item $V$ hat eine Basis
+        \item Jedes Erzeugendensystem von $V$ enthält eine Basis von $V$
+        \item Jede linear unabhängige Teilmenge von $V$ lässt sich durch Hinzunahme endlich vieler Vektoren zu einer Basis ergänzen
+        \item Je zwei Basen von $V$ besitzen gleich viele Elemente
+       \end{itemize}
+    \subsubsection{Dimension}
+       Die Mächtigkeit einer Basis $B$ von $V$ wird die \textbf{Dimension} genannt
+       $$\text{dim}_K(V):=\abs{B}$$
+       $V$ heißt \textbf{endlichdimensional}, wenn $V$ eine endliche Basis hat, sonst nennt man $V$ \textbf{unendlichdimensional}
+    \subsubsection{Monontonie der Dimension}
+       Ist $V$ ein endlich dimensionaler $K-VR$, dann ist jeder UVR $U$ endlichdimensional und es gilt:
+       $$\text{dim}_K(U)\le\text{dim}_K(V)$$
+       Gleichheit in der Dimension gibt es genau dann, wenn $U=V$
+  \subsection{Summen von Untervektorräumen}
+    \subsubsection{Direkte Summe von Untervektorräumen}
+      Für UVR $U_1,\dots,U_n$ von $V$ ist die Summe definiert. Diese heißt eine \textbf{direkte Summer}, wenn gilt:
+      $$\forall u_i\in U_i:[u_1+u_2+\dots+u_n=0\Longrightarrow u_1=0,u_2=0,\dots,u_n=0]$$
+      Also gibt es nur eine Möglichkeit, den Nullvektor als Summe von Vektoren $u_i\in U_i$ zu schreiben. Insbesondere gilt im Falle der Direktheit der Summe für $1\le i\neq j\le n$ die Gleichheit $U_i\cap U_j=\{0\}$\\
+      Falls die Summe direkt ist, so schreiben wir auch $\bigoplus_{i=1}^nU_i$ statt $\sum_{i=1}^nU_i$
+    \subsubsection{Dimensionsformel}
+      Für $U$ und $W$ UVR von $V$ gilt:
+      $$\text{dim}(U+W)=\text{dim}(U)+\text{dim}(W)-\text{dim}(U\cup W)$$
+    \subsubsection{Komplementärer Untervektorraum}
+      Zu $U$ UVR von $V$ heißt $W$ ein zu $U$ \textbf{komplemntärer Untervektorraum} in $V$ oder auch \textbf{Vektorraumkomplement} zu $U$, wenn:
+      $$V=U\oplus W$$
+      Oder komkret, wenn $V=U+W$ und $U\cap W=\{0\}$\\
+      Is$V$ endlichdimensional gibt es zu jedem UVR mindestens einen komplementären UVR. Ergänze hierzu die Basis $B$ von $U$ zur Basis $C$ von $V$ und setzte $W:=\lh{C\setminus B}$. Es gilt:
+      $$\text{dim}(U)+\text{dim}(W)=\text{dim}(V)$$
+  \subsection{Faktorräume}
+    \subsubsection{Die Menge \texorpdfstring{$V\setminus U$}\ }
+      Für einen beliebigen UVR $U\le V$ definieren wir die Äquivalenzrelation
+      $$v_1\sim v_2:\Leftrightarrow v_1-v_2\in U$$
+    \subsubsection{Vektorraumstrkutur auf \texorpdfstring{$V\setminus U$}\ }
+      Mit den Verknüpfungen
+      $$[v_1]+[v_2]:=[v_1+v_2]$$
+      $$\alpha[v]:=[\alpha v]$$
+      wird aus $V\setminus U$ ein $K$-VR. Dieser heißt \textbf{Faktorraum} von $V$ modulo $U$
+    \subsubsection{Kanonische Projektion}
+      Für $U\le V$ heißt die Abbildung
+      $$\pi_{V\setminus U}:V/longrightarrow V\setminus U, v\mapsto[v]=v+U$$
+      \textbf{kanonische Projektion} von $V$ auf $V\setminus U$.\\
+      $\pi_{V\setminus U}$ ist hierbei ein surjektiver Vektorraumhomomorphismus und der Kern ist $U$
+    \subsubsection{Homomorphiesatz}
+      Für $V,W$ $K$-VR und $\Phi\in\text{Hom}(V,W)$ und $U\le\text{Kern}(\Phi)$
+      \begin{itemize}
+        \item gibt es ganu eine linerare Abbildung
+          $$\tilde\Phi:V\setminus U\longrightarrow\Phi(V)\le W$$
+          sodass gilt:
+          $$\forall v\in V:\Phi(v)=\tilde\Phi([v])$$
+        \item gilt, wenn sogar $U=\text{Kern}(\Phi)$, dass dann $\tilde\Phi$ ein Isomorphismus zwischen $V\setminus U$ und $\Phi(V)$ ist
+      \end{itemize}
+    \subsubsection{Basis des Faktorraumes}
+      Wenn $U\subseteq V$ $K$-VR und Basis $B$ von $V$, die eine Basis $B_U$ von $U$ enthält, dann ist
+      $$C:=\{b+U\mid b\in B\setminus B_U\}$$
+      eine Basis von $V\setminus U$. Im endlichdimensionalen Fall gilt außerdem:
+      $$\text{dim}(V\setminus U)=\text{dim}(V)-\text{dim}(U)$$
+    \subsubsection{Rang-Defekt-Fromel}
+      Ist $\Phi:V\longrightarrow W$ linear und $V,W$ endlich dimension, dann gilt:
+      $$\text{Bild}(\Phi)\tilde=V\setminus\text{Kern}(\Phi),\text{ also dim}(V)=\text{dim(Bild}(\Phi))+\text{Kern}(\Phi)$$
+      hierbei ist dim(Bild8$\Phi$)) der Rang und dim(Kern($\Phi$)) der Defekt
+\section{Basen und lineare Abbildungen}
+  \subsection{Lineare Fortsetzung}
+    \subsubsection{Rekonstruktion}
+      Wenn $B$ eine Basis von $V$. Dann ist $\Phi:V\longrightarrow W$ ein Homomophismus von $K$-Vektorräumen. Dann ist $\Phi$ eindeutig definiert durch die Einschränkung $\Phi\mid_B:\longrightarrow W$ festgeleget.
+    \subsubsection{Lineare Fortsetzung}
+      Für eine Basis $B$ von $V$ und $f:B\longrightarrow W$ eine Abbildung, dann gibt es genau eine lineare Abbildung $\Phi: V\longrightarrow W$ mit $\Phi\mid_B=f$
+      Die Abbildung
+      $$\text{Hom}(V,W)\longrightarrow\text{Abb}(B,W),\Phi\mapsto\Phi\mid_B$$
+      ist ein Isomorphismus von Vektorräumen
+    \subsection{Der Dualraum}
+      \subsubsection{Linearform und Dualraum}
+        Für einen Körper $K$ und einen $K$-VR $V$ ist eine \textbf{Linearform} auf $V$ eine $K$-lineare Abbilung von $V$ nach $K$.\\
+        Der Raum Hom$(V,K)$ aller Linearformen heißt der \textbf{Dualraum} von $V$ und wird oft mit $V^*$ notirt\\
+        Der Dualraum ist also ein Spezialfall der Vektorräume Hom$(V,W)$, allerdings ein besonders richtigen
+    \subsection{Die Abbildungsmatrix}
+      \subsubsection{Abbildungsmatrix}
+        Seien $B$ eine Basis von $V$ und $C$ eine Basis in $W$ und sei zusätzlich ein Hom $\Phi$ von $V$ nach $W$ gegeben.\\
+        Wir wollen eine Methode angeben, wie man für $v\in V$ die Koeffizienten von $\Phi(v)$ bezüglich $C$ ausrechnen kann, wenn die Koeffizienten von $v$ bezüglich $B$ bekannt sind.\\
+        Dazu schreiben wir erstaml die Vektoren $\Phi(b_j),1\le j\le q$c als Linerakombination von $c_1,\dots,c_p$:
+        $$\Phi(b_j)=\sum_{i=1}^pa_{ij}c_i$$
+        Diese Koeffizienten fassen wir zur $p\times q$-Matrix $A\in K^{p\times q}$ zusammen. Dann gilt für $v=\sum_{j=1}^q\alpha_jb_j:$
+        $$\Phi(v)=\sum_{j=1}^q\alpha_j\Phi(b_j)=\sum_{j=1}^q\sum_{i=1}^p\alpha_j\alpha_{ij}c_i=\sum_{i=1}^p(\sum-{j=1}^qa_{ij}\alpha_j)c_i=\sum_{i=1}^p\beta_ic_i,$$
+        wobei
+        $$\beta=A\cdot\alpha$$
+        Diese Matrix heißt die \textbf{Abbildungsmatrix} von $\Phi$ bezütlich der Basn $B$ und $C$. Oft werden wir hierfür $D_{CB}(\Phi)$ schreiben.
+        Erinniern wir uns an die Koordinaten-Abbildung erhalten wir folgende Merkregel:
+        $$D_C(\Phi(v))=D_{CB}(\Phi)\cdot D_B(v)$$
+    \subsection{Basiswechsel für Homomorphismen}
+      Wie ändert sich die Abbildungsmatrix $A:=D_{CB}(\Phi)$ eines Homomorphismus von $V$ nach $W$ bezüglich gegebener Basen $B$ von $V$ und $C$ von $W$ die Abbildungsmatrix von $\Phi$ bezüglich "neuer" Basen $\tilde B,\tilde C$ berechnen lässt.\\
+      Hierzu schrreiben wir $\tilde b_j\in\tilde B$ als
+      $$\tilde b_j=\sum_{i=1}^qs_{ij}b_i,$$
+      fassen also die Koeffizienten von $\tilde B$ bezüglich $B$ in einer Matrix $S=(S_{ij})_{1\le i,j\le q}\in\text{GL}_q(K)$ zusammen. Diese Matrix is nichts anderes als
+      $$S=D_{B\tilde B}(\text{Id}_V)$$
+      Genau so schreiben wir ein $c_k\in C$ bezüglich $\tilde C$ als
+      $$c_k=\sum{l=1}^pt_{lk}\tilde c_l,$$
+      also
+      $$T=(t_{lk})_{1\le l,k\le p}=D_{\tilde CC}(\text{Id}_W)$$
+      Daran lesen wir ab, dass die Abbildugnsmatrix von $\Phi$ bezüglich $\tilde C$ und $\tilde B$ gegeben ist durch
+      \textbf{$$\tilde A:=D_{\tilde C\tilde B}(\Phi)=TAS$$}
+    \subsubsection{Äquivalenz von Matrizen}
+      Zwei Matrizen $A$ und $B$ heißen dann \textbf{äquivalent}, wenn es invertierbare Matrizen $S\in\text{GL}_q(K)$ und $T\in\text{GL}_p(K)$ gibt, sodass
+      $$B=TAS$$
+      Nach dem Vorangehenden sind zwei Matrizen genau dann äquivalent, wenn sie dieselbe linerare Abbildung von $K^q$ nach $K^p$ begüblich zweier Basenpaare beschreiben.
+    \subsubsection{Hilfsformeln}
+      Für Basen $B,C,D$ der endlichdimensionalen $K$-VR $U,V,W$ und $\Phi:U\longrightarrow V$ und \\
+      $\Psi:V\longrightarrow W$ Homomorphismen. Dann gilt:
+      $$D_{DB}(\Psi\circ\Phi)=D_{DC}(\Psi)\cdot D_{CB}(\Phi)$$
+      \\
+      Für einen Homomorphismus $\Phi$ von $V$ nach $W$ und Basen $B,\tilde B$ von $V$, sowie $C.\tilde C$ von $W$, dann gilt:
+      $$D_{\tilde C\tilde B}(\Phi)=D_{\tilde CC}(\text{Id}_W)\cdot D_{CB}(\Phi)\cdot D_{B\tilde B}(\text{Id}_v)$$
+\section{Determinanten}
+  \subsection{Die Determinantenform}
+    \subsubsection{Determinantenform}
+      Für einen Körper $K$ und $n\in\mathbb{N}$ heißt die Abbildung
+      $$D:(K^n)^n\longrightarrow K$$
+      eine \textbf{Determinantenform} auf $K^n$, wenn die folgenden Bedingugen erfüllt sind:
+      \begin{enumerate}[label=D\arabic*]
+        \item Für die Standardbasisvektoren gilt $D(e_1,\dots,e_n)=1$
+        \item Für $1\le i\le n$ sowie $v_i'\in K^n$ gilt
+          $$D(v_1,\dots,v_{i-1},v_i+v_i',v_{i+1},\dots,v_n)=D(v_1,\dots,v_n)+D(v_1,\dots,v_i',\dots,v_n)$$
+        \item Für $1\le i\le n$ gilt
+          $$D(v_1,\dots,\alpha\cdot v_i,\dots,v_n)=\alpha\cdot D(v_1,\dots,v_n)$$
+        \item Wenn für zwei Indizes $1\le i<j\le n$ die Spalten $v_i$ und $v_j$ übereinstimmen, dann ist
+          $$D(v_1,\dots,v_i,\dots,v_j,\dots,v_n)=0$$
+      \end{enumerate}
+    \subsubsection{Merkregeln}
+      \begin{center}
+        Für die Determinante zu einer Determinatntenform $D$ gilt für beliebiges $M\in K^{n\times n}$
+        $$\begin{aligned}
+        \text{det}(M\cdot A_{ij}(\alpha)) & =\text{det}(M) &\text{für }1\le i,j\le n,i\neq j,\alpha\in K\\
+        \text{det}(M\cdot V_{ij}) & = -\text{det}(M) & \text{für }1\le i,j\le n,i\neq j\\
+        \text{det}(M\cdot\text{diag}(\alpha_1,\dots,\alpha_n)) & = (\prod_{i_1}^n\alpha_i)\cdot\text{det}(M) & \text{für }\alpha_i\in K
+      \end{aligned}$$
+      \end{center}
+    \subsubsection{Wichtige Eigenschaften}
+      \begin{itemize}
+        \item $\forall M\in K^{n\times n}:\text{det}(M)\neq0\Leftrightarrow M\in\text{GL}(K)$
+        \item $\forall M,N\in K^{n^\times n}:\text{det}(M\cdot N)=\text{det}(M)\cdot\text{det}(N)$
+        \item Es gibt genau eine Determinantenform
+        \item $\forall M\in K^{n\times n}:\text{det}(M)=\text{det}(M^T)$
+      \end{itemize}
+  \subsection{Die Laplace Entwicklung}
+    \subsubsection{Die Determinante}
+      Wir definieren rekusiv eine Abbildung
+      $$\text{det}:K^{n\times n}\longrightarrow K$$
+      durch
+      $$\text{det}((a)):=a\quad(n=1)$$
+      und für $A\in K^{n\times n},n\ge 2$,
+      $$\text{det}(A):=\sum_{j=1}^n(-1)^{j+1}a_{ij}\cdot\text{det}(A_{1,j}),$$
+      wobei $A_{1,j}\in K^{(n-1)\times(n-1)}$ die Matrix ist, die aus $A$ durch Streichen der ersten Zeile und $j$-ten Spalte entsteht, z.B:
+      $$\det \begin{pmatrix}
+        a & b & c\\
+        d & e & f\\
+        g & h & i 
+        \end{pmatrix} = a\cdot\det\begin{pmatrix}
+        e & f\\
+        h & i
+        \end{pmatrix}-b\cdot\det\begin{pmatrix}
+        d & f\\
+        g & i
+      \end{pmatrix} + c\cdot\det\begin{pmatrix}
+        d & e\\
+        g & h
+    \end{pmatrix}$$
+    $$=a(ei-fh)-b(di-fg)+c(dh-ge)$$
+    Der Vollständigkeit halber setzt man kanonische
+    $$\det(A)=1,\text{ wenn }A\in K^{0\times0}$$
+    Wir nennen $\det(A)$ die \textbf{Determinante} von A.
+  \subsubsection{Die Laplace Entwicklung}
+    Für $N\in\mathbb{N}$ wird auf $K^n$ durch
+    $$(K^n)^n\ni(v_1,\dots,v_n)\mapsto\det((v_1|v_2|\dots|v_n))\in K$$
+    eine Determinantenform festgelegt
+  \subsubsection{Der Multiplikationssatz}
+    $$\forall A\in K^{n\times n}:A\text{ regulär }\Leftrightarrow\det(A)\neq0$$
+    $$\forall A,B\in K^{n\times n}:\det(AB)=\det(A)\cdot\det(B)$$
+  \subsubsection{Laplace-Entwicklung}
+    Es sei $A$ eine $n\times n$-Matrix über dem Körper $K$. Für $1\le i,j\le n$ sei $A_{ij}$ die Matrix, die aus $A$ durch Streichen der $i$-ten Zeile und der $j$-ten Spalte ensteht.
+    Dann gilt für festes $k$ zwischen 1 und $n$:
+    $$\det(A)=\sum_{j=1}^n(-1)^{j+k}a_{kj}\cdot\det(A_{kj})$$
+    Diese Formel heißt \textbf{(Laplace-)Entwicklung} der Determinante nach der $k$-ten Zeile.\\
+    Analog geht die Entwicklung nach der $k$-ten Zeile:
+    $$\det(A)=\sum_{i=1}^n(-1)^{k+i}a_{ik}\cdot\det(A_{ik})$$
+\section{Endomorphismen}
+  \subsection{Basiswechsel}
+  Im Folgenden sei $A:=D_{BB}(\Phi)$, wobei der Endomorphismus $\Phi:V/longrightarrow V$ eine lineare Abbildung ist.
+    \subsubsection{Basiswechsel bei Endomorphismen}
+      Sei $A\in K^{n\times n},\Phi:K^n\longrightarrow K^n,\Phi(v)=A\cdot v$ und $B=\{b_1,\dots,b_n\}$ eine Bais von $K^n$. Wir setzten $S=(b_1|\dots|b_n)\in\text{GL}_p(K)=D_{EB}(\text{Id}_K)$, 
+      wobei $E=\{e_1,\dots,e_n\}$. Außerdem, gilt $K^n\ni v=S\cdot D_B(V)$\\
+      Was ist $D_{BB}(\Phi)$?\\
+      Der Koordinatenvektor $D_B(\Phi(v))$ erfüllt
+      $$\Phi(v)=S\cdot D_B(\Phi(v))=S\cdot D_{BB}(\Phi)\cdot D_B(v)$$
+      also
+      $$S\cdot S^{-1}Av=S\cdot\tilde A\cdot S^{-1}v$$
+      $$\forall v:A\cdot v=S\cdot\tilde AS^{-1}v\text{   oder auch}$$
+      $$\tilde A=S^{-1}\cdot A\cdot S$$
+      In der abstrakten Situation: $\Phi:V\longrightarrow V$ linear, wenn $B,\tilde B\subset V$ Basen sind und $D_{BB}(\Phi)$ bekannt ist gilt:
+      $$D_{\tilde B\tilde B}=D_{\tilde BB}(\text{Id}_V)\cdot D_{BB}(\Phi)\cdot D_{B\tilde B}(\text{Id}_V),\text{ wobei } D_{\tilde BB}(\text{Id}_V)=S^{-1},D_{B\tilde B}(\text{Id}_V)=S$$
+      $$\tilde b_j=\sum_{i=!}^ns_{ij}b_i$$
+      $$\tilde A=S^{-1}AS$$
+    \subsubsection{Ähnlichkeit}
+      Zwei Matrizen $A,\tilde A\in K^{d\times d}$ hießen \textbf{ähnlich}, wenn es (mindestens) eine invertierbare Matrix $S\in\text{GL}_d(K)$ gibt mit
+      $$\tilde A=S^{-1}AS$$
+    \subsubsection{Ähnlichkeitsinvarianten}
+      Für eine Menge $X$ heißt eine Abbildung $f:K^{n\times n}\longrightarrow X$ \textbf{Ähnlichkeitsinvariante}, wenn
+      $$\forall A\in K^{n\times n},S\in\text{GL}_n(K):f(S^{-1}AS)=f(A)$$
+      D.h. insbesondere: Wen für $A,\tilde A\in K^{n\times n}$ gilt
+      $$f(A)\neq f(\tilde A)$$
+      sind $A$ und $\tilde A$ \underline{nicht} ähnlich
+    \subsubsection{Spur}
+      Eine andere Ähnlichkeitsinvariante einer Matrix $A\in K^{n\times n}$ ist die Summe der Diagonalelement. Dies Summe die \textbf{Spur} von $A$:
+      $$\text{Spur}(A):=\sum_{i=1}^da_{ii}$$
+  \subsection{Invariante Unterräume}
+    \subsubsection{Invarianter Unterraum}
+      Sei $\Phi:V\longrightarrow V$ ein linearer Endomorphismus. $U\le V$ heißt $\Phi$-invarianter Unterraum, wenn
+      $$\forall u\in U:\Phi(U)\subseteq U$$
+    \subsubsection{Blockgesalt}
+      Wenn $V$ ein endlichdimensionaler $K$-VR und $U\le V$ unter $\Phi$ von $V$ invariant bleibt, dann wählt man eine Basis $\tilde B:=\{b_1,\dots,b_e\}$ von $U$ und ergänzt sie zu einer Basis $B=\{b_1,\dots,b_e,c_1,\dots,c_f\}$ von $V$ mit $e+f$ = dim$(V)$. 
+      Bezüblich der Basis $B$ hat dann $\Phi$ eine Abbildungsmatrix der folgenden \textbf{Blockgestalt}:
+      $$D_{BB}(\Phi)=\begin{pmatrix}
+        D_1 & M\\
+        0 & D_2
+      \end{pmatrix}, D_1\in K^{e\times e}, M\in K^{e\times f}, 0\in K^{f\times e}, D_2\in K^{f\times f}$$
+      wobei 0 die Nullmatrix bezeichnet. Dies gilt, da für $b_i\in\tilde B\subseteq U$ der Vektor $\Phi(b_i)$ in $U$ liegt, was die lineare Hülle von $\tilde B$ ist.\\
+      Dabei ist $D_1=D_{\tilde B\tilde B}(\Phi|_U)$ die Abbildungsmatrix des Endomorphismus $\Phi|_U$ von $U$\\
+      $\Phi$ liefert eine lineare Abbildung $\Phi_1:V\longrightarrow V/U,v\mapsto\pi_u(\Phi(v))=\Phi(v)+u$
+      $$\forall u\in U:\Phi_1(u)=\Phi(u)+U=0_{V/U}:U\le \text{Kern}(\Phi_1)$$
+      $$\Phi:V/U\longrightarrow V/U,\tilde\Phi(v+U)=\Phi(v)*U\text{ ist Endomorphismus von }V/U$$
+      Die Matrix $D_2$ beschreibt $\Phi$ bezüglich
+      $$\{b_{e+1}+U,b_{e+2}+U,\dots,b_{e+f}+U\}$$
+  \subsection{Eigenräume}
+    Wir suchen jetzt nach den kleinstmöglichen $\Phi$-invarianten UVR, die vom Nullvektorrraum verschieden sind. Diese sind idealer Wiese endlichdimensionaler
+    \subsubsection{Eigenvektor und -Werte}
+      $v\in V$ heißt ein \textbf{Eigenvektor} von $\Phi$, wenn $K\cdot v$ ein eindimensionaler $\Phi$ invarianter UVR ist.\\
+      D.h. $V\neq0$ und $\Phi(v)\in K\cdot v$, d.h. $\exists\lambda\in K:$
+      $$\Phi(v)=\lambda\cdot v\text{ (Eigenvektorgleichung)}$$
+      $\lambda\in K$ heißt \textbf{Eigenwert} von $\Phi$, wenn $\exists v\in V,v\neq0:\Phi(v):\lambda\cdot v$\\
+      Die Menge aller Eigenwerte von $\Phi$ heißt \textbf{Spektrum} von $\Phi$ (Spec$(\Phi)$)
+    \subsubsection{Die Summe von Eigenräumen}
+      Für eien $K$-VR $V$, $\Phi\in\text{End}(V)$ und $\lambda_1,\dots,\lambda_n\in K$ paarweise verschieden gilt:
+      $$\sum_{i=1}^n\text{Eig}(\Phi,\lambda_i)=\bigoplus_{i=1}^n\text{Eig}(\Phi,\lambda_i)$$
+      Also ist die Summe von Eigenräumen eine direkte Summe
+    \subsubsection{Folgerung}
+      $$\abs{\text{Spec}(\Phi)}\le\dim(V)$$
+    \subsubsection{Diagonalisierbarkeit}
+      Ein Endomorphismus $\Phi$ des $K$-VR $V$ heißt \textbf{diagonalisierbar}, wenn $V$ eine Basis aus Eigenvektoren zu $\Phi$ besitzt.\\
+      Im endlichdimensionalen Fall wird $\Phi$ bezüglich solch einer Basis aus Eigenvektoren durch eine Abbildungsmatrix in Diagonalgestalt beschrieben, 
+      was den Namen erklärt und ebefalls eine Charakterisierung der Diagonalisierbarkeit ist.
+      Eine (beliebige) Abbildungsmatrix von $\Phi$ ist ähnlich zu einer Diagonalmatrix.\\
+      Eine weiter Möglichkeit, die Diagonalisierbarkeit zu charakterisieren ist:
+      $$V=\bigoplus_{\lambda\in\text{Spec}(\Phi))}\text{Eig}(\Phi,\lambda)$$
+      Dies wiederum ist äquivalent zu
+      $$\dim V=\sum_{\lambda\in\text{Spec}(\Phi)}\dim\text{Eig}(\Phi,\lambda)$$
+  \subsection{Das Charakteristische Polynom}
+    Der Polynomring liegt in einem Körper: Rationale Umkehrfunktion
+    \subsubsection{Das Charakteristische Polynom}
+      Für $A\in K^{n\times n}$ heißt
+      $$\text{CP}_A(x):=\det(xI_n-A)$$
+      das \textbf{Charakteristische Polynom} von $A$\\
+      Das char. Polynom ist eine Ähnlichkeitsinvariante.
+    \subsubsection{Alghebraische und geometrische Vielfachheit}
+      $A\in K^{n\times n},x\in K$\\
+      geometrische Vielfachheit von $\lambda: \mu_g(\lambda)=\dim(\text{Eig}(A,\lambda))$\\
+      algebraische Vielfachheit von $\lambda:\mu_a(\lambda)=e$\\
+      wenn $\lambda$ eine $e$-fache Nullstelle von $\text{CP}_A(x)$ ist, also
+      $$\text{CP}_A(x)=(x-\lambda)^e\cdot g(x), g\in K[x], g(\lambda)\neq0$$
+      $$\text{Für }\lambda\in\text{Spec}(\Phi)\text{ gilt }1\le\mu_g(\Phi,\lambda)\le\mu_a(\Phi,\lambda)$$
+    \subsubsection{Diagonalisierbarkeit}
+      Für $A\in K^{n\times n}$ sind äquivalent:
+      \begin{itemize}
+        \item $A$ ist diagonalisierbar
+        \item $\text{CP}_A(\lambda)$ zerfällt in Linearfaktoren und für jedes $\lambda\in\text{Spec}(A):\mu_g(\lambda)=\mu_a(\lambda)$
+      \end{itemize}
+      $\Longrightarrow A\in K^{n\times n}$ ist sicher dann diagonalisierbar, wenn $\text{CP}_A(x)=(x-\lambda_1)\cdot\dots\cdot(x-\lambda_n),\\
+      (\lambda_i\neq\lambda_j,i\neq j)$ n paarweise verschiedene NS hat.
+      $$\forall i \mu_a(x_i)=1: 1\le\mu_g(\lambda_i)\le\mu(\lambda_i)=1$$
+\end{document}

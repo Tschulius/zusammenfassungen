@@ -1,0 +1,915 @@
+\documentclass{kit}
+\author{Julius Vater - 2603322}
+\title{HM2 Zusammenfassung}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+\setcounter{section}{11}
+\section{Analysis in \texorpdfstring{$\comp$}{}}
+  \subsection{Konvergenz von Folgen und Reihen}
+    Die Komplexen Zahlen $\comp$ sind gegeben durch
+    $$\comp=\{a+ib\mid a,b\in\reell\}$$
+    Wobei die \textbf{imaginäre Einhiet} $i$ die Eigenschaft
+    $$i^2=-1$$
+    erfüllt. \textbf{Addition} und \textbf{Multiplikation} von komplexen Zahlen $z=a+ib$ und $w=x+iy$ sind definiert durch
+    $$z+w=(a+x)+i(b+y)\text{ und }z\cdot w=(ax-by)+i(ay+bx)$$
+    Es gelten:
+    $$\reell\subseteq\comp\text{ in dem Sinne, dass }a\in\reell=a+0i\in\comp$$
+    $$\comp\text{ ist ein Körper}$$
+    \subsubsection{Real- und Imaginärteil}
+      Für $z=a+ib\in\comp$ mit $a,b\in\reell$ bezeichnen wir
+      \begin{enumerate}
+        \item Re$(z):=a$ und IM$(z):=b$ den \textbf{Real-} bzw. \textbf{Imaginärteil} von $z$.
+        \item $\bar z:=a-ib:=a+i(-b)$ die \textbf{komplex konjugiergte Zahl} von $z$.
+      \end{enumerate}
+    \subsubsection{Rechenregeln}
+      \begin{enumerate}
+        \item Der Imaginärteil ist immer eine Reelle Zahl!
+        \item Re$(z)=\frac{1}{2}(z+\bar z)$ und Im$(z)=\frac{1}{2i}(z+\bar z)$
+        \item $\overline{z+w}=\bar z+\bar w,\overline{z\cdot w}=\bar z\cdot\bar w, \bar\bar z=z, 
+          \overline{\frac{1}{z}}=\frac{1}{\bar z}$
+      \end{enumerate}
+    \subsubsection{Betrag einer komplexen Zahl}
+      Der Betrag von $z$ ist definiert durch
+      $$\abs{z}:=\sqrt{z\cdot\con{z}}=\sqrt{\re(z)^2+\im(z)^2}$$
+      Es gilt:
+      \begin{enumerate}
+        \item $\abs{z}=\abs{\con{z}}$
+        \item $\abs{z\cdot w}=\abs{z}\cdot\abs{w}$
+        \item $\abs{z+w}\le\abs{z}+\abs{w}$ und $\abs{\abs{z}-\abs{z}}\le\abs{z-w}$
+      \end{enumerate}
+    \subsubsection{Konvergenz}
+      Eine Folge $(z_n)_{n\in\nat}\subseteq\comp$ heißt \textbf{konvergent}, falls ein $z\in\comp$ existiert mit
+      $$\abs{z_n-z}\ra0\text{ für }\nrai$$
+      In diesem Fall heißt $z$ der \textbf{Grenzwert} von $(z_n)_{n\in\nat}$. Ist die Folge nicht konvergent, so heißt sie
+      \textbf{divergent}. Es folgt \begin{enumerate}
+        \item $z_n\ra z\Longleftrightarrow\re(z_n)\ra\re(z)\text{ und }\im(z_n)\ra\im(z)$
+        \item $0\le\abs{\abs{z_n}-\abs{z}}\le\abs{z_n-z}\ra0$
+        \item $z_n+w_n\ra z+w$ und $z_nw_n\ra zw$
+      \end{enumerate}
+    \subsubsection{Unendliche Reihen}
+      Für eine Folge $(a_n)\subseteq\comp$ sei $s_n:=a_1+\dots+a_n,n\in\nat$. Die Folge $(s_n)$ heißt unendliche Reihe und
+      wird mit $\sum^\infty_{n=1}a_n$ bezeichnet.
+      \begin{enumerate}
+        \item $\sum^\infty_{n=1}a_n$ heißt \textbf{konvergent} bzw. \textbf{divergent}, falls $(s_n)$ konvergent bzw. 
+          divergent ist.
+        \item Im Konvergenzfall heißt $\sum^\infty_{n=1}a_n:=\lim_\nrai s_n$ der \textbf{Reihenwert}
+        \item Ist $\sum^\infty_{n=1}\abs{a_n}$ konvergent, so heißt $\sum^\infty_{n=1}a_n$ \textbf{absolut konvergent}
+      \end{enumerate}
+    \subsubsection{Potenzreihen}
+      Für eine \textbf{Potenzreihe} $\sum^\infty_{n=1}a_n(z-z_0=^n$ sei
+      $$\rho=\begin{cases}
+        \infty, & \text{falls }(\sqrt[n]{\abs{a_n}})\text{ unbeschänkt}\\
+        \limsup_\nrai\sqrt[n]{\abs{a_n}}, & \text{falls }(\sqrt[n]{\abs{a_n}})\text{ beschränkt}
+      \end{cases}$$
+  \subsection{Die komplexe Exponentialfunktion}
+    \subsubsection{Definitionen}
+      Auf $\comp$ definieren wir
+      $$\exp(z):=e^z:=\sum^\infty_{n=0}\frac{z^n}{n!}\textbf{ (komplexe Exponentialfunktion)}$$
+      $$\cos(z):=\sum^\infty_{n=0}(-1^n)\frac{z^{2n}}{(2n)!}\textbf{ (komplexer Cosinus)}$$
+      $$\sin(z):=\sum^\infty_{n=0}(-1^n)\frac{z^{2n+1}}{(2n+1)!}\textbf{ (komplexer Sinus)}$$
+    \subsubsection{Eigenschaften}
+      \begin{enumerate}
+        \item Für alle $z,w\in\comp$ und $n\in\ganz$ gelten $e^{z+w}=e^ze^w$ sowie $e^nz=(e^z)^n$
+        \item Fpr alle $z\in\comp$ gilt $\con{e^z}=e^{\con{z}}$
+        \item Für alle $z\in\comp$ gelten $e^{iz}=\cos(z)+i\sin(z)$ und $e^{-iz}=\cos(z)-i\sin(z)$
+        \item Für alle $z\in\comp$ gelten $\cos(z)=\frac{1}{2}(e^{iz}+e^{-iz})$ und $\sin(z)=\frac{1}{2i}(e^{iz}-e^{-iz})$
+        \item Es gilt $e^{i\pi}+1=0$
+        \item Die komplexe Exponetialfunktion ist periosisch mit Periode $2\pi i$, d.h. für alle $k\in\reell$ und alle 
+          $z\in\comp$ gilt $e^{z+2k\pi}=e^z$
+        \item $\sin(z+w)=\sin(z)\cos(w)+\sin(w)\cos(z)$
+        \item $\cos(z+w)=\cos(z)\cos(w)-\sin(z)\sin(w)$
+      \end{enumerate}
+    \subsubsection{Argument}
+      Das \textbf{Argument von} $z$ ist der Winkel $\varphi\in(-\pi,\pi]$, der duch die Gerad durch 0 un $z$ und der
+      positiven $x$-Achse eingeschlossen wird. Wir schreiben $\arg(z):=\varphi$. Es gilt:
+      $$\cos(\varphi)=\frac{x}{r}\text{ und }\sin(\varphi==\frac{y}{r}$$
+      also kann $z$ auch geschreiben werden durch
+      $$z=x+iy=r\cos(\varphi)+ir\sin(\varphi)=re^{i\varphi}=\abs{z}e^{i\arg(z}$$
+      Dies ist die Darstellung von $z$ in Polarkoordinaten.
+  \subsection{Wurzeln und Logarithmus in \texorpdfstring{$\comp$}{}}
+    \subsubsection{Fundamentalsatz der Algebra}
+      Es sei $p(z)=a_0+a_1z+\dots+a_nz^n$ ein Polynom mit $n\ge1,a_0,\dots,a_n\in\comp$ und $a_n\neq0$. Dann existieren
+      eindutig bestimmte Zahlen $z_1,\dots z_n\in\comp$ mit
+      $$p(z)=a_n(z-z_1)\cdot\dots\cdot(z-z_n)\hspace{1cm}(z\in\comp)$$
+      Insbesondere gilt:
+      $$p(z)=0\Longleftrightarrow z\in\{z_1,\dots,z_n\}$$
+    \subsubsection{Wurzeln}
+      Es sei $a\in\comp$ und $n\in\nat$. Jedes $z\in\comp$ mit $z^n=a$ heißt eine $n$\textbf{-te Wurzel aus} a. Man bezeichnet
+      solch eine Wurzel mit $\sqrt[n]{a}$.
+    \subsubsection{Einheitswurzeln}
+      Es seien $a\in\comp\setminus\{0\},n\in\nat,r:=\abs{a}$ und $\varphi:=\arg(a)$.\\
+      Ist $a=1$, so heißen die Zahlen $z_k(0\le k\le n-1$ die $n$\textbf{-ten Einheitswurzeln}. Diese sind also
+      $$z_k=e^{\frac{2k\pi i}{n}}\hspace{1cm}(k=0,\dots,n-1)$$
+    \subsubsection{Logarithmus}
+      Es sei $w\in\comp\setminus\{0\}$. Jedes $z\in\comp$ mit $e^z=w$ heißt \textbf{Logarithmus von} $w$
+  \subsection{Differential- und Integraldrechnung für komplexwertige Funktionen}
+    \subsubsection{DIfferenzierbarkeit}
+      $f$ heißt auf $I$ diffbar, falls $u$ und $v$ auf $I$ diffbar sind. In diesem Fall definieren wir
+      $$f'(x):=u'(x)+iv'(x)\hspace{1cm}(x\in I)$$
+      Es gilt:
+      $$\int^b_a\alpha f+\beta g\ dx=\alpha\int^b_af\ dx+\beta\int^b_yg\ dx$$
+      $$\abs*{\int^b_af(x)\ dx}\le\int^b_a\abs{f(x)}\ dx$$
+    \subsubsection{Stammfunktionen}
+      Es sei $I=[a,b]$ für $a<b$. Besitzen $u$ und $v$ auf $[a,b]$ die Stammfunktion $U$ bzw. $V$, definiern wir eine
+      Stammfunktion von $f$ durch $F:=U+iV.$
+\section{Fourierreihen}
+  \subsection{Fourierreihen im Reellen}
+    \subsubsection{Periodische Funktionnen}
+      Eine Funktion $f:\reell\ra\reell$ hießt $2\pi-$\textbf{periosisch}, falls $f(x+2\pi)=f(x)$ für alle $x\in\reell$ gilt.
+    \subsubsection{Trigonometrische Reihen}
+      Es seien $(a_n)_{n\in\nat}$ und $(b_n)_{n\in\nat}$ Folgen in $\reell$. Eine Reihe der Form
+      $$\frac{a_0}{2}+\sum^\infty_{n=1}(a_n\cos(nx)+b_n\sin(nx))$$
+      heißt eine \textbf{trigonometrische Reihe}.
+    \subsubsection{Orthogonalitätsrelationen}
+      Für alle $k,n\in\nat$ gilt:
+      $$\int^\pi_{-\pi}\sin(nx)\cos(nx)\ dx=0$$
+      und
+      $$\int^\pi_{-\pi}\sin(nx)\sin(kx)\ dx=\int^\pi_{-\pi}\cos(nx)\cos(kx)\ dx=\begin{cases}
+        \pi, & k=n\\
+        0, & k\neq n
+      \end{cases}$$
+    \subsubsection{Fourierkoeffizienten}
+      Sei $f:\reell\ra\reell$ $2\pi$-periodisch und erfülle $f\in R([-\pi,\pi)]$. Die Koeffizienten 
+      $$a_n=\frac{1}{\pi}\int^\pi_{-\pi}f(x)\cos(nx)\ dx\hspace{1cm}(n\in\nat)$$
+      und
+      $$b_n=\frac{1}{\pi}\int^\pi_{-\pi}f(x)\sin(nx)\ dx\hspace{1cm}(n\in\nat)$$
+      heißen die \textbf{Fourierkoeffizienten} von $f$ und die mit $(a_n)$ und $(b_n)$ gebildete trigonometrische Reihe
+      heißt die zu $f$ gehörende \textbf{Forierreihe}. Man schreibt
+      $$f(x)\sim\frac{a_0}{2}+\sum^\infty_{n=1}(a_n\cos(nx)+b_n(sin(nx))$$
+    \subsubsection{Positve und negative Grenzwerte}
+      Es sei $D\subseteq\reell,x_0$ ein Häfungspunkt von $D$ und $g:D\ra\reell$ eine Funktion. Wir definieren
+      $$g(x_0\pm):=\lim_{x\ra x_0\pm}g(x)$$
+      falls dieser Grenzwert in $\reell$ existiert.
+    \subsubsection{Stückweise Glätte}
+      Es se $a<b$. Eine Funktion $g:[a,b]\ra\reell$ heißt \textbf{auf} $[a.b]$ \textbf{stückweise glatt}, falls eine
+      Zerlegung $\{t_0,\dots,t_m\}$ von $[a,b]$ existiert (also $a=t_0<t_1<\dots<t_n=b$) mit
+      $$g\in C^1((t_{j-1},t_j))\hspace{1cm}(j=1,\dots,m)$$
+      und falls für alle $j=1,\dots.m-1$ die folgenden Grenzwerte existieren
+      $$g(t_j+),g(t_j-),g'(t_j+),g'(t_j-)\text{ sowie }g(a+),g'(a+),g'(b-),g(b-)$$
+      Ist $g$ stückweise glatt auf $[a,b]$, so gelten:\begin{enumerate}
+        \item $g$ muss in den Punkten $t_j$ nicht stetig sein
+        \item $g$ ist Riemann-integrierbar auf $[a,b]$
+      \end{enumerate}
+    \subsubsection{Satz über die Konvergenz von Fourierreihen}
+      Ist $f$ $2\pi$-periodisch und auf $[-\pi,\pi]$ stückweise glatt, so gilt für alle $x\in\reell$
+      $$\frac{a_0}{2}+\sum^\infty_{n=1}(a_n\cos(nx)+b_n\sin(nx))=\frac{f(x+)+f(x-)}{2}$$
+      Ist $f$ zusätzlich in $x$ stetig, so konvergiert die Fourierreihe von $f$ also gegen $f(x)$
+    \subsubsection{Vereinfachungen zum Rechnen}
+      \begin{enumerate}
+        \item Ist $f$ gerade, also $f(x)=f(-(x)$ für alle $x\in\reell$, so gilt für die Fourierkoeffizienten von $f$:
+          $$a_n=\frac{2}{\pi}\int^\pi_0f(x)\cos(nx)\ dx\hspace{0.5cm}\text{für alle }n\in\nat_0\hspace{0.5cm}\text{und}
+          \hspace{0.5cm} b_n=0\hspace{0.5cm}\text{für alle }n\in\nat$$
+        \item Ist $f$ ungerade, also $f(x)=-f(-x)$ für alle $x\in\reell$, so gilt für die Fourierkoeffizienten von $f$:
+          $$a_n=0\hspace{0.5cm}\text{für alle }n\in\nat_0\hspace{0.5cm}\text{und}
+          \hspace{0.5cm} b_n=\frac{2}{\pi}\int^\pi_0f(x)\sin(nx)\ dx \hspace{0.5cm}\text{für alle }n\in\nat$$
+      \end{enumerate}
+    \subsubsection{Eigenschaften  von Fourierreihen}
+      Es sei $f\in C(\reell)$, $2\pi$-periodisch und stückweise glatt. Dann gelten:
+      \begin{enumerate}
+        \item Die Fourierreihe von $f$ konvergiert in jedem $x\in\reell$ absolut
+        \item Die Fourierreihe von $f$ konvergiert auf $\reell$ gleichmäßig gegen $f$
+        \item Sind $a_n,b_n$ die Fourierkoeffizienten von $f$, so konvergieren die Reihen
+          $$\sum^\infty_{n=0}a_n\hspace{1cm}\text{und}\hspace{1cm}\sum^\infty_{n=1}b_n\hspace{1cm}\text{absolut}$$
+      \end{enumerate}
+      Sei $f:\reell\ra\reell$ $2\pi$-periodisch und erfülle $f\in R([-\pi,\pi])$ und $a_n$ sowie $b_n$ seien die
+      Fourierkoeffizienten.
+      \begin{enumerate}
+        \item Dann ist die Reihe $\sum^\infty_{n=1}(a^2_n+b^2_n)$ konvergent
+        \item Es gilt die \textbf{Parsevalsche Gleichung}
+          $$\frac{a^2_0}{2}+\sum^\infty_{n=1}(a^2_n+b^2_n)=\frac{1}{\pi}\int^\pi_{-\pi}f(x)^2\ dx$$
+        \item Es gilt das \textbf{Lemma von Riemann-Lebesgue}, d.h. $a_n\ra0$ und $b_n\ra0$ für $\nrai$
+      \end{enumerate}
+  \subsection{Fourierreihen im Komplexen}
+    \subsubsection{Komplexe Fourierkoeffizienten}
+      Es sei $f:\reell\ra\comp$ eine $2\pi$-periodische Funktion mit $f\in R([-\pi,\pi],\comp)$. Die \textbf{komplexen
+      Fourierkoeffizienten} sind definiert durch
+      $$c_n:=\frac{1}{2\pi}\int^\pi_{-\pi}f(x)e^{-inx}\ dx\hspace{1cm}(n\in\ganz)$$
+      und
+      $$f\sim\sum^infty_{n=-\infty}c_ne^{inx}:=\left(\sum^n_{k=-n}c_ke^{ikx}\right)_{n\in\nat_0}$$
+      heißt die zu $f$ gehörende \textbf{komplexe Fourierreihe}.
+\section{Die Fouriertransformation}
+  \subsection{Grundlegendes}
+    \subsubsection{Stückweise Glätte}
+      \begin{enumerate}
+        \item Eine Funktion $g:\reell\ra\reell$ heißt \textbf{auf} $\reell$ \textbf{stückweise glatt}, $g$ auf jedem
+          Intervall $[a,b]\subseteq\reell$ stückweise glatt ist
+        \item Eine Funktion $f:\reell\ra\comp$ heißt \textbf{auf} $\reell$ \textbf{stückweise glatt}, falls $\re(f)$ und 
+          $\im(f)$ auf $\reell$ stückweise glatt sind
+      \end{enumerate}
+      Seien $f,g:\reell\ra\comp$ stückweise glatt. Dann gelten:
+      \begin{enumerate}
+        \item $f$ ist absolut integrierbar $\Longleftrightarrow\int1\infty_{-\infty}\abs{f(x)}\ dx$ ist konvergent
+        \item Ist $f$ absolut integrierbar und $\abs{g}\le\abs{f}$ auf $\reell$, so ist $g$ absolut integrierbar
+      \end{enumerate}
+    \subsubsection{Die Fouriertransformierte}
+      Es sei $f:\reell\ra\comp$ stückweise glatt und absolut integrierbar. Die \textbf{Fouriertransformierte von} $f$ ist
+      die Funktion
+      $$\widehat f:\reell\ra\comp,\xi\mapsto\frac{1}{2\pi}\int^\infty_{-\infty}f(x)e^{-ix\xi}\dx$$
+      Oft schreibt man auch $\mathcal{F}f$ anstatt $\widehat f$. Die Zuordnung $f\mapsto\widehat f$ heißt 
+      \textbf{Fouriertransformation} und wid auch mit $\mathcal{F}$ gezeichnet.
+    \subsubsection{Eigenschaften}
+      Es seien $f,g:\reell\ra\comp$ stückweise glatt und absolut integrierrbar. Dann gelten:
+      \begin{enumerate}
+        \item Für $\alpha,\beta\in\comp$ ist $\alpha f+\beta g$ stückweise glatt und absolut integrierbar und
+          $$\mathcal{F}(\alpha f+\beta g)=\alpha\mathcal{F}f+\beta\mathcal{F}g$$
+        \item $\widehat f:\reell\ra\comp$ ist beschränkt
+        \item \textbf{(Satz von Riemann-Lebesgue)} $\widehat f$ ist stetig und erfüllt
+          $$\lim_{\xi\ra\pm\infty}\widehat f(\xi)=0$$
+        \item Für $h\in\reell$ definieren wir $f_h:\reell\ra\comp$ durch $f_h(x):=f(x+h)$. Dann ist $f_h$ stückweise glatt
+          und absolut integrierbar und
+          $$(\mathcal{F}f_h)(\xi)=e^{ih\xi}(\mathcal{F}f)(\xi)\hspace{1cm}(\xi\in\reell)$$
+        \item Für $\lambda>0$ defineren wir $f^\lambda:\reell\ra\comp$ durch $f^\lambda(x):=f(\lambda x)$. Dann ist 
+          $f^\lambda$ stückweise glatt und absolut integrierbar und
+          $$(\mathcal{F}f^\lambda)(\xi)=\frac{1}{\lambda}(\mathcal{F}f)(\frac{\xi}{\lambda})\hspace{1cm}(\xi\in\reell)$$
+      \end{enumerate}
+      Sei $f:\reell\ra\comp$ diffbar und absolut integrierbar. Weiter sei $f'$ stückweise glatt und absolut integrierbar. 
+      Dann gilt
+      $$(\mathcal{F}f')(\xi)=i\xi(\mathcal{F}f)(\xi)\hspace{1cm}(\xi\in\reell)$$
+    \subsubsection{Cauchysche Hauptwerte}
+      Es sei $f_\reell\ra\comp$ eine Funktion mit $f\in\reell([a,b];\comp)$ für alle $a<b$. Existiert der Grenzwert
+      $$\lim_{\alpha\rai}\int^a_{-a}f(x)\dx$$
+      so heißt die Zahl \textbf{Cauchyscher Hauptwert} und man schreibt
+      $$CH-\int^\infty_{-\infty}f(x)\dx:=\lim_{a\rai}\int^a_{-a}f(x)\dx$$
+      Ist $\int^\infty_{-\infty}f(x)\dx$ konvergent, so existiert $CH-\int^\infty_{-\infty}f(x)\dx$ und
+      $$\int^\infty_{-\infty}f(x)\dx=CH-\int^\infty_{-\infty}f(x)\dx$$
+    \subsubsection{Fourierinversion}
+      Es sei $f:\reell\ra\comp$ stückweise glatt und absolut integrierbar. Dann gilt für alle $x\in\reell$
+      $$CH-\int^\infty_{-\infty}\widehat f(\xi)e^{ix\xi}\ d\xi=\frac{1}{2}(f(x+)+f(x-))$$
+    \subsubsection{Bandbeschränktheit}
+      Es sei $f:\reell\ra\comp$ stetig, stückweise glatt und absolut integrierbar. Wenn die Fouriertransformierte 
+      $\widehat f:\reell\ra\comp$ außerhalb eines beschränkten Intervalls 0 ist, so heißt $f$ \textbf{bandbeschränkt}.
+      In diesem Fall ist es möglich $f$ aus den Werten auf einem hinreichend feinen Raster $\{kT\mid k\in\ganz\},T>0$ zu
+      reproduzieren.
+    \subsubsection{Abtasttheorem von Shannon}
+      Es sei $f:\reell\ra\comp$ stetig, stückweise glatt und absolut integrierbar, und es existiere ein $b>0$ mit
+      $$\widehat f(\xi)=0\hspace{0.5cm}\text{für alle}\hspace{0.5cm}\xi\in\reell\setminus(-b,b)$$
+      Dann gilt für jedes $T<\frac{\pi}{b}$
+      $$f(x)=\sum^\infty_{k=-\infty}f(kT)\text{si}(\frac{\pi}{T}(x-kT))\hspace{1cm}(x\in\reell)$$
+      wobei si den \textbf{Sinus cardinalis} bezeichnet, welcher gegeben ist durch
+      $$\text{si}(x):=\begin{cases}
+        \frac{\sin(x)}{x}, & x\neq0\\
+        1, & x=0
+      \end{cases}$$
+\section{Der Raum \texorpdfstring{$\reell^n$}{}}
+  \subsection{Grundlegendes}
+    \subsubsection{Skalarprodukt, Norm, Abstand}
+      Für $x=(x_1,\dots,x_n)^T,y=(y_1,\dots,y_n)^T\in\reell^n$ heißen
+      \begin{enumerate}
+        \item $x\cdot y:=x_1y_1+\dots+x_ny_n$ das \textbf{Skalarprodukt} oder \textbf{Innenprodukt} von $x$ und $y$.
+        \item $\norm{x}:=\sqrt{x\cdot x}=(x^2_1+\cdot+x_n^2)^\frac{1}{2}$ die \textbf{Norm} oder \textbf{Länge} von $x$
+        \item $\norm{x-y}$ der \textbf{Abstand} von $x$ zu $y$
+      \end{enumerate}
+    \subsubsection{Rechenregeln}
+      \begin{enumerate}
+        \item $(x+y)\cdot z=x\cdot z+y\cdot z$ und $x\cdot y=y\cdot x$
+        \item $(\alpha x)\cdot y=\alpha(x\cdot y)=x\cdot(\alpha y)$
+        \item $\norm{x}\ge0$ sowie $\norm{x}=0\Longleftrightarrow x=0=(0,\dots,0=^T$
+        \item $\norm{\alpha x}=\abs{\alpha}\norm{x}$
+        \item $\abs{x\cdot y}\le\norm{x}\norm{y}$\ \textbf{(Ungleichung von Cauchy-Schwarz)}
+        \item $\norm{x+y}\le\norm{x}+\norm{y}$\ \textbf{(Dreiecksungleichung)}
+        \item $\abs{\norm{x}-\norm{y}}\le\norm{x-y}$\ \textbf{(Umgekehrte Dreiecksungleichung)}
+        \item Für alle $j=1,\dots,n$ ist $\abs{x_k}\le\norm{x}\le\sum^n_{k=1}\abs{x_k}$
+      \end{enumerate}
+    \subsubsection{Für Matrizen}
+      Seien $l,m,n\in\nat$ und
+      $$A:=\begin{pmatrix}
+        a_{11} & \cdots & a_{1n}\\
+        \vdots & \ddots & \vdots\\
+        a_{m1} & \cdots & a_{mn}
+      \end{pmatrix}$$
+      eine reelle $m\times n$-Matrix, d-h. $A\in\reell^{m\times n}$. Die \textbf{Norm von} $A$ ist definiert durch
+      $$\norm{A}=\left(\sum^m_{j=1}\sum^n_{k=1}a_{jk}^2\right)^\frac{1}{2}$$
+      Ist $B$ eine reelle $n\times l$-Matrix, so gilt 
+      $$\norm{AB}<\norm{A}\norm{B}$$
+      Für $x=(x_1,\dots,x_n)^T\in\reell^n$ ist das \textbf{Matrix-Vektorproudkt} gegeben durch
+      $$Ax=\begin{pmatrix}
+        a_{11} & \cdots & a_{1n}\\
+        \vdots & \ddots & \vdots\\
+        a_{m1} & \cdots & a_{mn}
+      \end{pmatrix}\begin{pmatrix}
+        x_1\\ \vdots\\ x_n
+      \end{pmatrix}=\begin{pmatrix}
+      \sum^n_{k=1}a_{1k}x_k\\
+      \vdots\\
+      \sum^n_{k=1}a_{mk}x_k
+      \end{pmatrix}$$
+    \subsubsection{Offene Kugeln}
+      Es sei $x_0\in\reell^n$ und $\epsilon>0$.
+      \begin{enumerate}
+        \item $U_\epsilon(x_0):=\{x\in\reell^n\mid\norm{x-x_0}<\epsilon\}$ heißt \textbf{offene Kugel um} $x_0$ 
+        \textbf{mit Radius} $\epsilon$, oder auch $\epsilon$\textbf{-Umgebung von} $x_0$
+      \item $\con{U_\epsilon(x_0}:=\{x\in\reell^n\mid\norm{x-x_o}\le\epsilon\}$ heißt \textbf{abgeschlossene Kugel um}
+        $x_0$ \textbf{mit Radius} $\epsilon$
+      \end{enumerate}
+    \subsubsection{Beschränkt, offen, abgeschlossen, kompakt}
+      Es sei $A\subseteq\reell^n$.
+      \begin{enumerate}
+        \item $A$ heißt \textbf{beschränkt}, falls ein $c\ge0$ exisitert, derart, dass $\norm{a}\le c$ für alle $a\in A$ 
+          gilt.
+        \item $A$ heißt \textbf{offen}, falls für alle $a\in A$ ein $\delta>0$ existiert, derart, dass 
+          $U_\delta(a)\subseteq A$
+        \item $A$ heißt \textbf{abgeschlossen}, falls $\reell^n\setminus A$ offen ist.
+        \item $A$ heißt \textbf{kompakt}, falls $A$ beschränkt und abgeschlossen ist.
+      \end{enumerate}
+\section{Konvergenz im \texorpdfstring{$\reell^n$}{}}
+  \subsection{Grundlegendes}
+    \subsubsection{Allgemeine Definitionen}
+      Sei $(A^{(k)})$ eine Folge im $\reell^n$, d.h. $(a^{(k)})=(a^{(1)},a^{(2)},\dots)$ wobei für jedes $k\in\nat$ das
+      Folgenglied $a^{(k)}$ ein Vektor im $\reell^n$ ist, d.h. $a^{(k)}=(a_1^{(k)},\dots,a_n^{(k)})\in\reell^n$.
+      \begin{enumerate}
+        \item $(a^{(k)}$ heißt \textbf{beschränkt}, falls ein $c\ge0$ existiert, derart, dass $\norm{a^{(k)}}\le c$ für
+          alle $k\in\nat$ gilt.
+        \item Der Begriff \textbf{Teilfolge} (TF) wird wie in HMI definiert
+        \item $x_0\in\reell^n$ heißt ein \textbf{Häufungswert} (HW) von $(a^{(k)})$, falls für alle $\epsilon>0$ gilt
+          $$a^{(k)}\in U_\epsilon(x_0)\text{ für unendlich viele }k\in\nat$$
+        \item $(a^{(k)})$ heißt \textbf{konvergent}, falls ein $a\in\reell^n$ existiert mit
+          $$\norm{a^{(k)}-a}\ra0\hspace{0.3cm}\text{für}\hspace{0.3cm}k\rai$$
+          In diesem Fall heißt $a$ der \textbf{Grenzwert} bzw. \textbf{Limes} von $(a^{(k)})$ und man schreibt
+          $$a=\lim_\krai a^{(k)}\hspace{0.5cm}\text{oder}\hspace{0.5cm}a^{(k)}\ra a (\krai)\hspace{0.5cm}\text{oder}
+          \hspace{0.5cm}a^{(k)}\ra a$$
+        \item Ist $(a^{(k)})$ nicht konvergent, so heißt $(a^{(k)})$ \textbf{divergent}
+      \end{enumerate}
+    \subsubsection{Eigenschaften} 
+      \begin{enumerate}
+        \item Ist $(a^{(k)})\subseteq\reell^n$ eine Folge, so gilt
+          $$a^{(k)}\ra a\text{ für }\krai\ \Longleftrightarrow\ \forall j\in\{1,\dots,n\}:a_j^{(k)}\ra a_j\text{für}\krai$$
+        \item Ist $(a^{(k)}$ konvergent, so ist $(a^{(k)}$ beschränkt und jede Teilfolge von $(a^{(k)}$ konvergiert gegen
+          $\lim_\krai a^{(k)}$
+        \item Ist $(b^{(k)})\subseteq\reell^n$ eine wieter Folge, $a,b\in\reell^n,(\beta_k)\subseteq\reell,\beta\in\reell$
+          und gilt $a^{(k)}\ra a,b^{(k)}\ra b$ und $\beta_k\ra\beta$ so gelten
+          \begin{enumerate}[label=\roman*)]
+            \item $a^{(k)}+b^{(k)}\ra a+b$
+            \item $\beta_ka^{(k)}\ra\beta a$
+            \item $a^{(k)}\cdot b^{(k)}\ra a\cdot b$
+            \item $\norm{a^{(k)}}\ra\norm{a}$
+          \end{enumerate}
+        \item \textbf{(Cauchykriterium)} Folgende Aussagen sind Äquivalent:
+          \begin{enumerate}[label=\roman*)]
+            \item $(a^{(k)})$ ist konvergent
+            \item für alle $\epsilon>0$ existiert ein $k_0\in\nat$ derart, dass für alle $k,l\ge k_0$ gilt
+              $$\norm{a^{(k)}-a^{(l)}}<\epsilon$$
+          \end{enumerate}
+        \item \textbf{(Bolzano-Weierstraß)} Ist $(a^{(k)})$ beschränkt, so enthält $(a^{(k)})$ eine konvergente Teilfolg
+      \end{enumerate}
+    \subsubsection{Häufungpunkte}
+      Es sei $A\subseteq\reell^n$. Ein Vektor $x_0\in\reell^n$ heißt ein \textbf{Häufungspunkt} (HP) von $A$, falls eine
+      Folge $(a^{(k)}\subseteq A\setminus\{x_o\}$ existiert mit $a^{(k)}\ra x_0$ für $\krai$. Es gilt
+      \begin{enumerate}
+        \item Die Folgenden Aussagen sind äquivalent:
+          \begin{enumerate}[label=\roman*)]
+            \item $A$ ist abgeschlossen
+            \item Für jede konvergent Folge $(a^{(k)})$ in $A$ gilt $\lim_\krai a^{(k)}\in A$
+            \item Jeder Häufungspunkt von $A$ gehört zu $A$
+          \end{enumerate}
+        \item $A$ ist kompakt $\Longleftrightarrow$ Jede Folge in $A$ enthält eine konvergent Teilfoge deren Grenzwert zu 
+          $A$ gehört.
+      \end{enumerate}
+\section{Grenzwerte bei Funktionen, Stetigkeit}
+  \subsection{Grundlegendes}
+    \subsubsection{Limes}
+      Es seien $x_0\in\reell^n$ ein Häufungspunkt von $D$ und $y_0\in\reell^n$. Wir schreiben
+      $$\lim_{\xrax}f(x)=y_0$$
+      falls für jede Folge $(x^{(k)})\subseteq D\setminus\{x_0\}$ mit $x^{(k)}\ra x_0$ für $\krai$ gilt
+      $$f(x^{(k)})\ra y_0\ \text{ für }\ \krai$$
+      In diesem Fall schreiben wir auch $f(x)\ra y_0$ für $\xrax$
+    \subsubsection{Eigenschaften des Limes}
+      Es sei $x_0$ ein HP von $D\subseteq\reell^n$ und $f,g:D\ra\reell^n$ und $h:D\ra\reell$ seien Funktionen. Ferner
+      seien $y_0,z_0\in\reell^n$ und $\alpha\in\reell$
+      \begin{enumerate}
+        \item Ist $f=(f_1,\dots,f_m)$ und $y_0=(y_1,\dots,y_m)$, so gilt
+          $$f(x)\ra y_0\ (\xrax)\ \Longleftrightarrow\ \forall j\in\{1,\dots,n\}:f_j/x)\ra y_j\ (\xrax)$$
+        \item Es gilt
+          $$\lim_\xrax f(x)=y_0\Longleftrightarrow\forall\epsilon>0\ \exists\delta>0\ \forall x\in D\setminus\{x_0\}:
+          \norm{x-x_0}<\delta\Rightarrow\norm{f(x)-y_0}<\epsilon$$
+        \item Es gelte $f(x)\ra y_0,g(x)\ra z_0$ und $h(x)\ra\alpha$ für $\xrax$. Dann gilt
+          \begin{enumerate}[label=\roman*)]
+            \item $f(x)\pm g(x)\ra y_0\pm z_0\ (\xrax)$ und\\
+              $f(x)\cdot g(x)\ra y_0\cdot z_0\ (\xrax)$
+            \item $h(x)f(x)\ra\alpha y_0\ (\xrax)$
+            \item $\norm{f(x)}\ra\norm{y_0}\ (\xrax)$
+            \item Ist $\alpha\neq0$ und $h(x)\neq0$ für jedes $x\in D$, so gilt
+              $$\frac{1}{h(x)}\ra\frac{1}{\alpha}\ \text{ für }\ \xrax$$
+          \end{enumerate}
+      \end{enumerate}
+    \subsubsection{Stetigkeit}
+      \begin{enumerate}
+        \item $f$ heißt in $x_0\in D$ \textbf{stetig}, falls für jede Folge $(x^{(k)})$ in $D$ mit $x^{(k)}\ra x_0$ gilt
+          $$f(x^{(k)})\ra f(x_0)$$
+        \item $f$ heißt \textbf{stetig auf} $D$, falls $f$ in jedem $x\in D$ stetig ist. In diesem Fall schreiben wir
+          $f\in C(D;\reell^m)$
+      \end{enumerate}
+    \subsubsection{Eigenschaften der Stetigkeit}
+      \begin{enumerate}
+        \item Es sei $f:D\ra\reell^m$ in $x_0\in D$ stetig, $E\subseteq\reell^m,f(D)\subseteq E$ und es sei $g:E\ra\reell^p$
+          stetig in $f(x_0)$. Dann ist
+          $$g\circ f:D\ra\reell^p$$
+          stetig in $x_0$
+        \item Es sei $D$ kompakt und $f\in D(D;\reell^m)$. Dann gelten
+          \begin{enumerate}[label=\roman*)]
+            \item $f(D)$ ist kompakt, insbesonder ist $f$ beschränkt
+            \item Ist $m=1$, so existieren $x_1,x_2\in D$ mit
+              $$f(x_1)\le f(x)\le f(x_2)\hspace{1cm}(x\in D)$$
+          \end{enumerate}
+        \item Jede lineare Funktion $f:\reell^n\ra\reell^m$ ist stetig auf $\reell^n$
+      \end{enumerate}
+      \section{Differentialrechnung im \texorpdfstring{$\reell^n$}{}\footnotesize{(reellwertige Funktionen)}}
+  \subsection{Diffenzierbarkeit und partielle Differenzierbarkeit}
+    \subsubsection{Partielle Differenzierbarkeit und  Ableitung}
+      Es sei $x_0=(\xi_1,\dots,\xi_n)\in D$ und $i\in\{1,\dots,n\}$. Weiter bezeichne
+      $$e_i=(0,\dots,0,1,0,\dots,0=$$
+      den $i$-ten Einheitswektor. Dann gilt
+      $$x_0+te_i=(\xi,\dots,\xi_{i-1},\xi_i+t,\xi_{i+1},\dots,\xi_n)$$
+      $f$ heißt \textbf{in} $x_0$ \textbf{nach} $x_i$ \textbf{partiell diffbar}, falls der Grenzwert
+      $$f_{x_i}(x_0):=\partial_{x_i}f(x_0):=\frac{\partial f}{\partial x_i}(x_0):=\lim\frac{f(x_0+te_i)-f(x_0}{t}\in\reell$$
+      existert. In diesem Fall heißt $\partial_{x_i}f(x_0)$ die \textbf{partielle Ableitung von $f$ nach $x_i$ in $x_0$}
+    \subsubsection{Gradient}
+      \begin{enumerate}
+        \item $f$ heißt \textbf{in $x_0\in D$ partiell differenzievar}, falls $f$ in $x_0$ nach allen Variablen 
+          $x_1,\dots,x_n$ partiell diffbar ist. In diesem Fall heißt der Vektor
+          $$\text{grad }f(x_0):=\nabla f(x_0):=\begin{pmatrix}
+            \partial_{x_1}f(x_0)\\
+            \vdots\\
+            \partial_{x_n}f(x_0)
+          \end{pmatrix}$$
+          der \textbf{Gradient von $f$ in $x_0$}
+        \item $f$ heißt \textbf{auf $D$ partiell diffbar}, falls $f$ in jedem $x\in D$ partiell diffbar ist.
+        \item Für $i=1,\dots,n$ sagen wir, dass $\partial_{x_i}f$ \textbf{auf $D$ existiert}, falls $f$ in jedem $x\in D$ 
+          nach $x_i$ partiell diffbar ist. In diesem Fall heißt die Funktion
+          $$\partial_{x_i}f:D\ra\reell$$
+          die \textbf{partielle Ableitung von $f$ nach $x_i$}
+        \item $f$ heißt \textbf{auf $D$ stetig partiell diffbar}, falls $f$ aur $D$ partiell diffbar ist und 
+          $\partial_{x_1}f,\dots,\partial_{x_n}f\in C(D;\reell)$
+      \end{enumerate}
+    \subsubsection{Ableitung 2. Ordnung}
+      Für $i=1,\dots,n$ existiere die partielle Ableitung $\partial_{x_i}f:D\ra\reell$ von $f$ nach $x_i$ auf $D$. Es sei 
+      $x_0\in D$ und $j=1,\dots,n$. Ist $\partial_{x_i}f$ in $x_0$ nach $x_j$ partiell diffbar, so heißt
+      $$f_{x_ix_j}(x_0):=\partial_{x_j}\partial_{x_i}f(x_0):=\frac{\partial^2f}{\partial_{x_j}\partial_{x_i}}(x_0):=
+      \partial_{x_j}(\partial_{x_i}f)(x_0)$$
+      die \textbf{partielle Ableitung 2. Ordnung von $f$ nach $x_i$ und $x_j$ in $x_0$}. Entsprechend definert man, falls 
+      vorhanden, Ableitung höherer Ordung. Schreibweisen:
+      $$\frac{\partial^3f}{\partial y\partial x^2}=f_{xxy},\hspace{0.5cm}\frac{\partial^7f}{\partial y^3\partial x^4}=
+      f_{xxxxyy},\hspace{0.5cm}\frac{\partial^5f}{\partial z^2\partial y\partial x^2}=f_{xxyzz}$$
+    \subsubsection{\texorpdfstring{$m$}{}-malige stetig partielle diffbarkeit}
+      Es sei $m\in\nat$. $f$ heißt \textbf{auf $D$ $m$-mal stetig partiell diffbar}, falls alle partiellen Ableitungen von
+      $f$ der Ordnung kleiner gleich $m$ auf $D$ existieren und dort stetig sind. In diesem Fall schreiben wir 
+      $f\in C^m(D;\reell)$
+    \subsubsection{Satz von Schwarz}
+      Es sei $m\in\nat$ mit $m\ge2$ und $f\in C^m(D;\reell)$. Dann ist jede partielle Ableitung von $f$ der Ordnung kleiner
+      gleich $m$ unabhängig von der Reihenfolge der Differentation.
+    \subsubsection{Differenzierbarkeit}
+      \begin{enumerate}
+        \item $f$ heißt \textbf{in $x_0\in D$ diffbar}, falls 
+          $$\begin{aligned}
+              & \exists a\in\reell^{1\times n}:\lim_{h\ra0}\frac{f(x_0+h)-f(x_0)-ah}{\norm{h}}=0\\
+            \Longleftrightarrow\hspace{0.5cm} & \exists a\in\reell^{1\times n}:\lim_\xrax\frac{f(x)-f(x_0)-a(x-x_0)}
+            {\norm{x-x_0}}=0
+          \end{aligned}$$
+        \item $f$ heißt \textbf{auf $D$ diffbar}, falls $f$ in jedem $x\in D$ diffbar ist.
+      \end{enumerate}
+    \subsubsection{Ableitung}
+      Es sei $x_0\in D$
+      \begin{enumerate}
+        \item Ist $f$ in $x_0$ diffbar, so ist $f$ in $x_0$ stetig, und $f$ ist in $x_0$ partiell diffbar
+        \item Ist $f$ in $x_0$ diffbar, so ist die Matrix $a$ obiger Definition eindeutig bestimmt und es gilt 
+          $a=\nabla f(x_0)^T$. In diesem Fall heißt
+          $$f'(x_0):=a=\nabla f(x_0)^T$$
+          die \textbf{Ableitung von $f$ in $x_0$}
+        \item $f$ ist in $x_0$ diffbar $\Longleftrightarrow$ $f$ ist in $x_0$ partiell diffbar und
+          $$\lim_{h\ra0}\frac{f(x_0+h)-f(x_0)-\nabla f(x_0)\cdot h}{\norm{h}}=0$$
+          wobei, wie schon zuvor "$\cdot$" das Skalarprodukt bezeichnet
+        \item Es sei $f$ auf $D$ partiell diffbar und $\partial_{x_1}j,\dots,\partial_{x_n}f$ seien in $x_0\in D$ stetig.
+          Dann ist $f$ in $x_0$ diffbar. Insbesondere gilt: Ist $f\in C^1(D;\reell)$, so ist $f$ auf $D$ diffbar.
+      \end{enumerate}
+  \subsection{Der Mittelwertsatz}
+    \subsubsection{Differenzierbarkeit}
+      Es sei $I\subseteq\reell$ ein Intervall und $g=(g_1,\dots,g_n):)\ra\reell^n$ eine Funktion. Dann heißt $g$
+      \textbf{in $t_o\in I$ diffbar}, falls $g_1,\dots,g_n$ in $t_0\in I$ diffbar sind. In diesem Fall setzen wir
+      $$g'(t_o):=\begin{pmatrix}
+        g'_1(t_0)\\
+        \vdots\\
+        g'_n(t_0)
+      \end{pmatrix}$$
+      Eintsprechend definiert man "auf $I$ diffbar" und "auf $I$ stetig diffbar".
+    \subsubsection{Kettenregel}
+      Sind $I\subseteq\reell$ ein Intervall, $g=(g_1,\dots,g_n):I\ra\reell^n$ in $t_0\in I$ diffbar, $g(I)\subseteq D$ und
+      $f$ in $x_0:=g(t_0)$ diffbar, so ist
+      $$f\circ g:I\ra\reell\text{ in $t_0$ diffbar}$$
+      und $(f\circ g)'(t_0)=f'(g(t_0))g'(t_0)$
+    \subsubsection{Der Mittelwertsatz}
+      Seien $f:D\ra\reell$ auf $D$ diffbar und $a,b\in D$ derart, dass $S[a,b]\subseteq D$. Dann existiert ein 
+      $\xi\in S[a,b]$ mit
+      $$f(b)-f(a)=f'(\xi)(b-a)$$
+    \subsubsection{Streckenzug}
+      \begin{enumerate}
+        \item Für $x^{(0)},\dots,x^{(m)}\in\reell^n$ heißt die Menge
+          $$S\left[x^{(0)},\dots,x^{(m)}\right]:=\bigcup^m_{j=1}S\left[x^{(j-1)},x^{(j)}\right]$$
+          \textbf{Streckenzug} durch $x^{(0)},\dots,x^{(m)}$
+        \item Eine Menge $M\subseteq\reell^n$ heißt ein \textbf{Gebiet}, falls $M$ offen ist und falls zu je zwei Punkten
+          $a,b\in M$ ein Streckenzug in $M$ existiert, der $a$ und $b$ verbindet, d.h. es existieren Punkte $x^{(0)},\dots,
+          x^{(m)}\in M$ mit
+          $$a=x^{(0)},b=x^{(m)}\text{ und }S\left[x^{(0)},\dots,x^{(m)}\right]\subseteq M$$
+        \item Ist $D$ ein Gebiet, $f:D\ra\reell$ diffbar auf §D§ und gilt $f'(x)=0,x\in D$, so ist $f$ auf $D$ konstant.
+      \end{enumerate}
+  \subsection{Richtungsableitungen und Extrema}
+    \subsubsection{Richtungsvektoren}
+      \begin{enumerate}
+        \item Ein Vektor $a\in\reell^n$ mit $\norm{a}=1$ heißt \textbf{Richtung} oder \textbf{Richtungsvektor}
+        \item Seien $x_0\in D$ und $a\in\reell^n$ eine Ricbtung. Die Funktion $f$ heißt \textbf{in $x_0$ in Richtung $a$
+          diffbar}, falls der Grenzwert
+          $$\frac{\partial f}{\partial a}(x_0):=\lim_{t\ra0}\frac{f(x_0+ta)-f(x_0)}{t}\in\reell$$
+          existiert. In deisem Fall heißt $\frac{\partial f}{\partial a}(x_0)$ die \textbf{Richtungsableitung von $f$ in 
+          $x_0$ in Richtung $a$}
+      \end{enumerate}
+      Ist $f$ in $x_0\in D$ diffbar und $a\in\reell^n$ eine Richtung, so existiert $\frac{\partial f}{\partial a}(x_0)$ und
+      $$\frac{\partial f}{\partial a}(x_0)=a\cdot\nabla f(x_0)$$
+    \subsubsection{Hesse-Matrix}
+      Für $f\in C^2(D;\reell)$ und $x_0\in D$ heißt
+      $$H_f(x_0):=\begin{pmatrix}
+        \partial_{x_1}\partial_{x_1}f(x_0) & \partial_{x_1}\partial_{x_2}f(x_0) & \cdots & 
+        \partial_{x_1}\partial_{x_n}f(x_0)\\
+        \vdots & \vdots & \ddots & \vdots\\
+        \partial_{x_n}\partial_{x_1}f(x_0) & \partial_{x_n}\partial_{x_2}f(x_0) & \cdots & 
+        \partial_{x_n}\partial_{x_n}f(x_0)\\
+      \end{pmatrix}$$
+      die \textbf{Hesse-Matrix von $f$ in $x_0$}. Diese Matrix ist symmetrisch.
+    \subsubsection{Definitheit}
+      Eine reelle und symmetrische $n\times n$-Matrix $A$ heißt
+      \begin{enumerate}
+        \item \textbf{positiv definit}, falls für alle $x\in\reell^n\setminus\{0\}$ gilt: $(Ax)\cdot x>0$
+        \item \textbf{negativ definit}, falls für alle $x\in\reell^n\setminus\{0\}$ gilt: $(Ax)\cdot x<0$
+        \item \textbf{indefinit}, falls $u,v\in\reell^n$ existieren mut $(Au)\cdot u>0$ und $(Av)\cdot v<0$
+      \end{enumerate}
+      Eine gegebene Matrix muss allerdings keinem der obigen Begriffe genügen.
+    \subsubsection{Eigenschaften}
+      Für $A\in\reell^{n\times b}$ symmetrisch gilt:
+      \begin{enumerate}
+        \item \begin{enumerate}[label=\roman*)]
+            \item $A$ ist positiv definit $\Longleftrightarrow$ alle Eigenwerte von $A$ sind positv   
+            \item $A$ ist negativ definit $\Longleftrightarrow$ alle Eigenwerte von $A$ sind negativ
+            \item $A$ ist indefinit $\Longleftrightarrow$ es gibt Eigenwerte $\lambda,\mu$ von $A$ mit $\lambda>0$ und 
+              $\mu<0$
+          \end{enumerate}
+        \item Sei $n=2$ und $A=\begin{pmatrix}
+            \alpha & \beta\\
+            \beta & \gamma
+          \end{pmatrix}$
+          \begin{enumerate}[label=\roman*)]
+            \item $A$ ist positiv definit $\Longleftrightarrow$ $\alpha>0$, $\det A>0$
+            \item $A$ ist negativ definit $\Longleftrightarrow$ $\alpha<0$, $\det A>0$
+            \item $A$ ist indefinit $\Longleftrightarrow$ $\det A<0$
+          \end{enumerate}
+      \end{enumerate}
+    \subsubsection{Minimum/ Maximum}
+      Es sei $M\subseteq\reell^n$ und $g:M\ra\reell$ eine Funktion, $g$ hat in $x_0\in M$ ein
+      \begin{enumerate}
+        \item \textbf{lokales Maximum}, falls ein $\delta>0$ derart existiert, dass für alle $x\in U_\delta(x_0)\cap M$ gilt
+            $g(x)\le g(x_0)$
+        \item \textbf{lokales Minimum}, falls ein $\delta>0$ derart existiert, dass für alle $x\in U_\delta(x_0)\cap M$ gilt
+            $g(x)\ge g(x_0)$     
+        \item \textbf{globales Maximum}, falls für alle $x\in M$ gilt $g(x)\le g(x_0)$
+        \item \textbf{globales Minimum}, falls für alle $x\in M$ gilt $g(x)\ge g(x_0)$
+      \end{enumerate}
+    \subsubsection{Eigenschaften}
+      \begin{enumerate}
+        \item Ist $f$ in $x_0\in D$ partiell diffbar und hat $f$ in $x_0$ ein lokales Extremum, so ist $\nabla f(x_0)=0$
+        \item Ist $f\in C^2(D;\reell),x_0\in D$ und $\nabla f(x_0)=0$ so gilt:
+          \begin{enumerate}[label=\roman*)]
+            \item Ist $H_f(x_0)$ positv definit, so hat $f$ in $x_0$ ein lokales Minimum
+            \item Ist $H_f(x_0)$ negativ definit, so hat $f$ in $x_0$ ein lokales Maximum
+            \item Ist $H_f(x_0)$ indefinit, so hat $f$ in $x_0$ kein lokales Extremum 
+          \end{enumerate}
+      \end{enumerate}
+\section{Differentaialrechnung im \texorpdfstring{$\reell^n$}{}\footnotesize{(vektorwertige Funktionen)}}
+  \subsection{Grundlegende Eigenschaften}
+    \subsubsection{Jacobi-Matrix}
+      \begin{enumerate}
+        \item Es sei $x_0\in D$. $f$ heißt \textbf{in $x_0$ partiell diffbar}, falls $f_j$ für alle $j=1,\dots,m$ in $x_0$
+          partiell diffbar ist. In diesem Fall heißt
+          $$\frac{\partial f}{\partial x}(x_0):=\frac{\partial(f_1,\dots,f_m)}{\partial(x_1,\dots,x_n)}(x_0)
+          :=J_f(x_0):=\begin{pmatrix}
+            \frac{\partial f_1}{\partial x_1}(x_0) & \cdots & \frac{\partial f_1}{\partial x_n}(x_0)\\
+            \vdots & \ddots & \vdots\\
+            \frac{\partial f_m}{\partial x_1}(x_0) & \cdots & \frac{\partial f_m}{\partial x_n}(x_0)\\
+          \end{pmatrix}$$
+          die \textbf{Jacobi-} oder \textbf{Funktionalmatrix von $f$ in $x_0$}.\\
+          Beachte: In der Jacobi-Matrix stehen zeilenweise die Gradienten der Koordinatenfunktionen.
+        \item Es sei $p\in\nat$. Wir schreiben $f\in C^p(D;\reell^m)$, falls $f_j\in C^p(D;\reell)$ für alle $j=1,\dots,m$
+          gilt.
+      \end{enumerate}
+    \subsubsection{Differenzierbarkeit}
+      $f$ heißt \textbf{in $x_0\in d$ diffbar}, falls $A\in\reell^{m\times n}$ existiert mit 
+      $$\lim_{h\ra0}\frac{f(x_0+h-f(x_0)-Ah}{\norm{h}}=0$$
+    \subsubsection{Ableitungen}
+      Es sei $x_0\in D$
+      \begin{enumerate}
+        \item $f$ ist in $x_0$ diffbar $\Longleftrightarrow$ Alle $f_j$ sind in $x_0$ diffbar. In diesem Fall gilt:
+          \begin{enumerate}[label=\roman*)]
+              \item $f$ ist in $x_0$ stetig
+              \item $f$ ist in $x_0$ partiell diffbar
+              \item die matrix $A$ in obiger Definition ist eindeutig bestimmt und gegben durch $A=J_f(x_0)$
+          \end{enumerate}
+        \item Ist $f$ in $x_0$ diffbar, so heißt $f'(x_0):=J_f(x_0)$ die \textbf{Ableitung von $f$ in $x_0$}.
+        \item Existieren alle partiellen Ableitungen $\frac{\partial f_j}{\partial x_k}$ auf $D$ und sind in $x_0$ stetig,
+          so ist $f$ in $x_0$ diffbar. Insbesondere gilt, ist $f\in C^1(D;\reell)$, so ist $f$ auf $D$ diffbar.
+      \end{enumerate}
+    \subsubsection{Kettenregel}
+      Es sei $f:D\ra\reell^m$ in $x_0\in D$ diffbar, es sei $E\subseteq\reell^m$ offen, $f(D)\subseteq E$ und 
+      $g:E\ra\reell^l$ sei diffbar in $y_0:=f(x_0)$. Dann ist
+      $$g\circ f:D\ra\reell^l$$
+      in $x_0$ diffbar und
+      $$(g\circ f)'(x_0)=g'(f(x_0))f'(x_0)$$
+  \subsection{Implizit definierte Funktionen}
+    \subsubsection{Satz über implizi definierte Funktionen}
+      Es sei $(x_0,y_0)\in D,f(x_0,y_0)=0$ und $\det(\frac{\partial f}{\partial y}(x_0,y_0))\neq0$. Dann existieren 
+      $\delta,\mu>0$ mit den folgenden Eigenschaften:
+      \begin{enumerate}
+        \item $U_\delta(x_0)\times U_\mu(y_0)\subseteq D$
+        \item für alle $x\in U_delta(x_0)$ existiert ein eindeutiges $y\in U_\mu(y_0)$ mit $f(x,y)=0$
+      \end{enumerate}
+      Wir definieren $g:U_\delta(x_0)\ra U_\mu(y_0)$ durch $g(x)=y$, wobei $x$ und $y$ vermöge Aussage b) zusammenhängen.
+      Die Funktion $g$ erfüllt
+      \begin{enumerate}
+        \item $g\in C^1(U_\delta(x_0);\reell^m)$
+        \item für alle $x\in U_\delta(x_0)$ ist $det(\frac{\partial f}{\partial y}(x,g(x)))\neq0$
+        \item für alle $x\in\ U_\delta(x_0)$ ist die Ableitung von $g$ gegeben durch
+          $$J_g(x)=-\left(\frac{\partial f}{\partial y}(x,g(x))\right)^{-1}
+          \left(\frac{\partial f}{\partial y}(x,g(x))\right)$$
+      \end{enumerate}
+  \subsection{Differenzierbarkeit von Umkehrfunktionen}
+    \subsubsection{Der Umkehrsatz}
+      Es sei $D\subseteq\reell^n$ offen, $f\in C^1(D;\reell^n)$ und $x_0\in D$. Ist $\det(f'(x_0))\neq0$, so existiert
+      ein $\delta>0$ mit
+      \begin{enumerate}
+        \item $U_\delta(x_0)\subseteq D$ und $f(U_\delta(x_0))$ ist offen
+        \item $f$ ist auf $U_\delta(x:0)$ injektiv
+        \item $f^{-1}:f(U_\delta(x_0))\ra U_\delta(x_0)$ ist in $C^2(f(U_\delta(x_0));\reell^n)$,
+          $$\det(f'(x))\neq0\hspace{1cm}(x\in U_\delta(x_0))$$
+          und
+          $$(f^{-1})'(y)=(f'(f^{-1}(y)))^{-1}\hspace{1cm}(y\in f(U_\delta(x_0)))$$
+      \end{enumerate}
+\section{Integration in \texorpdfstring{$\reell^n$}{}}
+  \subsection{Definition und grundelgende Eigenschaften}
+    \subsubsection{Kompakte Intervalle, Inhalt, Zerlegung}
+    \begin{enumerate}
+        \item Sind $[a_1,b_1],[a_2,b_2],\dots,,[a_n,b_n]$ kompakte Intervalle in $\reell$, so heißt
+          $$I:=[a_1,b_2]\times\dots\times[a_n,b_n]$$
+          ein \textbf{kompaktes Intervall im $\reell^n$}
+        \item Die Zahl $\abs{I}:=(b_1-a_1)\cdot\dots\cdot(b_n-a_n)$ heißt \textbf{Inhalt} (oder \textbf{Volumen}) von $I$
+        \item Zu jedem $j\in\{1,\dots,n\}$ sei eine Zerlegung $Z_j$ von $[a_j,b_j$ gegeben. Dann heißt
+          $$\begin{aligned}
+            Z & :=Z_1\times\dots\times Z_n\\
+              & =\{(x_1,\dots,x_n)\mid x_j\in Z_j\text{ für }j=1,\dots,n\}
+          \end{aligned}$$
+          eine \textbf{Zerlegung von I}
+      \end{enumerate}
+    \subsubsection{Ober- und Untersummen}
+      Es sei $I$ wie oben, $f:I\ra\reell$ sei beschränkt und $Z$ sei eine Zerlegung von $I$ mit den Teilintervallen 
+      $I_1,\dots,I_m$. Wir setzen
+      $$m_j:=\inf f(I_j)\hspace{0.5cm}\text{und}\hspace{0.5cm}M_j:=\sup f(I_j)\hspace{1cm}(j=1,\dots,m)$$
+      und definieren die Unter- bzw. Obersomme von $f$ bzgl. $Z$ durch
+      $$U_f(Z):=\sum^m_{j=1}m_j\abs{I_j}\textbf{ die Untersumme}\text{ von $f$ bzgl. $Z$}$$
+      $$O_f(Z):=\sum^m_{j=1}m_j\abs{I_j}\textbf{ die Obersumme}\text{ von $f$ bzgl. $Z$}$$
+    \subsubsection{Integrierbarkeit}
+      Es seien $I$ und $f$ wie oben. Wir definierne das \textbf{Unter-} \text{bzw.} \textbf{Oberintegral} von $f$ auf $I$ 
+      durch
+      $$\underline{\int_I}f(x)\dx:=\sup\{U_f(Z)\mid Z\text{ Zerlegung von }I\}$$
+      $$\overline{\int_I}f(x)\dx:=\inf\{O_f(Z)\mid Z\text{ Zerlegung von }I\}$$
+      Man kann zeigen, dass immer $\underline{\int_I}f(x)\dx\le\overline{\int_I}f(x)\dx$ gilt. Wir nennen die Funktion $f$
+      \textbf{integrierbar über $I$}, falls $\underline{\int_I}f(x)\dx=\overline{\int_I}f(x)\dx$. In diesem Fall hießt
+      $$\int_If\dx:=\int_If(x)\dx:=\underline{\int_I}f(x)\dx\left(=\overline{\int_I}f(x)\dx\right)$$
+      das \textbf{Integral von $f$ über $I$} und man schreib $f\in R(I)$ oder $f\in R(I;\reell)$
+    \subsubsection{Grundlegende Eigenschaften}
+      Es sei $I$ ein kompaktes Intervalll im $\reell^n$, $f,g\in R(I)$ und es seien $\alpha,\beta\in\reell$. Dann geilten:
+      \begin{enumerate}
+        \item Es sind $\alpha f+\beta g,fg,\abs{f}\in R(I)$ es gelten
+          $$\int_I(\alpha f+\beta g)\dx=\alpha\int_If\dx+\beta\int_Ig\dx$$
+        \item Ist $f\le g$ auf $I$, so ist
+          $$\int_If\dx\le\int_I$$
+          Insbesondere gilt
+          $$\abs*{\int_If(x)\dx}\le\int_I\abs{f(x)}\dx$$
+        \item Gilt $\abs{g(x)}\ge\alpha$ für alle $x\in I$ und ein $\alpha>0$, so ist $\frac{f}{g}\in R(I)$
+      \item $C(I)\subseteq R(I)$
+      \end{enumerate}
+  \subsection{Der Satz von Fubini und das Prinzip von Cavalieri}
+    \subsubsection{Satz von Fubini}
+      Es sei $k,l\in\nat$ und $n=k+l$ (also $\reell^n=\reell^k\times\reell^l$). Weiterhin seien $I_1\subseteq\reell^k$ und
+      $I_2\in\reell^l$ kompakte Intervalle. $I=I_1\times I_2\subseteq\reell^n$ und $f\in R(I)$. Punkte in $I$ bezeichnen wir
+      mit $(x,y)$, wobei $x\in I_1$ und $y\in I_2$
+      \begin{enumerate}
+        \item Für jedes feste $y\in I_2$ sei dei Funktion $x\mapsto f(x,y)$ integrierbar über $I_1$ und es sei 
+          $g(y):=\int_{I_1}f(x,y)\dx$. Dann gilt $f\in R(I_2)$ und
+          $$\int_If(x,y)\ d(x,y)=\int_{I_2}g(x)\dx=\int_{I_2}\left(\int_{I_1}f(x,y)\ dy\right)\dx$$
+         \item Für jedes feste $x\in I_1$ sei dei Funktion $y\mapsto f(x,y)$ integrierbar über $I_2$ und es sei 
+           $g(y):=\int_{I_2}f(x,y)\dx$. Dann gilt $f\in R(I_1)$ und
+          $$\int_If(x,y)\ d(x,y)=\int_{I_1}g(x)\dx=\int_{I_1}\left(\int_{I_2}f(x,y)\ dy\right)\dx$$     
+      \end{enumerate}
+      Diese Verfahren lässt sich auch auf mehr als zwei Intervalle übertragen.
+    \subsubsection{Charakteristische Funktion}
+      Es sei $B\subseteq\reell^n$. Die Funktion
+      $$c_B:\reell^n\ra\reell,\hspace{0.5cm}c_B(x):=\begin{cases}
+        1, & x\in B\\
+        0, & x\notin B
+      \end{cases}$$
+      heißt \textbf{charakteristische Funkton von $B$}
+      Um das "Volumen" von $B$ zu definiern wählen wir est ein kompaktes Intervall $I$ mit $B\subseteq I$ und zerlegen
+      dann $I$ in Teilintervalle $I_1,\dots,I_m$ bzgl. einer Zerlegung $Z$. Es gilt
+      $$\inf c_B(I_j)=\begin{cases}
+        1, & I_j\in B\\
+        0, & I_j\notin B
+      \end{cases}$$
+      Die Untersumme von $c_B$ bzgl. $Z$ ist damit gegeben durch
+      $$U_{c_B}(Z)=\sum_{\substack{j\in\nat \\ I_j\subseteq B}}\abs{I_j}$$
+      Analog gilt
+      $$\sup c_B(I_j)=\begin{cases}
+        1, & \text{falls }I_j\cap B\neq\emptyset\\
+        0, & \text{falls }I_j\cap B=\emptyset
+      \end{cases}$$
+      sodass die Obersumme von $c_B$ bzgl. $Z$ gegeben ist durch
+      $$O_{c_B}(Z)=\sum_{\substack{j\in\nat\\ I_j\cap B\neq\emptyset}}\abs{I_j}$$
+    \subsubsection{Innerer und äußerer Inhalt}
+      Für $B\subseteq\reell^n$ beschränkt setzten wir
+      $$\underline{v}(B):=\underline{\int_I}c_B(x)\dx\hspace{0.5cm}\textbf{innerer Inhalt}\text{ von }B$$
+      $$\overline{v}(B):=\overline{\int_I}c_B(x)\dx\hspace{0.5cm}\textbf{äußerer Inhalt}\text{ von }B$$
+      Die Menge $B$ heißt \textbf{messbar}, falls $c_B\in R(I)$. In diesem Fall ist
+      $$\underline{v}(B)=\overline{v}(B)=\int_Ic_B(x)\dx$$
+      und
+      $$\abs{B}:=\int_Ic_B(x)\dx$$
+      heißt der \textbf{Inhalt von} $B$
+    \subsubsection{Integrierbarkeit und Intervall}
+      Für $B\subseteq\reell^n$ messbar und $f:B\ra\reell$ beschränkt definieren wir
+      $$f_B(x):=\begin{cases}
+        f(x), & x\in B\\
+        0, & x\notin B
+      \end{cases}$$
+      Zusätzlich sei $I$ ein kompaktes Intervall mit $B\subseteq I$. Wir nenn \textbf{$f$ über $B$ integrierbar}, falls
+      $f_B\in R(I)$. In diesem Fall schreiben wir $f\in R(B)$, setzen
+      $$\int_Bf\dx:=\int_Bf(x)\dx:=\int_If_B(x)\dx$$
+      und nennen dies das \textbf{Integral von $f$ über $B$}.
+    \subsubsection{Eigenschaften}
+      Es seien $A,B\subseteq\reell^n$ messbar und $\alpha,\beta\in\reell$
+      \begin{enumerate}
+        \item Ist $f\in C(B;\reell)$ beschränkt, so ist $f\in R(B)$
+        \item Es seien $f,g\in R(B)$. Dann gelten:
+          \begin{enumerate}[label=\roman*)]
+            \item Es sind $\alpha f+\beta g,fg,\abs{f}\in R(B)$ und es gilt
+              $$\int_B(\alpha f+\beta g)\dx=\alpha\int_Bf\dx+\beta\int_Bg\dx$$
+            \item Ist $f\le g$ auf $B$, so ist
+              $$\int_Bf\dx\le\int_Bg\dx$$
+              Insbesondere gilt
+              $$\abs*{\int_Bf\dx}\le\int_B\abs{f}\dx$$
+            \item Gilt $\abs{g(x)}\ge\alpha$ für alle $x\in B$ und ein $\alpha>0$, so ist $\frac{f}{g}\in R(B)$
+          \end{enumerate}
+        \item \begin{enumerate}[label=\roman*)]
+            \item $A\cup B,A\cap B$ und $A\setminus B$ sind messbar.
+            \item Aus $A\subseteq B$ folt $\abs{A}\le\abs{B}$
+            \item $f\in R(A\cup B)\Longleftrightarrow f\in R(A)\cap R(B)$. In diesem Fall gilt
+              $$\int{A\cup B}f\dx=\int_Af\dx+\int_Bf\dx-\int{A\cap B}f\dx$$
+              Insbesondere gilt
+              $$\abs{A\cup B}=\abs{A}+\abs{B}-\abs{A\cap b}$$
+          \end{enumerate}
+      \end{enumerate}
+      Es sei $B\subseteq\reell^n$ beschränkt und messbar. Es seien $f,g\in R(B)$ mit $g\le f$ auf $B$ und
+      $$M_{f,g}:=\{(x,y)\in\reell^{n+1}\mid x\in B,g(x)\le y\le f(x)\}$$
+      Dann ist $M_{f,g}$ messbar (im $\reell^{n+1}$) und, ist $h\in(M_{f,g};\reell)$ beschränkt, so ist
+      $$\int_{M_{f,g}}h(x,y)\ d(x,y)=\int_B\left(\int^{f(x)}_{g_x)}h(x,y)\ dy\right)\dx$$
+      Insbesondere gilt
+      $$\abs{M_{f,g}}=\int_B(f-g)\dx$$
+    \subsubsection{Prinzip von Cavalieri}
+      Es sei $B\subseteq\reell^{n+1}$ messbar und beschränkt. FÜr Punkte im $\reell^{n+1}$ schreiben wir $(x,y)$ mit 
+      $x\in\reell^n$ und $y\in\reell$. Ferner sei $a,b\in\reell$ derart, dass $a\le y\le b$ für alle $(x,y)\in B$ gilt. Ist
+      für jedes $y\in[a,b]$ die Menge
+      $$Q(y):=\{x\in\reell^n\mid(x,y)\in B\}$$
+      messbar, so ist $y\mapsto\abs{Q(y)}$ integrierbar über $[a,b]$ und
+      $$\abs{B}=\int^b_a\abs{Q(y)}\ dy$$
+  \subsection{Die Substitutionsregel}
+    \subsubsection{Die Substitutionsregel}  
+      Es sei $G\subseteq\reell^n$ offen, $g\in C^1(G;\reell^n)$ und $B\subseteq G$ kompakt und messbar. Weiter sei $g$
+      auf dem Inneren $B^0$ von $B$ injektiv und
+      $$\det(g'(y))\neq0\hspace{1cm}(y\in B^0)$$
+      Ist dann $A:=g(B)$ und $f\in C(A;\reell)$, so ist $A$ kompakt und messbar und es gilt
+      $$\int_Af(x)\dx=\int_Bf(g(y))\abs{\det(g'(y))}\ dy$$
+\section{Spezielle Differentialglicheungen 1. Ordnung}
+  \subsection{Grundlegendes}
+    \subsubsection{Anfangswertprobleme}
+      Es sei $\emptyset\neq D\subseteq\reell^3$ und $h:D\ra\reell$ eine Funktion
+      \begin{enumerate}
+        \item Die Gleichung
+          $$h(x,y(x),y*(x))=0\hspace{2cm}(21.1)$$
+          heißt eine \textbf{Differentialgleichung (DGL) 1. Ordnung}. Sind $x_0,y_0\in\reell$, so heißt
+          $$\begin{cases}
+            h(x,y(x),y'(x)) & =0\\
+            y(x_0) & =y_0
+          \end{cases}\hspace{2cm}(21.2)$$
+          ein \textbf{Anfangswertproblem (AWP)}
+        \item Ist $I\subseteq\reell$ ein Intervall une $y:I\ra\reell$ eine Funktion, so heipt $y$ eine \textbf{Lösung von
+          $(21.1)$ auf $I$}, falls $y$ auf $I$ diffbar ist und
+          $$\forall x\in I:(x,y(x),y'(x))\in D\hspace{0.5cm}\text{und}\hspace{0.5cm}h(x,y(x),y'(x))=0$$
+          Ist $y$ eine Lösung von $(21.1)$ auf $I$ so ist $x_0\in I$ und $y(x_0)=y_0$, so heißt $y$ eine
+          \textbf{Lösung des Anfangswertproblems $(21.2)$ auf $I$}
+      \end{enumerate}
+  \subsection{Differentialgleichung mit getrennten Veränderlichen}
+    \subsubsection{Definition}
+      Es sei $I_1,I_2\subseteq\reell$ Intervalle und $f\in C(I_1;\reell)$ sowie $g\in C(I_2;\reell)$. Die Dgl
+      $$y'(x)=f(x)g(y(x))\hspace{2cm}(21.3)$$
+      heißt eine \textbf{Differentialgleichung mit getrennten veränderlichen}.
+    \subsubsection{Eigenschaften}
+      Es seien $I_1,I_2\subseteq\reell$ Intervalle und $f\in C(I_1;\reell)$ sowie $g\in C(I_2;\reell)$. Gilt $g(y)\neq0$
+      für alle $y\in I_2$, so erhält man die Lösungen von $(21.3)$, indem man die Gleichung
+      $$\int\frac{dy}{g(y)}=\int f(x)\dx+c$$
+      nach $y$ auflöst.\\
+      Diese Formel kann man sich ugt mit Hilfe der folgenden Rechnung merken
+      $$y'=f(x)g(y)\Rightarrow\frac{dy}{dx}=f(x)g(y)\Rightarrow\frac{dy}{g(y)}=f(x)dx\Rightarrow\int\frac{dy}{g(y)}
+      =\int f(x)\dx+c$$
+  \subsection{Lineare Differentialgleichungen}
+    \subsubsection{Definition}
+      Die Differentialgleichung 
+      $$y'(x)=\alpha(x)y(x)+s(x)\hspace{2cm}(21.4)$$
+      heißt eine \textbf{lineare Differentialgleichung} und $s$ heißt \textbf{Störfunktion}. Die Differentialgleichung
+      $$y'(x)=\alpha(x)x(x)\hspace{2cm}(21.5)$$
+      heißt die zu $(21-4)$ gehörige \textbf{homogene Gleichung}. Ist $s\neq0$ (also nicht die Nullfunktion), so heißt die
+      Gleichung $(21.4)$ \textbf{inhomogen}.
+    \subsubsection{Eigenschaften}
+      Es sei $\beta$ eine Stammfunkton von $\alpha$ auf $I$.
+      \begin{enumerate}
+        \item Es sei $y:I\ra\reell$ eine Funktion. Dann gilt:
+          \begin{enumerate}[label=\roman*)]
+            \item $y$ ist eine Lösung von $(21.5)$ auf $I$ $\Longleftarrow$ $\exists c\in\reell:y(x)=ce^{\beta(x)}$
+            \item Sei $y_p$ eine spezielle Lösung von $(21.4)$ auf $I$. Dann gilt:
+              $$y\text{ ist eine Lösung von $(21.4)$ auf} I\Longleftarrow\exists c\in\reell:y(x)=y_p(x)+ce^{\beta(x)}$$
+          \end{enumerate}
+        \item \textbf{Variation der Konstanten:} Der Ansatz
+          $$y_p(x):c(x)e^{\beta(x)}$$
+          mit einer noch unbekannten Funktion $c$ führt auf eine spezielle Lösung von $(21.4)$ auf $I$
+        \item Es sei $x_0\in I$ und $y_0\in\reell$. Dann hat das Awp
+          $$\begin{cases}
+            y'(x) & =\alpha(x)y(x)+s(x)\\
+            y(x_0) & =y_0
+          \end{cases}$$
+          auf $I$ genau eine Lösung
+      \end{enumerate}
+\section{Lineare Systeme mit konstanten Koeffizienten}
+  \subsection{Grundlegendes}
+    \subsubsection{System linearer Differentialgleichungen}
+      Ist $A=(a_{j,k}\in\reell^{n\times n},n\in\nat$, so betrachten wir auf einem Intervall $I\subseteq\reell$ ein Intervall
+      das folgende \textbf{System linearer Differentialgleichungen}
+      $$\begin{cases}
+        y_1'(x)=a_{11}y_1(x)+a_{12}y_2(x)+\dots+a_{1n}y_n(x)+b_1(x)\\
+        y_2'(x)=a_{21}y_1(x)+a_{22}y_2(x)+\dots+a_{2n}y_n(x)+b_2(x)\\
+        \hspace{1cm}\vdots\hspace{3cm}\vdots\hspace{3cm}\vdots\\
+        y_n'(x)=a_{n1}y_1(x)+a_{n2}y_2(x)+\dots+a_{nn}y_n(x)+b_n(x)\\
+      \end{cases}$$
+      wobei $b_j:)\ra\reell$ für $j=1,\dots,n$ gegebende stetige Funktionen sind und jedes $y_j:I\ra\reell$ für 
+      $j=1,\dots,n$ gesucht ist. Definert man $y:=(y_1,\dots,y_n)^T$ und $b:=(b_1,\dots,b_n)^T$ kann dieses System kompakter
+      geschriebgen werden durch
+      $$y'(x)=Ay(x)+b(x)\hspace{2cm}(22.1)$$
+      Das System
+      $$y'(x)=Ay(x)\hspace{2cm}(22.2)$$
+      heißt das zu $(22-1)$ gehörende \textbf{homogene System} ($(22.2)$ heißt \textbf{inhomogen}, falls $b\neq0$). Gesucht
+      sind nun also vektorwertige FUnktionen die $(22.1)$ bze. $(22.2)$ erfüllen.
+    \subsubsection{Eigenschaften}
+      \begin{enumerate}
+        \item Die Lösung von $(22.2)$ sind auf ganr $\reell$ definiert. Ferner ist die Menge aller Lösungen
+          $$V:=\{y:\reell\ra\reell^n\mid y\text{ ist eine Lösung von }(22.2)\}$$
+          ein reeller Vektorraum mit $\dim(V)=n$. Jede Basis von $V$ heißt \textbf{Fundamentalsystem} von $(22.2)$
+        \item Ist $y_p$ eine spezielle Lösung von $(22.1)$ auf $I$, so gilt:
+          $$y\text{ ist eine Lösung von $(22.1)$ auf $I$}\Longleftrightarrow\exists y_h\in V:y(x)=y_p(x)+y_h(x)\ (x\in I)$$
+        \item Ist $x_0\in I$ und $y_0\in\reell^0$, so hat das Awp
+          $$\begin{cases}
+            y'(x)=Ay(x)+b(x)\\
+            y(x_0)=y_0
+          \end{cases}$$
+          auf $I$ genau eine Lösung
+      \end{enumerate}
+    \subsubsection{Lösungsmethode für (22.2)}
+      \begin{enumerate}[label=\arabic*.]
+        \item Bestimme die verschiedenen Eigenwerte $\lambda_1,\dots\lambda_r$ von $A$, wobei $r\le n$. Ordne die Eigenwerte
+          wie folgt an:
+          \begin{enumerate}[label=\roman*)]
+            \item $\lambda_1,\dots,\lambda_m$ bezeichnen die reellen Eigenwerte von $A$
+            \item $\lambda_{m+1},\dots,\lambda_r$ bezeichnen die Eigenwerte in $\comp\setminus\reell$. Die komplex
+              konjugierten Zahlen sind ebenfalls Nullstellen, befinden sich also auch unter den Zahlen $\lambda_{m+1},\dots.
+              \lambda_r$. Folglich ist $r-m$ gerade und mit $s:=\frac{1}{2}(r-m)$ können wir diese derart durchnummerieren,
+              dass
+              $$\lambda_{m+s+1}=\con{\lambda_m},\dots,\lambda_{m+2s}=\con{\lambda_s}$$
+              Setze
+              $$M:=\{\lambda_1,\dots,\lambda_{m+s}$$
+              Die Zahlen $\lambda_{m+s+1},\dots\lambda_r$ sind nicht weiter von Wichtigkeit!
+          \end{enumerate}
+        \item Für jedes $\lambda_j\in M$ und jeden Eigenvektor $u^{(1)}$ von $A_j$ bestimmt man die zugehörige Jordankette
+          $u^{(1)},\dots,u^{(p)}$, die $u^{(l)}=(A-\lambda_j\text{Id})u^{(l+1)}$ für $l=1,\dots,p-1$ erfüllt
+        \item Es sei $\lambda_j\in M$ und $u^1,\dots,u^{(p)}$ die Jordankett aus Schritt 2. Wir bilden die Funktion
+          $$e^{t\lambda_j}u^{(1)},\ e^{t\lambda_j}(xu^{(1)}+u^{(2)}),\ 
+          e^{t\lambda_j}\left(\frac{x^1}{2}u^{(1)}+xu^{(2)}+u^{(3)}\right),\ \dots,$$
+          $$e^{t\lambda_j}\left(\frac{x^{p-1}}{(p-1)!}u^{(1)}+\dots+xu^{(p-1)}+u^{(p)}\right)\hspace{2cm}(22.3)$$
+          \underline{Fall 1}: $\lambda_j\in\reell$. Bezeichnet $y:\reell\ra\reell^n$ eine Funktion aus $(22.3)$, so ist $y$
+          eine Lösung von $(22.2)$ auf $\reell$.\\
+          \underline{Fall 2}: $\lambda_j\in\comp\setminus\reell$. Es bezeichne $z:\reell\ra\reell$ eine Funktion aus 
+          $(22.3)$. Zerlege $z(x)$ komponentenweise in Real- und Imaginärtel
+          $$z(x)=\re(z(x))+i\im(z(x))=;y^{(1)}(x)+iy^{(2)}(x)$$
+          Dann sind $y^{(1)},y^{(2)}$ linear unabhängige Lösungen von $(22.2)$ aur $\reell$
+        \item Führt man 3. für jedes $\lambd_j\in M$ und jeden dazugehörugen Eignevektor $u^{(1)}$ durch, so bildet die
+          Menge aller gefunden Lösungen ein Fundamentalsystem von $(22.2)$.
+      \end{enumerate}
+\end{document}
