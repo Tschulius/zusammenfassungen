@@ -1,0 +1,505 @@
+\documentclass{kit}
+\author{Julius Vater - 2603322}
+\title{Lineare Algebra II}
+\subtitle{Zusammenfassung}
+
+\begin{document}
+\maketitle
+\setcounter{section}{8}
+\section{Normalform für Endomorphismen}
+  \subsection{Der Polynomring}
+    \subsubsection{Irreduzible Polynome}
+      \begin{enumerate}
+        \item Es sei $K$ ein Körper. Ein Polynom $f\in K[X]$ heißt \textbf{Teiler} des Polynoms $g\in K[X]$, wenn es ein
+          Polynom $h\in K[X]$ gibt, sodass
+          $$g=f\cdot h$$
+        \item Zwei Polynome heißen \textbf{teilerfremd}, wenn die einzigen gemeinsamen Teiler konstant sind.
+          Ein Polynom $f\in K[X]$ heißt \textbf{irreduzibel}, wenn es kein Vielfaches eines nicht konstanten Polynoms
+          kleineren Grades ist und $f$ selbst nicht konstant ist.
+      \end{enumerate}
+    \subsubsection{Polynomdivision mit Rest}
+      Es seien $K$ ein Körper und $f,g\in K[X]$ mit $g\neq0$. Dann gibt es Polynome $h,r\in K[X]$ mit $\deg(r)<\deg(g)$,
+      sodass
+      $$f=gh+r$$
+    \subsubsection{Hilfsatz}
+      Sei $A\in K^{n\times n}$, seien $f,g\in K[X]$ teilerfremde Polynome, sodass $f(A)\cdot g(A)=0$. Dann gilt:
+      $$K^n=\ker(f(A))\bigoplus\ker(g(A))$$
+  \subsection{Haupträume}
+    \subsubsection{Hauptraum}
+      Es seien $\Phi\in$ End$(V)$ und $\lambda\in K$. Dann heißt
+      $$H(\Phi,\lambda):=\bigcup_{k=0}^\infty\ker(\Phi-\lambda\id_V)^k$$
+      der \textbf{Hauptraum} von $\Phi$ zu $\lambda\in K$.\\
+      Dies ist ein Untervektorraum von $V$, da für alle $k\in\nat_0$ gilt:
+      $$\ker(\Phi-\lambda\id_V)^k\subseteq\ker(\Phi-\lambda\id_V)^{k+1}$$
+      Diese Inklusion sorgt auch dafür, dass jeder dieser Kerne $(\Phi-\lambda\id_V)$-invariant ist. Da er erst Recht unter
+      $\lambda\id_V$ invariant ist, ist er auch $\Phi$-invariant. Damit ist $H(\Phi,\lambda)$ ein $\Phi$-invarianter 
+      Unterraum.\\
+      Für $A\in K^{n\times n},\lambda\in K$ gilt:
+      $$\eig(A,\lambda)\subseteq H(A,\lambda)$$
+      und
+      $$H(A,\lambda)\neq0\Longleftrightarrow\eig(A,\lambda)\neq0$$
+    \subsubsection{Dimensionen des Hauptraumes}
+      Es seien $V$ ein endlichdimensionaler $K$-VR, $\Phi\in\text{End}(V)$ und $\lambda\in\text{Spec}(\Phi)$. Wieter sei
+      $e:=\mu_a(\Phi,\lambda)$ die algebraische Vielfachheit von $\lambda$. Wir zerlegen das CP als
+      $$\text{CP}_\Phi(X)=(X-\lambda)^e\cdot g(X),\hspace{0.5cm}g(\lambda)\neq0$$
+      Dann gelten die folgenden Aussagen
+      \begin{enumerate}
+        \item $H(\Phi,\lambda)=\ker((\Phi-\lambda\id_V=^e)$
+        \item $\dim(H(\Phi,\lambda))=e$
+      \end{enumerate}
+    \subsubsection{Direkte Summe von Haupträumen}
+      Es seien $V$ ein endlichdimensionaler $K$-VR und $\Phi\in\text{End}(V)$. Die Elemente $\lambda_1,\dots.\lambda_k\in K$
+      seien paarweise verschieden, $e_1,\dots,e_k\in\nat_0$ und
+      $$f(X)=(X_{\lambda_1})^{e_1}\cdot\dots\cdot(X-\lambda_k)^{e_k}$$
+      ein annulierendes Polynom für $\Phi$, d.h. $f(\Phi)=0$. Dann ist $V$ die direkte Summe der Haupträume
+      $$V=\bigoplus_{i=1}^kH(\Phi,\lambda_i$$
+      \textbf{Wann ist $V$ einde direkte Summe der Haupträume?}\\
+      Es seien $V$ ein endlichdimensionaler $K$-VR, $\Phi$ ein Endomorphismus von $V$, $M:=\text{MP}_\Phi(X)$ das 
+      Minimalpolynom, und $C:=\text{CP}_\Phi(X)$ das Charakteristische Polynom von $\Phi$. Dann sind folgedne vier Aussagen
+      äquivalent:
+      \begin{enumerate}[label=\roman*)]
+        \item $V=\bigoplus_{\lambda\in\text{Spec}(\Phi)}H(\Phi,\lambda)$
+        \item $C=\prod_{\lambda\in\text{Spec}(\Phi)}(X-\lambda)^{\dim H(\Phi,\lambda)}$
+        \item $C$ lässt sich als Produkt von Linearfaktoren schreiben
+        \item $M$ lässt sich als Produkt von Linearfaktoren schreiben
+      \end{enumerate}
+  \subsection{Nilpotente Endomorphismen}
+    \subsubsection{Definition}
+      Ein Endomorphismus $\Phi$ eine Vektorraumes $V$ heißt \textbf{nilpotent}, wenn es eine natürliche Zahl $n$ gibt, 
+      sodass $\Phi^n$ die Nullabbildung ist, wenn also $X^n$ ein annullierendes Polynom von $\Phi$ ist. Außerde, gilt:
+      $$A\in K^{n\times n}\text{ ist nilpotent }\Longleftrightarrow A^n=0$$
+    \subsubsection{Zyklischer UVR mit invariantem Komplement}
+      Es sei $V$ ein endlichdimensionaler $K$-VR und $\Phi\in\text{End}(V)$ ein nilpotenter Endomorphismus. Weiter sei
+      $X^d$ das Minimalpolynom von $\Phi$ und $u\in V$ ein Vektor mit
+      $$\Phi^{d-1}(u)\neq0$$
+      Dann gibt es einen $\Phi$-invariantes Komplement $W$ zu dem $\Phi$-invarianten zyklikschen Unterraum 
+      $U:=\lh{u,\Phi(u),\dots,\Phi^{d-1}(u)}$. Es gilt:
+      $$\Phi\text{ nilpotent }\Rightarrow V\text{ ist direkte Summe von zyklischen Unterräumen}$$
+    \subsubsection{Jordan'sche Normalform für nilpotente Matrizen}
+      Es sei $A\in K^{n\times n}$ eine nilpotente Matrix. Dann gibt es eindeutig bestimmte natürliche Zahlen $k$ und 
+      $d_1\ge d_2\ge\dots\ge d_k\ge 1$ mit $\sum_{i=1}^kd_i=n$, sodass $A$ ähnlich ist zu der Matrix, die durch folgende
+      Blockform gegeben ist:
+      $$\sim A:=\begin{pmatrix}
+        J_{d_1}(0) & 0 & 0 & \cdots & 0 \\
+        0 & J_{d_2}(o) & 0 & \cdots & 0 \\
+        \vdots & \ddots & \ddots & \ddots & 0 \\
+        0 & \cdots & \ddots & J_{d_{k-1}}(0) & 0 \\
+        0 & \cdots & 0 & 0 & J_{d_k}(0)
+      \end{pmatrix}$$
+      $A^\sim$  heißt Jordan'sche Normalform von $A$
+  \subsection{Jordan'sche Normalform}
+    \subsubsection{Jordankästchen allgemein}
+      Für $\lambda\in K$ und natürliches $d$ sei
+      $$J_d(\lambda):=\lambda\cdot I_d+J_d(0)=\begin{pmatrix}
+        \lambda & 0 & \cdots & 0 & 0 & 0 \\
+        1 & \lambda & 0 & \cdots & 0 & 0 \\
+        0 & 1 & \lambda & \ddots & \vdots & \vdots \\
+        \vdots & \ddots & \ddots & \ddots & \vdots & \vdots \\
+        0 & \cdots & 0 & 1 & \lambda & 0 \\
+        0 & 0 & \cdots & 0 & 1 & \lambda
+      \end{pmatrix}$$
+      Diese Matrix heißt ein \textbf{Jordankästchen der Länge $d$ zum Eigenwert $\lambda$}
+  \subsection{Vermischtes}
+    \subsubsection{Jordan'sche Normalform in kleiner Dimension}
+      \begin{enumerate}
+        \item Eine $1\times 1$ Matrix ist immer schon in Jordan'scher Normalform. Ebenso auch die $0\times 0$ Matrix
+        \item Das charakteristische Polynom $f$ der $2\times 2$ Matrix $A$ zerfalle als 
+          $$f=(X-a)\cdot(X-b)$$
+          Dann gibt es die drei folgenden Möglichkeiten:
+          \begin{itemize}
+            \item $a\neq b$: Dann gibt es zwei eindimensionale Eigenräume, und $A$ ist diagonalisierbar. Die Normalform
+              von $A$ ist $\begin{pmatrix} a & 0 \\ 0 & b \end{pmatrix}$
+            \item $a=b$ und $\dim(\text{Eig}(A,a))=2$: hier ist $A$ bereits in Normalform, es muss nämlich $A=a\cdot I_2$
+              gelten.
+            \item $a=b$ und $\dim(\text{Eig}(A,a))=1$: hier gibt es nur ein Jordankästchen zum Eigenwert $a$, also ist die
+              Normalform von $A$ die Matrix $\begin{pmatrix} a & 0 \\ 1 & a \end{pmatrix}$
+          \end{itemize}
+        \item $A\in K^{3\times 3}$ habe charakteristisches Polynom $(X-a)(X-b)(X-c)$. Dann haben wir die folgenden
+          Möglichkeiten:
+          \begin{itemize}
+            \item $a,b,c$ paarweise verschieden: die Normalform ist diagonal.
+            \item $a=b\neq c$: je nach Dimension von $\text{Eig}(A,a)$ gibt es seine der beiden Normalformen
+              $$\begin{pmatrix} a & 0 & 0 \\ 0 & a & 0 \\ 0 & 0 & c \end{pmatrix},
+              \begin{pmatrix} a & 0 & 0 \\ 1 & a & 0 \\ 0 & 0 & c \end{pmatrix}$$
+            \item $a=b=c$: Je nachdem, ob Eig$(A,a)$ Dimension 3,3 oder 1 hat, ist die Normalform eine der Matrizen
+              $$\begin{pmatrix} a & 0 & 0 \\ 0 & a & 0 \\ 0 & 0 & a \end{pmatrix},
+              \begin{pmatrix} a & 0 & 0 \\ 1 & a & 0 \\ 0 & 0 & a \end{pmatrix},
+              \begin{pmatrix} a & 0 & 0 \\ 1 & a & 0 \\ 0 & 1 & a \end{pmatrix}$$
+          \end{itemize}
+      \end{enumerate}
+\section{Bilineare Abbildungen}
+  \subsection{Bilinearformen}
+    \subsubsection{Paarung und Bilineareform}
+      Es seien $K$ ein Körper und $V,W$ zwei $K$-VR. Eine \textbf{Paarung} $P$ zwischen $V$ und $W$ ist eine Abbildung
+      $$P:V\times W\longrightarrow K$$
+      bei der für alle $a,b\in K,v_1,v_2\in V,w_1,w_2\in W$ die folgenden Regeln gelten:
+      $$\begin{array}{lll}
+        P(av_1+v_v2, & w_1 & )=aP(v_1,w_1)+P(v_2,w_1)\\
+        P(v_1, & bw_1+w_2 & )=bP(v_1,w_1)+P(v_1,w_2)
+      \end{array}$$
+      Diese Eigenschaft nennt man die \textbf{Bilinearität} der Abbildung $P$. Sie bedeutet, dass für festers $v$ die
+      Abbildung $W\ni w\mapsto P(v,w)\in K$ eine Linearform auf $W$ und für fester $w$ die Abbildung 
+      $V\ni v\mapsto P(v,w)\in K$ eine Linearform auf $V$ ist.\\
+      Im Falle $V=W$ spricht man von einer \textbf{Bilinearform} auf $V$.
+      Die Paarung $P$ heißt \textbf{nicht ausgeartet}, wenn für alle $v\in V,v\neq0$, ein $w\in W$ existiert mit 
+      $P(v,w)\neq0$, und wenn für alle $w\in W,w\neq0$ ein $v\in V$ existiert mit $P(v,w)\neq0$.\\
+    \subsubsection{Bilineare Fortsetzung, Fundamentalmatrix}
+      Sei $P:V\times W\ra K$ eine Paarung, $B=\{b_1,\dots,b_p\}\subset V,C=\{c_1,\dots,c_q\}\subset W$ Basen. Außerdem sei
+      $F=(f_{ij})_{\substack{1\le i\le p\\1\le j\le q}}$, $f_{ij}:=p(b_i,c_j)$. Dann ist
+      $$P(v,w)=D_B(v)^T\cdot F\cdot D_C(w)\hspace{1cm}(F=D_{BC}(P))$$
+      FUndamentalmatrix von $P$ bezüglich $B$ und $C$\\
+      $F$ kann beliebig gewählt werden um ein $P$ zu definiern, die man \textbf{bilineare Fortsetzung} nennt.
+    \subsubsection{Nicht ausgeartete Paarung}
+      Es seien $K$ ein Körper und $V,W$ endlichdimensionale $K$-VR mit Basen $B,C$. Weiter sei $P:V\times V$ eine Paarung
+      auf $V\times W$. Dann ist $P$ genau dann nicht ausgeartet, wenn $V$ und $W$ dieselbe Dimnesion haben und die
+      Fundamentalmatrix $D_{BC}(P)$ regulär ist.
+    \subsubsection{Basiswechsle für Paarungen}
+      Es seien $K$ ein Körper und $V,W$ endlichdimensionale $K$-VR mit einer Paarung $P:V\times W\ra K$. Weiter seien Basen
+      $B,\hat{B}$ von $V$
+      Es seien $K$ ein Körper und $V,W$ endlichdimensionale $K$-VR mit einer Paarung $P:V\times W\ra K$. Weiter seien 
+      Basen $B,\hat{B}$ von $V$ und $C,\hat{C}$ von $W$ gegeben. Dann gilt für die zugehörigen Fundamentalmatrizen:
+      $$D_{BC}(P)=D_{B\hat B}(\id_V)^T\cdot D_{\hat B\hat C}(P)\cdot D_{\hat C,C}(\id_W)$$
+    \subsubsection{Orthonormalbasis, Symmetrie}
+      Es sei $P:V\times V\ra K$ eine Bilinearform auf einem $n$-dimensionalen $K$-VR $V$.
+      \begin{enumerate}
+        \item $P$ heißt \textbf{Symmetrisch}, wenn füa alle $v,w\in V$ gilt:
+          $$P(v,w)=P(w,v)$$
+          Das bedeutet, dass für eine beliebige Basis $B$ von $V$ die Fundamentalmatrix $D_{BB}(P)$ symmetrisch ist.
+        \item Eine Basis $B:=\{b_1,\dots,b_n\}$ von $V$ heißt eine \textbf{Orthogonalbasis} (ONB) von $V$ bezüglich $P$,
+          wenn gilt:
+          $$\forall1\le i\neq j\le n:P(b_i,b_j)=0$$
+        \item Die Basis $B$ heißt eine \textbf{Orthonormalbasis} (ONB) von $V$ bezüglich $P$, wenn sie eine Orthogonalbasis
+          ist und zusätlich die Bedinugng
+          $$\forall1\le i\le n:P(b_i,b_i)=1$$
+          erfüllt ist.
+      \end{enumerate}
+      Wenn es eine orthogonale Basis gibt, so ist $P$ sicher symmetrisch, da bezüglich dieser Basis die Fundamentalmatrix
+      diagonal ist.
+    \subsubsection{Existenz einer OGB}
+      Es sei $P:V\times V\ra K$ eine symmetrsche Bilineargorm auf dem $n$-dimensionalen $K$-VR $V$. Der Körper $K$ habe 
+      Charakteristik ungleich 2. Dann gibt es eine (bezühlich $P$) orthogonale Basis von $V$
+\section{Skalrprodukte}
+  \subsection{Skalarprodukte, Längen und Abstände}
+    \subsubsection{Standartskalarprodukt auf \texorpdfstring{$\reell^3$}{}}
+      Das Standartskalarprodukt auf $\reell^3$ ist die Abbildung
+      $$\lh{\cdot,\cdot}:\reell^3\times\reell^3\ra\reell,\lh{v,w}:=v^T\cdot w$$
+      Man will nun von der genauen Form der Abbidlung abstrahiern und damit die Möglichkeit gewinnen, auf beliebeen reellen
+      Vektorräumen Abbildungen mit ähnlichen Eigenschaften zu definierne. Dazu stellt man die folgenden drei Eigenschaften
+      heraus:
+      \begin{itemize}
+        \item Das Skalarprodukt ist eine Bilinearform auf $\reell^3$
+        \item Das Skalarprodukt ist symmetrisch
+        \item Für $v\in\reell^3$ gilt: $V\neq0\Rightarrow\lh{v,v}=\sum_{i=1}^3v_i^2\ge0$. Denn mindestens ein Summand
+          ist positiv, und keiner negaiv.
+      \end{itemize}
+    \subsubsection{Skalarprodukt, euklidischer Vektorraum}
+      Es sei $V$ ein $\reell$-VR.
+      \begin{enumerate}
+        \item Eine symmetrische Bilinearform $\lh{\cdot,\cdot}:V\times V\ra\reell$ heißt \textbf{positiv definit}, wenn 
+          gilt:
+        $$\forall v\in V:v\neq0\Rightarrow\lh{v,v}\ge0$$
+        \item Ein \textbf{Skalarprodukt} auf $V$ ist eine symmetrsiche, positiv definite Bilinearform.
+        \item Ein reeller VR mit einem fest gewählten Skalarprodukt heißt ein \textbf{euklidischer Vektorraum}.
+      \end{enumerate}
+    \subsubsection{Norm, Länge, Abstand}
+      Es seien $V$ ein euklidischer VR und $\lh{\cdot,\cdot}$ das Skalarprodukt auf $V$. Für einen Vektor $v\in V$ heißt
+      dann die nichtnegative Quadratwurzel
+      $$\norm{v}:=\sqrt{\lh{v,v}}$$
+      die \textbf{Norm} oder auch die \textbf{Länge} von $v$.\\
+      Für zwei Vektoren $v,w$ heißt die Zahl
+      $$d(v,w):=\norm{v-w}$$
+      der \textbf{Abstand} zwischen $v$ und $w$. Die Abbildung $d:V\times V\ra\reell$ heißt die zum Skalarprodukt
+      gehörende \textbf{Metrik}.\\
+      Die Poitivität des Skalarproduktes sorft dafür, dass erstens die Norm immer eine nichtnegative reelle Zahl ist und
+      zweitens zwei Vektoren genau dann gleich sind, wenn ihr Abstand 0 ist. Außerdem ist die Metrik \textbf{symmetrisch}.
+    \subsubsection{Ungleichung von Cauchy-Schwarz}
+      Es sein $V$ ein euklidischer Vekotrraum mit Skalarprodukt $\lh{\cdot,\cdot}$.
+      \begin{enumerate}
+        \item Für alle $v,w\in V$ gilt die Ungleichung von Cauchy-Schwarz, die sagt:
+          $$\lh{v,w}^2\le\lh{v,v}\cdot\lh{w,w}.$$
+          Die Gleichhiet gilt hier genau dann, wenn $v$ und $w$ linear abhängig sind.
+        \item Für alle $u,v,w\in V$ glit die Dreiecksungleichung, nämlich
+          $$d(u,v)+d(v,w)\ge d(u,w)$$
+      \end{enumerate}
+    \subsubsection{Winkel, Orthogonalität}
+      In dem euklidischen Vektorraum $V$ seien zwei Vektoren $v,w$ gegeben, beide seien ungleich dem Nullvektor. Denn dürfen
+      wir in der Ungleichung von Cauchy-Schwarz die Quadratwurzel ziehen und durch $\norm{v}\cdot \norm w$ teilen, und 
+      erhalten
+      $$-a\le\frac{\lh{v,w}}{\norm v\cdot\norm w}\le1.$$
+      Also gibt es genau eine reelle Zahl $\alpha\in[0,\pi]$ mit
+      $$\cos(\alpha)=\frac{\lh{v,w}}{\norm v\norm w.}$$
+      Diese Zahl heißt der \textbf{Winkel} zwischen $v$ und $w$.
+    \subsubsection{Satz des Pythagoras}
+      Für zwei Vektoren $v,w$ im euklidischen VR $V$ gilt:
+      $$\norm{v+w}^2=\lh{v,v}+2\lh{v,w}+\lh{w,w},$$
+      wobei wir die Symmetrie benutzen. Wir können also Orthogonaliät so charakterisieren:
+      $$v\perp w\Longleftrightarrow\norm{v}^2+\norm{w}^2=\norm{v+w}^2$$
+  \subsection{Orthnormalbasen}
+    \subsubsection{Orthogonalsystem}
+      Es seien $V$ ein euklidischer Vektorraum und $S\subseteq V$ eine Teilmenge. Dann heißt $S$ ein 
+      \textbf{Orthogonalsystem}, wenn $0\not\ni S$ und wenn die Elemente aus $S$ paarweise orthogonal sind. $S$ heißt ein
+      ein \textbf{Orthonormalsystem}, wenn es ein Orthogonalsystem ist und alle Vektoren $S$ Norm 1 haben.\\
+      Ist $S$ ein Orthogonalsystem in einem euklidischen Vektorraum $V$. Dann ist $S$ linear unabhängig.
+    \subsubsection{Orthogonale Matrizen}
+      Es sei $V=\reell^n$ mit dem Standartskalarprodukt versehen. Dann ist die $n$-elemntige Menge
+      $$\{v_1,\dots,v_n\}\subseteq V$$
+      genau dann eine ONB von $V$, wenn für die reelle $n\times n$-Matrix $A=(v_1\ v_2\ \cdots\ v_n)$ die Gleichung
+      $$A^T\cdot A=I_n$$
+      gilt. Denn der $(i,j)$-te Eintrag der Matrix $A^T\cdot A$ ist gerade das Skalarprodukt von $v_i,v_j$.\\
+      Wir definiern nun die \textbf{orthogonale Gruppe} O$(n)\subseteq \text{GL}_n(\reell)$ durch
+      $$\text{O}(n):=\{A\in\reell^{n\times n}\mid A^t\cdot A=I_n\}.$$
+      Die Elemente von O$(n)$ heißen \textbf{orthogonale Matrizen}.\\
+      Für jede orthogonale Matrix $A$ gilt $1=\det(A^T\cdot A)=\det(A)^2$, also ist die Determinante einer orthogonalen
+      Matrix entweder 1 oder $-1$. Beides kommt vor. Die Determinante liefert einen Gruppenhomomorphismus
+      $$\det:\text{O}(n)\ra\reell^\times.$$
+      Der Kern dieses Homomorphismus ist die Gruppe
+      $$\text{SO}(n):=\{A\in\text{O}(n)\mid\det(A)=1\}$$
+      der \textbf{speziellen orthogonalen $n\times n$-Matrizen}.
+    \subsubsection{Das Gram-Schmidt-Verfahren}
+      Sei $\{w_1,\dots,w_2\}\subseteq V$ eine linear unabhänge Teilmenge. Dann existiert ein OGS $\{v_1,\dots,v_n\}$,
+      sodass $\forall i=1,\dots,n:\lh{w_1,\dots,w_i}_{\reell-\text{VR}}=\lh{v_1,\dots,v_i}_{\reell-\text{VR}}$.\\
+      Dann kann man die $v_i$ folgendermaßen Konstruieren:
+      \begin{itemize}
+        \item $v_1=w_1$
+        \item $v_2=w_2-\frac{\lh{v_1,w_2}}{\lh{v_1,v_1}}\cdot v_1$
+        \item $v_3=w_3-\left(\frac{\lh{v_1,w_3}}{\lh{v_1,v_1}}\cdot v_1+\frac{\lh{v_2,w_3}}{\lh{v_2,v_2}}\cdot v_2\right)$
+      \end{itemize}
+      Allgemein gilt für $1\le k\le n$:
+      $$v_k=w_k-\sum_{i=1}^{k-1}\frac{\lh{v_i,w_k}}{\lh{v_i,v_i}}\cdot v_i$$
+    \subsubsection{Positivität der Fundamentalmatrix}
+      $F\in\reell^{n\times n}$ heißt \textbf{positv definit}, wenn $F=F^T$ und 
+      $\forall v\in\reell^n,v\neq0:v^T\cdot Fv\ge0$, d.h. $F$ ist Fundamentalmatrix eines Skalarproduktes auf $\reell^n$.
+    \subsubsection{Kriterium für Positivität}
+      Es seien $n\in\nat$ und $F=(f_{ij})\in\reell^{n\times n}$. Weiter sei $F$ symmetrisch. Dann sind die folgenden
+      drei Eigenschaften äquivalent:
+      \begin{enumerate}[label=\roman*)]
+        \item $F$ ist positiv definit
+        \item Es gibt eine obere Dreiecksmatrix $A\in\text{GL}_n(\reell)$ mit $F=A^T\cdot A$
+        \item Für $1\le k\le n$ sind die Determinanten der Matrizen $F_k:=(f_{ij})_{i\le i,j\le k}$ positiv
+      \end{enumerate}
+  \subsection{Orhogonale Komplemente und Abstände}
+    \subsubsection{Orthognales Komplement}
+      Sei $V$ ein euklidiescher VR mit der Teilmenge $M\subseteq V$. Das \textbf{Orthogonale Komplement} von $M$ ist
+      $$M^\perp=\{v\in V\mid\forall m\in M:\lh{m,v}=0\}=\{v\in V\mid\forall m\in M:m\perp v\}$$
+      $M^\perp$ ist ein Untervektorraum von $V$
+    \subsubsection{Orthogonale Projektin, Abstand}
+      \begin{enumerate}
+        \item Es seien $V$ ein euklidischer VR und $U$ ein endlichdimensionaler Untervektorraum von $V$. Dann gilt
+          $V=U\bigoplus U^\perp$. Zu dieser Zerlegung von $V$ gehört der Homomorphismus
+          $$\pi_U:V\ra U,\pi_U(u+u^\perp):=u$$
+          Er heißt die \textbf{orthogonale Projektion}. Manchmal wird $\pi_U$ als Endomorphismus von $V$ betrachtet, denn
+        $U$ liegt ja in $V$. Dann ist $U^\perp=\ker(\pi_U)$ und $U=\text{Eig}(\pi_U,1)$.
+      \item Es seien $V$ ein euklisischer VR und $A,B\subseteq V$ zwei nichtleere Teilmengen. Dann definiern wir den
+        \textbf{Abstand} von $A$ nach $B$ durch
+        $$d(A,B):=\inf\{d(a,b)\mid a\in A,b\in B\}.$$
+        Dieses Infimum existiert, da alle Abstände nicht negativ sind. Speziell schreiben wir für ein Element $a\in V$ auch
+        $$a(a,B):=d(\{a\},B)$$
+      \end{enumerate}
+    \subsubsection{Abstand von einem Untervektorraum}
+      Es seien $V$ ein euklidischer VR udn $U$ ein endlichdimensionaler Untervektorraum. Wir zerlegen $V$ als 
+      $V=U\bigoplus U^\perp$. Dann gelten:
+      \begin{enumerate}
+        \item Fpr $v=u+u^\perp\in V$ gilt die Gleichung
+          $$d(u,U)=\norm{^\perp}=\norm{\pi_{U^\perp}(v)}$$
+        \item Allgemeiner gilt für eine beliebige Teilmenge $A\subseteq V$ die Formel
+          $$d(A,U)=d(\pi_{U^\perp}(A),0)$$
+        \item Im Falle $A=v+W$ gilt
+          $$d(A,U)=\norm{\pi_{(U+W)^\perp}(v)}$$
+      \end{enumerate}
+    \subsubsection{Affiner Teilraum, Lotfußpunkte}
+      \begin{enumerate}
+        \item Wenn $W\le V$ VRe sind über einem belieben Körper und $v\in V$ ein Vektor, dann nennen wir $A:=v+W$ einen 
+          \textbf{affinen Teilraum von $V$}.\\
+          Für zwei Vektoren $a,b\in V$ heißt
+          $$\overline{a,b}:=\{\lambda a+(1-\lambda)b\mid\lambda\in K\}=a+K\cdot(b-a)$$
+          die \textbf{affine Gerade} durch $a$ und $b$
+        \item Wenn speziell $K=\reell$ gilt, so heißt für $a,b$ im reellen VR $V$ die Menge
+        $$[a,b]:=\{\lambda a+(1-\lambda)b\mid0\le\lambda\le1\}$$
+        die \textbf{Strecke} zwischen $a$ und $b$
+      \item Wenn $U$ und $W$ zwei endlichdimensionale Untervektrräume des euklidischen Raumes $V$, $v\in V$ ein beliebiger
+        Vektor und $A:=v+W$ sind, dann gibt es $u\in U$ und $w\in W$, sodass $v-u-w$ auf $U+W$ senkrecht steht. Dann heißt
+        die Strecke $[u,v-w]$ ein \textbf{Lot} zwischen $U$ und $A$. und die Punkte $u\in U$ und $v-w\in A$ heißen seine
+        \textbf{Lotfußpunkte}. Es gilt:
+        $$\text{Das Lot ist eindeutig}\Longleftrightarrow U\cap W=\{0\}$$
+      \end{enumerate}
+  \subsection{Übertragung ins Komplexe}
+    \subsubsection{Komplexe Skalarprodukte, unitäre Vektorräume}
+      Es sei $V$ ein komplexer Vektorraum. Eine Abbildung $\lh{\cdot,\cdot}:V\times V\ra\comp$ heißt ein 
+      \textbf{komplexes Skalarprodukt}, wenn folgenden Bedingungen erfüllt sind:
+      \begin{itemize}
+        \item $\forall v_1,v_2,w\in V,a\in\comp:\lh{av_1+v_2,w}=a\lh{v_1,w}+\lh{v_2,w}$,\\
+          $\forall v_1,v_2,w\in V,a\in\comp:\lh{w,av_1+v_2}=\con{a}\lh{w,v_1}+\lh{w,v_2}$ \textbf{(Sesquilinearität)}
+        \item $\forall v,w\in V:\lh{v,w}=\con{\lh{w,v}}$ \textbf{(Hermitezität)}
+        \item $\forall v\in V\setminus\{0\}:\lh{v,v}\ge0$ \textbf{(Positivität)}
+      \end{itemize}
+      Ein komplexer Vektorraum mit einem festen komplexen Skalrprodukt heißt auch ein \textbf{unitärer Vektorraum}.
+    \subsubsection{Ungleichung von Cauchy-Schwarz}
+      Sei $V$ ein unitärer VR mit Skalrprodukt $\lh{\cdot,\cdot}$. Dann gilt
+      $$\forall v,w\in V:\abs{\lh{v,w}}^2\le\lh{v,v}\cdot\lh{w,w}$$
+    \subsubsection{Norm, Abstand, Dreiecksungleichung}
+    Nun definieren wir im Reellen für einen unitären VR $V$ die \textbf{Norm} eines Vektors $v$ als 
+    $\norm{v}:=\sqrt{\lh{v,v}}$, und den \textbf{Abstand} zweier Vektoren als $d(v,w):=\norm{v-w}$. Es gilt wegen der 
+    Ungleichung von Cauchy-Schwarz wieder die Dreiecksungleichung
+    $$\forall u,v,w\in V:d(u,w)\le d(u,v)+d(v,w)$$
+    Wie im Reellen definert man Orthogonalsysteme und Orthonormalsysteme. Auch Orthogonalbasen und Orthonormalbasen gibt es
+    wieder und so weiter.\\
+    Der Satz von Pythagoras gilt nun nur noch in einer Richtung:
+    $$v\perp w\Rightarrow\norm{v+w}^2=\norm{v}^2+\norm{w}^2$$
+\section{Skalarprodukte und Homomorphismen}
+  \subsection{Isometrien}
+    \subsubsection{Isometrie, Isometriegruppe}
+      Sei $(X,d)$ ein metrischer Raum, d.h. $d:X\times X\ra\reell_{\ge0}$, sodass
+      \begin{itemize}
+        \item $d(x,y)=0\Leftrightarrow x=y$
+        \item $d(x,y)=d(y,x)$
+        \item $d(x,y)\le d(x,z)+d(z,y)$
+      \end{itemize}
+      und sei $(Y,d)$ ein weiterer metrischer Raum. $f:X\ra Y$ heißt \textbf{Isometrie} (abstandhaltend), wenn
+      $$\forall x_1,x_2\in X:d(x_1,x_2)=e(f(x_1),f(x_2))$$
+      Eine Isometrie ist immer injektiv.\\
+      Die Gruppe
+      $$\text{Iso}(X,d):=\{f:X\times X\mid X\text{ ist \textbf{surjektive} Isometrie}\}$$
+      heißt Isometriegruppe.
+    \subsubsection{Lineare Isometrie, Polarisierung}
+      Es seien $V$ und $W$ zwei euklisische oder zwei unitäre VRe. Dann heißte eine Isometrie $\Phi:V\ra W$, die 
+      gleichzeitig eine lineare Abbildung ist, eine \textbf{lineare Isometrie}.\\
+      Das Skalarprodukt lässt sich aus der Metrik rekonstruieren. Genauer gilt im Reellen die \textbf{Polarisierungsformel}:
+      $$\lh{x,y}=\frac{1}{2}[\lh{x+y,x+y}-\lh{x,x}-\lh{y,y}]=\frac{1}{4}[\lh{x+y,x+y}-\lh{x-y,x-y}]$$
+      Im Komplexen sieht die Formel so aus:
+      $$\lh{x,y}=\frac{1}{4}[\lh{x+y,x+y}-\lh{x-y,x-y}+i\lh{x+iy,x+iy}-i\lh{x-iy,x-iy}]$$
+      Da eine lineare Isometrie insbesonderer einen Vekotr der Norm $a$ auf einem Vekotr der Norm $a$ abbildet, sagt diese
+      Polarisierungsformel für einen Vektorraumhomomorphismus $\Phi\in\text{Hom}(V,E)$:
+      $$\Phi\text{ist lineare Isometrie}\Longleftrightarrow\forall x,y\in V:\lh{x,y}_V=\lh{\Phi(x),\Phi(y)}_W$$
+      Dabei haben wir den für das jeweilige Skalarprodukt zuständeigen VR durch einen Index am Skalarprodukt gekennzeichnet
+    \subsubsection{Isometrien und invariante Komplemente}
+      Es sei $\Phi:V\ra V$ ein lineare Isometrie eines endlichdimensionalen euklidischen oder unitären VRes. Weiter sei
+      $U\subseteq V$ ein $\Phi$-invarianter Untervektorraum. Dann ist $U^\perp$ ein $\Phi$-invarianter 
+      Komplementärraum zu $U$
+    \subsubsection{Isometrienormalform}
+      Es seien $K=\reell$ oder $\comp$ und $V$ ein $n$-dimensionaler $K$-VR mit Skalarprodukt, Weiter sei $\Phi:V\ra V$ eine
+      lineare Isometrei von $V$. Dann gilt:
+      \begin{enumerate}
+        \item Für $K=\comp$ besitzt $V$ eine ONB aus Eigenvektoren, d.h. $\Phi$ ist orthogonal diagonalisierbar
+        \item Für $K=\reell$ lässt sich $V$ schreiben als direkte Summe von paarweise orthogonalen ein- oder
+          zweidimensionalen $\Phi$-invarianten Untervektorräumen. Auf den eindimensionalen Summanden ist $\Phi$ die 
+          Multiplikation mit 1 oder -1. Auf jedem der zweidimensionalen Summanden wir $\Phi$ bezüglcih einer beliebigen ONB
+          durch ein Drehkästchen $D_\varphi$ mit einem jeweilis geeigneten Winkel $\varphi$ beschrieben
+      \end{enumerate}
+    \subsubsection{Matrizenwelt; Isometrienormalform}
+      \begin{enumerate}
+        \item Es sei $A\in U(n)$ eine unitäre Matrix. Dann gibt es eine unitäre Matrix $S\in U(n)$, sodass $S^{-1}AS$ eine
+          Diagonalmatrix ist.
+        \item Es sei $A\in O(n)$ eine orthogonale Matrix. Es sei $d_+:=\dim\text{Eig}(A,1)$ und $d_-:=\dim\text{Eig}(A,-1)$
+          und $l=\frac{1}{2}(n-d_+-d_-)$. Dann gibt es reelle Zahlen $\varphi_1,\dots,\varphi_l\in(0,\pi)$ und eine
+          orthogonale Matrix $S\in =(n)$, sodass $S^{-1}AS$ die folgende Block-Diagonalgestalt hat:
+          $$\begin{pmatrix}
+            I_{d_+} & & & & \\
+             & -I_{d_-} & & & \\
+             & & D_{\varphi_1} & & \\
+             & & & \ddots & \\
+             & & & & D_{\varphi_l}
+          \end{pmatrix}$$
+          Dabei ist wie immer die Matrix $D_{\varphi_i}$ das Drehkästchen
+          $$D_{\varphi_i}\begin{pmatrix}
+            \cos{\varphi_i} & -\sin(\varphi_i) \\
+            \sin(\varphi_i) & \cos(\varphi_i)
+          \end{pmatrix}$$
+      \end{enumerate}
+  \subsection{Selbstadjungierte Abbildungen}
+    \subsubsection{Selbstadjungiert, \texorpdfstring{$A^*$}{}, hermitesche Matrizen}
+      Es sei $V$ ein VR mit Skalarprodukt über $\reell$ oder $\comp$, und $\Phi$ sei ein Endomorphismus von $V$. Dann heißt
+      $\Phi$ \textbf{selbstadjungiert}, wenn für alle $V$ die Gleichung
+      $$\lh{\Phi(v),w}=\lh{v,\Phi(w)}$$
+      gilt.\\
+      Wenn $V$ endlichdimensional ist und wir eine ONB $V=\{b_1,\dots,b_n\}$ von $V$ wählen, so sit $\Phi$ genau dann
+      selbstadjungiert, wenn für alle Basisvektoren $b_i,b_j$ die Gleichung
+      $$\lh{\Phi(b_i),b_j}=\lh{b_i,\Phi(b_j)}=\con{\lh{\Phi(b_j),b_i}}$$
+      gilt. Da der Matrix mit den Einträgen $\lh{\Phi(b_j),b_i}$ genau die Abbildungsmatrix von $\Phi$ bezüglich $B$ ist,
+      sehen wir:
+      $$\Phi\text{ ist selbstadjungiert}\Longleftrightarrow D_{BB}(\Phi)=\con{D_{BB}(\Phi)^T}$$
+      Wir verwenden in Zukunft für die Matrix $A\in\comp^{n\times n}$ die Abkürzung
+      $$A^*:=\con{A^T}$$
+      Matrzien mit $A=A^*$ heißen \textbf{hermitesch}.\\
+      $\Phi$ ist genau dann selbstadjungiert, wenn die Abbildungsmatrix von $\Phi$ bezütlich einer belieben ONB hermites 
+      ist.
+    \subsubsection{Eigenwerte; invariante Komplemente}
+      Es sei $V$ ein reeller oder komplexer VR mit Skalarprodukt und $\Phi\in\text{End}(V)$ selbstadjungiet. Dann gelten
+      die folgenden zwei Aussagen:
+      \begin{enumerate}
+      \item Alle Eigenwerte von $\Phi$ sind reell
+      \item Wenn $U\subseteq V$ ein endlichdimensionaler $\Phi$-invarianter Untervektorraum ist, dann ist auch $U^\perp$
+        $\Phi$-invariant. Also gibt es ein $\Phi$-invariantes Komplement.
+      \end{enumerate}
+    \subsubsection{Eigenwerte symmetreischer reeller Matrzien}
+      Es sei $A\in\reell^{n\times n}$ eine symmetrische Matrix. Dann zerfällt das charakteristische Polynome von $A$ in
+      reelle Linearfaktorn
+    \subsubsection{Spektralsatz für selbstadjungierte Abbildungen}
+      Es sei $V$ ein endlichdimensionaler VR über $K=\reell$ oder $\comp$ mit Skalarprodukt und $\Phi$ ein Endomorphismus
+      von $V$. Dann sidn folgende beiden Aussagen äquivalent:
+      \begin{enumerate}[label=\roman*)]
+        \item $\Phi$ ist selbstadjungiert
+        \item Es gibt eine ONB aus Eigenvektoren von $\Phi$, und die Eigenwerte sind alle reell.
+      \end{enumerate}
+    \subsubsection{Spektralsatz für hermitesche Matrizen}
+      Sei $A\in K^{n\times n}$, wobei $K=\reell$ oder $\comp$. Dann ist $A$ genau dann hermitesch, wenn
+      \begin{enumerate}[label=\roman*)]
+        \item $K=\reell:\exists S\in O(n):S^{-1}AS=\text{diag}(\lambda_1,\dots,\lambda_n)$
+        \item $K=\comp\exists S\in U(n):S^{-1}AS=\text{diag}(\lambda_1,\dots,\lambda_n), \lambda_i\in\reell$
+      \end{enumerate}
+      Eine symmetrische Matrix $A\in\reell^{n\times n}$ ist genau dann positiv definit, wenn alle ihre Eigenwerte
+      positib sind
+  \subsection{Normale Endomorphismen}
+      Eine Gemeinsamkeit von linearen Isometrien und selbstadjungierten Abbildungen ist, dass es eine gute Kontrolle darüber
+      gibt, wie man im Skalarprodukt
+      $$\lh{\Phi(v),w}$$
+      das "$\Phi$ auf die andere Seite bringen" kann. Genauer gilt ja
+      $$\lh{\Phi(v),w}=\begin{cases}
+        \lh{v,\Phi^{-1}(w)}, & \text{wenn $\Phi$ bijektive Isometrie ist}\\
+        \lh{v,\Phi(w)}, & \text{wenn $\Phi$ selbstadjungiert ist}
+      \end{cases}$$
+      Das ist der Schlüssel zur Existenz eines invarianten Komplementärraums zu einem invarianten Unterraum. Nun wendet man
+      die Geschichte neu und erfindet ein Konzept
+    \subsubsection{Adjungierte Abbildung, normale Endomorphismen}
+      \begin{enumerate}
+        \item Es seien $K=\reell$ oder $\comp$ und $V,W$ zwei $K$-VRe mit Skalarprodukten $\lh{\cdot,\cdot}_V$ und
+          $\lh{\cdot,\cdot}_W$. Weiter sei $\Phi:V\ra W$ ein Homomorphismus. Dann gibt es für jedes $w\in W$ höchstens ein
+          Element $\Phi^*(w)\in V$, sodass für alle $v\in V$ die Gleichung
+          $$\lh{\Phi(v),w}=\lh{v,\Phi^*(w)}$$
+          erfüllt ist.\\
+          Wenn für jedes $w\in W$ solch ein $\Phi^*(w)$ existiert, dann heißt die Abbildung
+          $$\Phi^*:W\ra V,w\mapsto\Phi^*(w)$$
+          die zu $\Phi$ \textbf{adjungierte Abbildung}. 
+        \item Wenn $\Phi^*$ existiert, dann sind sowohl $\Phi$ als auch $\Phi^*$ linear.
+        \item Sei $V=W$. Dann heißt $\Phi$ ein \textbf{normaler Endomorphismus}, wenn die adjungierte Abbildung $\Phi^*$
+          existiert und folgendes gilt:
+          $$\Phi\circ\Phi^*=\Phi^*\circ\Phi$$
+      \end{enumerate}
+    \subsubsection{Abbildungsmatrix der adjungierten Abbildung}
+      Es seien $V,W$ endlichdimensionale $K$-VR mit Skalarprodukt und $\Phi:V\ra W$ ein Homomorphismus. Dann existieret die
+      adjungierte Abbildung $\Phi^*$. Wenn $B$ bzw. $C$ ONBen von $V$ bzw. $W$ sind, dann gilt für die Abbildungsmatrizen:
+      $$D_{BC}(\Phi^*)=(D_{CB}(\Phi))^*$$
+    \subsubsection{Existenz invarianter Komplemente}
+      Es sei $V$ ein endlichdimensionaler $K$-VR mit Skalarprodukt, $\Phi$ ein normler Endomorphismus von $V$ und $U\le V$
+      ein $\Phi$-invarianter Untervektorraum. Dann ist auch $U^\perp$ unter $\Phi$ invariant.
+    \subsubsection{Spektralsatz für normale Matrizen}
+      Es sei $V$ ein endlichdimensionaler $K$-VR mit Skalarprodukt und $\Phi$ ein normaler Endomorphismus von $V$. Dann
+      gilt:
+      \begin{enumerate}
+        \item Im Fall $K=\comp$ gibt es eine Orthogonalbasis aus Eigenvektoren von $\Phi$.
+        \item In Fall $K=\reell$ ist $V$ die orthogonale Summe von ein- und zweidimensionalen $\Phi$-invarianten
+          Untervektorräumen.
+      \end{enumerate}
+    \subsubsection{Für Matrizen}
+      \begin{enumerate}
+        \item Für jede normale Matrix $A\in\comp^{n\times n}$ gibt es eine unitäre Matrix $S\in U(n)$, sodass $S^{-1}AS$
+          eine Diagonalmatrix ist. Die Diagonaleinträge können übrigens beliebige komplexe HZahlen sein, es gibt nicht mehr
+          die Einschränkung "Betrag gleich 1" wie im Fall der Isometrie oder "Eigenwerte sind reell" wie im 
+          selbstadjungierten Fall.
+        \item Für jede normale Matrix $A\in\reell^{n\times n}$ gibt es eine orhogonale Matrix $S\in O(n)$, sodass $S^{-1}AS$
+          eine Blockdiagonalmatrix ist, die auf der Diagonalen entweder reelle Eigenwerte stehen hat oder reelle Matrizen
+          der Gesalt $\begin{pmatrix}a & -b \\ b & a\end{pmatrix}$ mit $b\neq0$.
+      \end{enumerate}
+
+
+
+\end{document}
