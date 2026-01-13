@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kit}[2025/04/29 Custom class with custom titlepage]
+\ProvidesClass{kit}[2026/01/13 Custom class with custom titlepage]
 
 % Load base class
 \LoadClass{article}
@@ -10,6 +10,8 @@
 \RequirePackage{mathtools}
 \RequirePackage{hyperref}
 \RequirePackage{enumitem}
+\RequirePackage{tikz}
+\usetikzlibrary{automata,positioning}
 
 %allow subtitle
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
@@ -54,6 +56,9 @@
 \newcommand\xrax{{x\rightarrow x_0}}
 \newcommand\rai{{\rightarrow\infty}}
 
+\newcommand\id{\text{Id}}
+\newcommand\eig{\text{Eig}}
+
 \newcommand\sumk{\sum^\infty_{k=1}}
 \newcommand\sumknull{\sum^\infty_{k=0}}
 \newcommand\sumka{\sum^\infty_{k=1}a_k}
@@ -75,3 +80,5 @@
 \DeclarePairedDelimiter\lh{\langle}{\rangle}
 \DeclarePairedDelimiter\norm{\lvert\lvert}{\rvert\rvert}
 
+\newcommand\prob{\mathbb{P}}
+\newcommand\bin{\text{Bin}}

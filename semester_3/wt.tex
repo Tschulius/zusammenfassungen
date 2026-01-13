@@ -1,0 +1,203 @@
+\documentclass{kit}
+
+\usepackage{tabularx}
+\usepackage{array}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\author{Julius Vater - 2603322}
+\title{Grundlagen der Wahrscheinlichkeitstheorie und Statistik Zusammenfassung}
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+\section{Mathematische Modelle von Zufallsexperimenten}
+  \subsection{Grundbegriffe: Ereignisse}
+    \begin{itemize}
+      \item Der \textbf{Grundraum} ist eine nicht leere Menge $\Omega\neq\emptyset$. Sie enthält alle möglichen 
+        \textbf{Ergebnisse} eines Zufallsexperiments.
+      \item \textbf{Erbegnisse} sind Teilmengen $A\subseteq\Omega$, denen prinzipiell eine Wahrscheinlichkeit zugeordnet
+        werden kann.
+        \begin{itemize}
+          \item Nicht immer wird jede Teilmenge als Ergebnis bezeichnet, sondern nur Mengen aus einem Mengensystem
+            $A\subseteq\mathcal{P}(\Omega)$, wobei
+            $$\mathcal{P}(\Omega):=\{A\mid A\text{ ist Teilmenge von }\Omega\}$$
+            die Potenzmenge bezeichnet.
+          \item Ist $\Omega$ endlich (oder allgemeiner höchstens abzählbar), dann wählt man typischerweise 
+            $A=\mathcal{P}(\Omega)$, d.h. jede mögliche Teilmenge des Grundraumes soll eine Wahrscheinlichkeit erhalten.
+        \end{itemize}
+    \end{itemize}
+  \subsection{"Rechnen mit Ereignissen"}
+    Logische Verknüpfungen zwischen Bedingungen, die Ereignisse definiern, lassen sich durch mengentheoretische 
+    Operationen zwischen diesen Ereignissen beschreiben.\\\\
+    Seien $A,B\subseteq\Omega$ Ereignisse. Dann ist:
+    \begin{itemize}
+      \item $A\cup B=\{\omega\in\Omega\mid\omega\in A\text{ oder }\omega\in B\}$
+      \item $A\cap B=\{\omega\in\Omega\mid\omega\in A\text{ und }\omega\in B\}$
+      \item $A\setminus B=\{\omega\in\Omega\mid\omega\in A,\omega\notin B\}$
+      \item $B^c=\{\omega\notin B\}$
+      \item $A\subseteq B$ bedeutet: Wenn $A$ eintritt, dann tritt auch $B$ ein.
+    \end{itemize}
+  \subsection{Grundbegriffe: Wahrscheinlichkeiten}
+    Im Wahrscheinlichkeitsmodell soll jedem Ereignis eine Wahrscheinlichkeit konsitent zugeordnet werden.\\
+    Für $n\in\nat$ gleiche und sich nicht gegenseitig beeinflussende Wiederholungen eines Zufallsexperimentes mit Grundraum
+    $\Omega$ und Ereignissen $\omega_1,\dots,\omega_n\in\Omega$ betrachte die \textbf{empirische Verteilung / relative
+    Häufigkeit}
+    $$\prob_n(A):=\frac{\abs{\{i=1,\dots,n\mid\omega_i\in A\}}}{n}=\frac{\text{Anzahl Zufallsexp. in denen $A$ 
+    eintrat}}{n},\hspace{0.5cm}A\subseteq\Omega$$ \newpage
+    Für $\prob_n:\mathcal{P}(\Omega)\ra\reell$ gelten:
+    \begin{itemize}
+      \item $0\le\prob_n(A)\le1$ für alle $A\subseteq\Omega$
+      \item $\prob_n(\Omega)=1$
+      \item $\prob_n(A\cup B)=\prob_n(A)+\prob_n(B)$ für alle $A,B\subseteq\Omega$ mit $A\cup B=\emptyset$
+    \end{itemize}
+  \subsection{Diskrete Wahrscheinlichkeitsräume}
+    Sei $\Omega\neq\emptyset$ eine beliebige nicht-leere Menge. Eine Abb. $\prob:\mathcal{P}(\Omega)\ra[0,1]$ heißt 
+    \textbf{diskretes Wahrscheinlichkeitsmaß}, falls
+    \begin{enumerate}
+      \item $\prob(\Omega)=1$
+      \item $\forall A_n\subseteq\Omega,n\in\nat$, disjunkt: $\prob\left(\bigcup_{n\in\nat}A_n\right)
+        =\sum_{n\in\nat}\prob(A_n)$\hspace{0.5cm}($\sigma$-Additivität)
+      \item Es existiert eine (höchstens) abzählbare Menge $\Omega_0\subseteq\Omega$ mit $\prob(\Omega_0)=1$
+    \end{enumerate}
+    Dann heißt $(\Omega,\prob)$ \textbf{diskreter Wahrscheinlichkeitsraum}.\\
+    Ist $\Omega_0$ endlich, sprechen wir von einem \textbf{endlichen Wahrscheinlichkeitsraum}.
+  \subsection{Elementare Eigenschaften}
+  \begin{enumerate}[label=\roman*)]
+      \item $\prob(\emptyset)=0$
+      \item $\forall A_1,\dots,A_m\subseteq\Omega$ disjunkt, $m\in\nat:\prob(\bigcup^m_{n=1}A_n)=\sum^m_{n=1}\prob(A_n)$
+      \item $\forall A\subseteq\Omega: \prob(A^c)=1-\prob(A)$
+      \item $\forall A,B\subseteq\Omega,A\subseteq B:\prob(b\setminus A)=\prob(B)-\prob(A)$
+      \item $\forall A,B\subseteq\Omega:\prob(A\cup B)=\prob(A)+\prob(B)-\prob(A\cap B)$
+      \item Für alle Folgen $A_n\subseteq\Omega,n\in\nat$ gilt $\prob(\bigcup_{n\in\nat}A_n)\le\sum_{n\in\nat}\prob(A_n)$ \\
+        ("$\sigma$-Subadditivität")
+    \end{enumerate}
+  \subsection{Bernoulliverteilung}
+    Auf dem Grundraum $\Omega=\{0,1\}$ wird durch
+    $$\prob(\{1\})=p\hspace{0.5cm}\text{für ein}\hspace{0.5cm}p\in[0,1]$$
+    eine Wahrscheinlichkeitsverteilung festgelegt, weilche als \textbf{Bernoulliverteilung} $\text{Ber}(p)$ mit 
+    \textbf{Erfolgswahrscheinlichkeit} $p$ bezeischnet wird.\\
+    Es gilt
+    $$\prob(\{0\})=1-\prob(\{1\})=1-p$$
+    sodass tatsächlich für alle Elemente der Potenzmenge $\mathcal{P}(\Omega)=\{\emptyset,\{0\},\{1\},\{0,1\}\}$
+    Wahrscheinlichkeiten eindeutig festgelegt sind.
+  \subsection{Gleichverteilung}
+    Das Modell für den fairen Würfel ist ein Spezialfall eier wichteigen Klasse von Wahrscheinlichkeitsräumen:\\
+    Ist $\Omega\neq\emptyset$ endlich, so heißt das durch
+    $$\prob(A):=\frac{\abs{A}}{\abs{\Omega}},\hspace{0.5cm}A\subseteq\Omega$$
+    definierte Wahrscheinlichkeitsraum die \textbf{Gleichverteilung} oder \textbf{Laplace-Verteilung} $U(\Omega)$ auf
+    $\Omega$. Hierbei bezeichnet $\abs{A}$ die Anzahl der Element der Menge $A$.\\
+    Bei Gleichverteilungen sind also nur Mächtigkeiten von Mengen zu bestimmen. Dafür sind oft sogennante Urnenmodelle
+    hilfreich.
+  \subsection{Urnenmodelle}
+    Es werden $k$ Ziehungen aus einer Urne mit Kugeln, die mit $1,\dots,n$ durchnummeriert sind, durchgeführt.\\
+    Dabei betrachten wir wahlweise
+    \begin{itemize}
+      \item Ziehen \textbf{mit} oder \textbf{ohne Zurücklegen}
+      \item Ziehen \textbf{mit} oder \textbf{ohne Berücksichtigung der Reihenfolge}
+    \end{itemize}
+    Bei Berücksichtigung der Reihenfolge werden die Tuper der gezogenen Kugelnummern auch als \textbf{Permutation}
+    bezeichnet, ohne Berücksichtigung der Reihenfolge spricht man von \textbf{Kombinationen}.\\
+    Im Folgenden werden geeignete Grundräume für diese Zufallsexperimente und deren Mächtigkeiten angegeben.
+  \subsubsection{Ziehen mit Zurücklegen und mit Berücksichtigung der Reihenfolge}
+    Möglicher Grundraum:
+    $$\Omega_{mZ,mR}=\{(\omega_1,\dots,\omega_k)\mid\omega_i\in\{1,\dots,n\}\forall1\le i\le k\}=\{1,\dots,n\}^k$$
+    Interpretation: $\omega=(\omega_1,\dots,\omega_k)\in\Omega_{mZ,mR}$ bedeutet, dass für alle $1\le i\le k$ im $i$-ten Zug
+    die Kugel mit der Nummer $\omega_i$ gezogen worden ist.\\
+    Es gilt $\abs{\Omega_{mZ,mR}}=n^k$
+  \subsubsection{Ziehen ohne Zurücklegen und mit Berücksichtigung der Reihenfolge}
+    Möglicher Grundraum:
+    $$\Omega_{oZ,mR}=\{(\omega_1,\dots,\omega_k)\in\{1,\dots\}^k\mid\omega_i\neq\omega_j\forall1\le i<j\le k\}$$
+    Interpretation: $\omega=(\omega_1,\dots,\omega_k)\in\Omega_{oZ,mR}$ bedeutet, dass für alle $1\le i\le k$ im $i$-ten
+    Zug die Kugel mit der Nummer $\omega_i$ gezogen worden ist.\\
+    Es gilt $\abs{\Omega_{oZ,mR}}=n\cdot(n-1)\cdots(n-k+1)=\frac{n!}{(n-k)!}$
+  \subsubsection{Ziehen ohne Zurücklegen und ohne Berücksichtigung der Reihenfolge}
+    Möglicher Grundraum:
+    $$\Omega_{oZ,oR}=\{(\omega_1,\dots,\omega_k)\in\{1,\dots,k\}^k\mid\omega_i<\omega_j\forall1\le i<j\le k\}$$
+    Interpretation: $\omega=(\omega_1,\dots,\omega_k)\in\Omega_{oZ,oR}$ bedeutet, dass die \textbf{der Größe nach
+    geordneten} gezogenen Kugeln gerade $\omega_1,\dots,\omega_k$ sind.\\
+    Es gilt $\abs{\Omega_{oZ,oR}}=\frac{\Omega_{oR,mR}}{k!}=\frac{n!}{k!(n-k)!}=\binom{n}{k}$
+  \subsubsection{Ziehen mit Zurücklegen und ohne Berücksichtigung der Reihenfolge}
+    Möglicher Grundraum:
+    $$\Omega_{mZ,oR}=\{(\omega_1,\dots,\omega_k)\in\{1,\dots,n\}^k\mid\omega_i\le\omega_j\forall1\le i<j\le k\}$$
+    Interpretation: $\omega=(\omega_1,\dots,\omega_k)\in\Omega_{mZ,oR}$ bedeutet, dass die der Größe nach geordneten
+    gezogenen Kugelnummern gerade $\omega_1,\dots,\omega_k$ sind.\\
+    Um $\abs{\Omega_{mZ,oR}}$ zu bestimmen betrachte die bijektive Abb
+    $$S:\Omega_{mZ,oR}\ra\{(\tilde\omega_1,\dots,\tilde\omega_k)\in\{1,\dots,n+k-1\}^k\mid\tilde\omega_1<\dots
+    <\tilde\omega_k\}=:\Omega^*$$
+    $$S(\omega_1,\dots,\omega_k):=(\omega_1,\omega_2+1,\omega3+2,\dots,\omega_k+k-1)$$
+    $\Omega^*$ ist vom gleichen Typ wie $\Omega_{oZ,oR}$ mit $n$ ersetzt durch $n+k-1$\\
+    Daher gilt $\abs{\Omega_{mZ,oR}}=\abs{\Omega^*}=\binom{n+k-1}{k}$
+  \subsection{Fächermodelle}
+    Wir haben $k$ Murmeln und wollen diese auf $n$ Fächer verteilen. Dabei gelte wahlweise:
+    \begin{itemize}
+      \item Mehrfachbelegung der Fächer \textbf{erlaubt} oder \textbf{nicht erlaubt}
+      \item \textbf{unterscheidbaer} Murmeln oder \textbf{nicht unterscheidbare} Murmeln
+    \end{itemize}
+    Die resultierenden 4 möglichen Situationen entsprechen den 4 Urnenmodellen.
+    \newpage
+  \subsection{Zusammenhang Urnen- und Fächermodelle}
+    \begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.4}
+    \begin{tabularx}{\textwidth}{|Y|Y|Y|Y|}
+    \hline
+    Urnenmodell mit $n$ Kugeln und $k$ Ziehungen & mit Zurücklegen & ohne Zurücklegen & \\ \hline
+    mit Reihenfolge & $n^k$ & $\dfrac{n!}{(n-k)!}$ & unterscheidbare Murmeln \\ \hline
+    ohne Reihenfolge & $\binom{n+k-1}{k}$ & $\binom{n}{k}$ & ununterscheidbare Murmeln \\ \hline
+      & mit Mehrfachbelegung & ohne Mehrfachbelegung & Verteilung von $k$ Murmeln auf $n$ Fächer \\ \hline
+    \end{tabularx}
+    \end{table}
+  \subsection{Binomialverteilung}
+    Das Wahrscheinlichkeitsmaß $\prob=\bin(n,p)$ auf $\{0,\dots,n\}$ mit
+    $$\prob(\{k\})=\binom{n}{k}p^k\cdot(1-p^{n-k}\hspace{0.5cm}\forall k\in\{0,\dots,n\}$$
+    heißt \textbf{Binomialverteilung} mit Parametern $n\in\nat$ und $p\in[0,1]$.\\
+    Für $n=1$ erhalten wir wieder die Bernoulliverteilung.
+  \subsection{Zähldichten}
+    Im Allgemeinen lassen sich diskrete W'maße durch eine Funktion $f:\Omega\ra[0,1]$ eindeutig beschreiben:
+    \begin{enumerate}[label=\roman*)]
+      \item Sei $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum. Dann wird die Funktion
+        $$f:\Omega\ra[0,1],f(\omega)=\prob(\{\omega\})$$
+        \textbf{Wahrscheinlichkeitsraum} oder \textbf{Zähldichte} von $\prob$ genannt und besitzt folgende Eigenschaften:
+        \begin{enumerate}
+          \item $\Omega_{\tau}:=\{\omega\in\Omega\mid f(\omega)>0\}$ ist abzählbar (und heißt \textbf{Träger von $\prob$}
+            bzw. von $f$)
+          \item $\sum_{\omega\in\Omega}f(\omega)=1$
+        \end{enumerate}
+        Für alle $A\subseteq\Omega$ gilt dann:
+        $$\prob(A)=\sum_{\omega\in A}f(\omega)=\sum_{\omega\in A\cap\Omega_{\tau}}f(\omega)$$
+      \item Ist umgekehrt $\Omega\neq\emptyset$ und $f_\Omega\ra[0,1]$ eine Funktion, die (a) und (b) erfüllt, so existiert
+        genau ein diskretes Wahrscheinlichkeitsmaß auf $\Omega$, das $f$ zur Zähldichte hat.
+    \end{enumerate}
+  \subsection{Geometrische Verteilung}
+    Das Wahrscheinlichkeitsmaß $\prob=\text{Geo}(p)$ auf $\nat_0$ mit der Zähldichte
+    $$f(k)=(1-p)^k\cdot p,\hspace{0.5cm}k\in\nat_0$$
+    heißt \textbf{geometrische Verteilung} mit Parameter $p\in(0,1]$\\
+    $f$ ist tatsächlich eine Zähldichte auf $\nat_0$, denn $\nat_0$ ist abzählbar und
+    $$\sum_{k\in\nat_0}f(k)=p\cdot\sum_{k\in\nat_0}(1-p)^k\stackrel{geom. Reihe}{=}p\cdot\frac{1}{1-(1-p)}=1$$
+\section{Bedingte Wahrscheinlichkeiten und Unabhängigkeit}
+  \subsection{Bedingte Wahrscheinlichkeit}
+    Sei $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum, $B\subseteq\Omega$ mit $\prob(B)>0$ und $A\subseteq\Omega$.
+    Dann heißt
+    $$\prob(A\mid B):=\frac{\prob(A\cap B)}{\prob(B)}$$
+    die \textbf{bedingte Wahrscheinlichkeit von A gegen B}
+  \subsection{Multiplikationsformel}
+    Als Verallgemeinerung von
+    $$\prob(A\cap B)=\prob(B)\prob(A|B),\hspace{0.5cm}A,B\subseteq\Omega,\prob(B)\neq0$$
+    gilt:\\
+    Es seien $A_1,\dots,A_n\subseteq\Omega$ Ereignisse mit $\prob(A_1\cap\dots\cap A_{n-1})>0$, dann gilt
+    $$\prob(A_1\cap\dots\cap A_n)=\prob(A_1)\cdot\prob(A_2|A_1)\cdot\prob(A_3|A_1\cap A_2)\cdots
+    \prob(A_n|A_1\cap\dots\cap A_{n-1})$$
+  \subsection{Gekoppelte Zufallsexperimente}
+    Viele stochastische Vorgänge bestehen aus aufeinanderfolgenden Teilexperimenten. Ergebnisse eine $n$-stufigen
+    Experimentes sind $n$-Tupel $\omega=(\omega_1,\dots,\omega_n)$, wobei $\omega_j$ der Ausgang des $j$-ten 
+    Teilexperimentes ist.\\
+    Sei $\Omega_j$ die (abzählbare) Ergebnismenge der $j$-ten Teilexperimentes. Dann ist
+    $$\Omega:=\Omega_1\times\dots\times\Omega_n==\{\omega=(\omega_1,\dots,\omega_n):\omega\in\Omega_j\text{ für }
+    j=1,\dots,n\}$$
+    ein natürlicher Grundraum für das Gesamtexperiment.
+  \subsection{Totale Wahrscheinlichkeit und der Satz von Bayes}
+    (Folie 45)
+
+
+
+\end{document}
