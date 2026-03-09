@@ -19,11 +19,11 @@
         werden kann.
         \begin{itemize}
           \item Nicht immer wird jede Teilmenge als Ergebnis bezeichnet, sondern nur Mengen aus einem Mengensystem
-            $A\subseteq\mathcal{P}(\Omega)$, wobei
-            $$\mathcal{P}(\Omega):=\{A\mid A\text{ ist Teilmenge von }\Omega\}$$
+            $A\subseteq\mathscr{P}(\Omega)$, wobei
+            $$\mathscr{P}(\Omega):=\{A\mid A\text{ ist Teilmenge von }\Omega\}$$
             die Potenzmenge bezeichnet.
           \item Ist $\Omega$ endlich (oder allgemeiner höchstens abzählbar), dann wählt man typischerweise 
-            $A=\mathcal{P}(\Omega)$, d.h. jede mögliche Teilmenge des Grundraumes soll eine Wahrscheinlichkeit erhalten.
+            $A=\mathscr{P}(\Omega)$, d.h. jede mögliche Teilmenge des Grundraumes soll eine Wahrscheinlichkeit erhalten.
         \end{itemize}
     \end{itemize}
   \subsection{"Rechnen mit Ereignissen"}
@@ -44,14 +44,14 @@
     Häufigkeit}
     $$\prob_n(A):=\frac{\abs{\{i=1,\dots,n\mid\omega_i\in A\}}}{n}=\frac{\text{Anzahl Zufallsexp. in denen $A$ 
     eintrat}}{n},\hspace{0.5cm}A\subseteq\Omega$$ \newpage
-    Für $\prob_n:\mathcal{P}(\Omega)\ra\reell$ gelten:
+    Für $\prob_n:\mathscr{P}(\Omega)\ra\reell$ gelten:
     \begin{itemize}
       \item $0\le\prob_n(A)\le1$ für alle $A\subseteq\Omega$
       \item $\prob_n(\Omega)=1$
       \item $\prob_n(A\cup B)=\prob_n(A)+\prob_n(B)$ für alle $A,B\subseteq\Omega$ mit $A\cup B=\emptyset$
     \end{itemize}
   \subsection{Diskrete Wahrscheinlichkeitsräume}
-    Sei $\Omega\neq\emptyset$ eine beliebige nicht-leere Menge. Eine Abb. $\prob:\mathcal{P}(\Omega)\ra[0,1]$ heißt 
+    Sei $\Omega\neq\emptyset$ eine beliebige nicht-leere Menge. Eine Abb. $\prob:\mathscr{P}(\Omega)\ra[0,1]$ heißt 
     \textbf{diskretes Wahrscheinlichkeitsmaß}, falls
     \begin{enumerate}
       \item $\prob(\Omega)=1$
@@ -78,7 +78,7 @@
     \textbf{Erfolgswahrscheinlichkeit} $p$ bezeischnet wird.\\
     Es gilt
     $$\prob(\{0\})=1-\prob(\{1\})=1-p$$
-    sodass tatsächlich für alle Elemente der Potenzmenge $\mathcal{P}(\Omega)=\{\emptyset,\{0\},\{1\},\{0,1\}\}$
+    sodass tatsächlich für alle Elemente der Potenzmenge $\mathscr{P}(\Omega)=\{\emptyset,\{0\},\{1\},\{0,1\}\}$
     Wahrscheinlichkeiten eindeutig festgelegt sind.
   \subsection{Gleichverteilung}
     Das Modell für den fairen Würfel ist ein Spezialfall eier wichteigen Klasse von Wahrscheinlichkeitsräumen:\\
@@ -196,8 +196,243 @@
     j=1,\dots,n\}$$
     ein natürlicher Grundraum für das Gesamtexperiment.
   \subsection{Totale Wahrscheinlichkeit und der Satz von Bayes}
-    (Folie 45)
+    Sei $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum, $I$ eine (höchstens) abzählbare Indexmenge, 
+    $B_i\subseteq\Omega,i\in I$, disjunkt mit $\prob(B_i)>0$ und $\bigcup_{i\in I}B_i=\Omega$ (d.h. $B_i,i\in I$, bildet
+    eine didjunkte Zerlegung von $\Omega$). Weiter sei $A\subseteq\Omega$ beliebig.
+    \begin{enumerate}[label=\roman*)]
+      \item Es gilt der \textbf{Satz von der totalen Wahrscheinlichkeit}:
+        $$\prob(A)=\sum_{i\in I}\prob(A\mid B_i)\cdot\prob(B_i)$$
+      \item falls $\prob(A)>0$ und $k\in I$, dann gilt der \textbf{Satz von Bayes}:
+        $$\prob(B_k\mid A)=\frac{\prob(A\mid B_k)\cdot\prob(B_k)}{\prob(A)}=\frac{\prob(A\mid B_k)\cdot\prob(B_k)}
+        {\sum_{i\in I}\prob(A\mid B_i)\cdot\prob(B_i)}$$
+    \end{enumerate}
+  \subsection{Stochastische Unabhängigkeit}
+    Wir $A$ nicht von $B$ beeinflusst, so sollte $\prob(A)=\prob(A\mid B)=\frac{\prob(A\cap B)}{\prob(B)}$ gelten.\\
+    Sei $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum. Zwei Ereignisse $A,B\subseteq\Omega$ heißen
+    \textbf{($\prob$-)stochastisch unabhängig}, falls
+    $$\prob(A\cap B)=\prob(A)\cdot\prob(B)$$
+    Ereignisse $A_1,\dots,A_n\subseteq\Omega$ in einem diskreten Wahrscheinlichkeitsraum $(\Omega,\prob)$ heißen
+    \textbf{($\prob$-)stochastisch unabhängig}, wenn für \textbf{jede} Indexmenge $I\subseteq\{1,\dots,n\},I\neq\emptyset$,
+    gilt
+    $$\prob\left(\bigcap_{i\in I}A_i\right)=\prod_{i\in I}\prob(A_i)$$
+\section{Zufallsvariablen und ihre Verteilungen}
+  \subsection{\texorpdfstring{$S$}{S}-wertige Zufallsvariablen und ihre Verteilungen}
+    Zur Beschreibung von Ausgängen einse Zufallsexperiments (Ergebnis eines Würfelwurfs, Gewinn beim Roulette,...) bietet
+    sich oftmals die Verwendung von Zufallsvariablen an.\\
+    Ist $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum und $S\neq\emptyset$ eine beliebige Menge, so wie eine
+    Abbildung $X:\Omega\ra S$ auch \textbf{$S$-wertige Zufallsvariable} genannt.\\
+    Die Menge $S$ kann hier sehr allgemein sein. $S=\{$Apfel,Banane,Kiwi$\}$ ist genau so zulässig wie $S=\{0,1\}$ usw.
+    Im Gegensatz zu $S$ ist $X(\Omega_0)\subseteq S$ immer abzählbar.\\
+    Ist $X:\Omega\ra S$ eine Zfallsvariable auf einem diskreten W'raum $(\omega,\prob)$, dann wird durch
+    $$\prob^X(B):=\prob(X^{-1}(B)),\hspace{0.5cm}\forall B\subseteq S$$
+    ein Wahrscheinlichkeitsmaß $\prob^X$ auf $S$ definert, welches \textbf{Verteilung von $X$} genannt wird. $(S,\prob^X)$
+    ist ein diskreter Wahrscheinlichkeitsraum.\\
+    Notation für \textbf{Urbilder}:
+    $$\begin{aligned}
+      \{X\in B\} & := \{\omega\in\Omega\mid X(\omega)\in B\}=X^{-1}(B)\\
+      \{X=x\} & := \{\omega\in\Omega\mid X(\omega)=x\}=X^{-1}(\{x\})\\
+      \{X>x\} & := \{\omega\in\Omega\mid X(\omega)>x\}=X^{-1}((x,\infty))
+    \end{aligned}$$
+    etc. Zudem schreiben wir bspw. $\prob(X\in B):=\prob(\{X\in B\})$.
+  \subsection{Stochastische Unabhängigkeit von Zufallsvariablen}
+    Zufallsvariablen sollen als unabhängig gelten, wenn beliebige Ereignisse, die damit ausgedrückt werden können
+    stochastisch unabhängig sind.\\
+    Sei $(\Omega,\prob)$ ein diskreter Wahrscheinlichkeitsraum und $S_i,i\in\{1,\dots,n\}$, nichtleere Mengen.
+    Zufallsvariablen
+    $$X_i:\Omega\ra S_i,\hspace{0.5cm}i\in\{1,\dots,n\}$$
+    heißen \textbf{($\prob$-)stochastisch unabhängig}, wenn für beliebige $B_i\subseteq S_i,i\in\{1,\dots,n\}$, die
+    Ereignisse 
+    $$\{X_1\in B_1\},\dots,\{X_n\in B_n\}$$ 
+    stochastisch unabhängig sind.\\
+    Die Zufallsvariablen $X_i:\Omega\ra S_i$ besitzen die Verteilung $\prob^X$ für alle $i=1,\dots,n$.\\
+    Auch der Vektor $(X_1,\dots,X_n):\Omega\ra S_1\times\dots\times S_n$ ist eine Zufallsvariable mit einer Verteilung
+    $\prob^{(X_1,\dots,X_n)}$ auf $S_1\times\dots\times S_n$.\\
+    In der Situation sind äquivalent:
+    \begin{enumerate}[label=\roman*)]
+      \item $X_1,\dots,X_n$ sind stochastisch unabhängig
+      \item $\forall B_i\subseteq S_i(1\le i\le n):\prob(X_i\in B_i\forall1\le i\le n)=\prod^n_{i=1}\prob(X_i\in B_i)$
+      \item Bezeichnen $f_{X_i}$ die Zähldichten von $\prob^{X_i}$ auf $S$, so hat die Zähldichte $f_{(X_1,\dots,X_n)}$
+        von $\prob^{(X_1,\dots,X_n)}$ die Form
+        $$f_{(X_1,\dots,X_n)}(t_1,\dots,t_n)=\prod^n_{i=1}f_{X_i}(t-i)\hspace{0.5cm}\forall t_i\in S_i,1\le i\le n$$
+    \end{enumerate}
+    Die gemeinsame Verteilung $\prob^{(X_1,\dots,X_n)}$ unabhängiger Zufallsvariablen $X_1,\dots,X_n$ besitzt also
+    Produktgestalt.
+  \subsection{Poisson'scher Grenzwertsatz}
+    Für eine große Anzahl an Experimenten $n$ und eine kleine Erfolgsw'keit $p$ kann $\bin(n,p)$ durch eine strukturell
+    einfachere Verteilung approximiert werden:\\
+    Ist $p:n\in(0,1),n\in\nat$, so dass $\lim_\nrai np_n=\lambda>0$, dann gilt
+    $$\lim_\nrai\bin_{(n,p_n)}(\{k\})=\lim_\nrai\binom{n}{k}p^k_n(1-p_n)^{n-k}=e^{-\lambda}\cdot\frac{\lambda^k}{k!}
+    =:f_\lambda(k)\hspace{0.5cm}\forall k\in\nat_0$$
+    Die dadurch definierte Funktion $f_\lambda:\nat_0\ra[0,1]$ ist eine Zähldichte. Das dazu gehörige 
+    Wahrscheinlichkeitsmaß $\po(\lambda)$ heißt \textbf{Poissonverteilung} mit Parameter $\lambda$.\\
+    Dieses Resultat ist auch unter dem Namen "Gesetz der kleinen Zahlen" bekannt.
+  \subsection{Faltung}
+    Oft treten Summen unabhängiger Zufallsvariablen auf z.B. als Gesamtmessfehler, der sich aus unabhängigen
+    Einzelfehlerquellen zusammensetzt.\\
+    Sind $X,Y$ unabhängige $\reell$-wertige Zufallsvariablen auf einem diskreten Wahrscheinlichkeitsraum mit Zähldichten
+    $f_X$ von $\prob^X$ und $f_y$ von $\prob^Y$, dann heißt die Verteilung der Summe $X+Y$ \textbf{Faltung} von $\prob^X$
+    und $\prob^Y$, geschrieben $\prob^{X+Y}=\prob^X*\prob^Y$, dann besitzt die Zähldichte
+    $$(f_X*f_Y)(z):=\sum_{x\in\reell:f_x(x)>0}f_X(x)\cdot f_Y(z-x),\hspace{0.5cm}\forall z\in\reell$$
+    $f_X*f_Y$ heißt \textbf{Faltung} von $f_X$ und $f_Y$ und besitzt den Träger
+    $$\Omega_\tau:=\{z\in\reell\mid\exists x,y\in\reell:z=x+y,f_X(x)>0.f_Y(y)>0\}$$
+  \subsection{Markovketten und Übergangswahrscheinlichkeiten}
+    Im Folgenden sei $S$ immer eine höchstens abzählbare Menge.\\
+    Einde Folge $(X_n)_{n\in\nat_0}$ von $S$-wertigen Zufallsvariablen auf einem diskreten W'raum $(\Omega,\prob)$ heißt
+    \textbf{Markovkette}, falls sie die folgende sog. \textbf{Markoveigentschaft} erfüllt:
+    $$\prob(X_{n+1}=s_{n+1}\mid X_n=s_n,X_{n-1}=s_{n-1},\dots,X_0=s_0)=\prob(X_{n+1}=s_{n+1}\mid X_n=s_n),$$
+    $$\forall n\in\nat,s_0,\dots,s_{n+1}\in S\text{ mit }\prob(X_n=s_n,X_{n-1}=s_{n-1},\dots,X_0=s_0)>0$$
+    Die Markovkette heißt \textbf{homogen}, falls die songenannten \textbf{Ein-Schritt-}\\
+    \textbf{Übergangswahrscheinlichkeiten}
+    $$p_{ts}:=\prob(X_{n+1}=t\mid X_n=s)$$
+    für alle $n\in\nat_0$ mit $\prob(X_n=s)>0$ gleich sind.\\
+    Bei Markovketten liefert die echte Vergangenheit, wenn der gegenwärtige Zustand gegeben ist, keine zusätzliche
+    Information über das zukünftige stochastische Verhalten.\\
+    Das stochastische Verhalten einer homogenen Markov-Kette ist eindeutig bestimmt durch die Startverteilung 
+    $\prob^{X_0}$ (z.B durch die Angabe der zugehörigen Zähldichte $f_0(s)=\prob(\{X_0=s\}),s\in S)$ und die
+    Übergangswahrscheinlichkeiten $p_{ts}$ mit $t,s\in S$. Dann gilt z.B. (vgl. Multiplikationsformel)
+    $$\prob(X_0=s_0,X_1=s_1,X_2=s_2)$$
+    $$\begin{aligned}
+      = & \ \prob(X_2=s_2\mid X_1=s_1,X_0=s_0)\cdot\prob(X_1=s_1,X_0=s_0)\\
+      = & \ p_{s_2,s_1}\cdot\prob(X_1=s_1\mid X_0=s_0)\cdot\prob(X_0=s_0)\\
+      = & \ p_{s_2,s_1}\cdot p_{s_1,s_0}\cdot f_0(s_0)
+    \end{aligned}$$
+    Allgemeiner gilt für beliebige Ereignisse $A_i,0\le j\le n$,
+    $$\prob(X_i\in A:i\forall0\le i\le n)=\sum_{s_0\in A_0}\cdots\sum_{s_n\in A_n}p_{s_{n-1}s_{n-1}}\cdot \ \dots \ \cdot
+    p_{s_1s_0}\cdot f_0(s_0)$$
+\section{Wahrscheinlichkeitsmaße auf \texorpdfstring{$\reell$}{}}
+  \subsection{Wahrscheinlichkeitsmaße auf \texorpdfstring{$\reell$}{}}
+    Kontinuierliche Ergebnisse eines Zufallsexperiments (z.B Längen, Gewichte, Zeiten) lassen sich nciht auf natürliche
+    Weise durch diskrete Wahrscheinlichkeitsräume beschreiben.\\
+    Im Allgemeinen kann man \underbar{nicht} mehr jeder Untermenge des Grundraumes eine Wahrscheinlichkeit zuweisen, vgl.
+    Gleichverteilung.\\
+    Wahrscheinlichkeiten kann man nur noch "gutartigen" Mengen zuordnen, u.a:
+    \begin{itemize}
+      \item Intervalle sind guatartig
+      \item Komplemente gutartiger Mengen sind gutartig
+      \item Abzählbare Vereinigungen gutartiger Mengen sind gutartig
+    \end{itemize}
+    Es bezeichne im folgenden $\mathscr{A}\subseteq\mathscr{P}(\Omega)$ das System aller "gutartigen" Mengen.
+  \subsection{\texorpdfstring{$\sigma$}{}-Algebra, Messraum und Ereignisse}
+    Wie müssen Systeme "gutartiger" Mengen konstruiert werden?\\
+    Sei $\Omega\neq\emptyset$ ein beliebiger Grundraum. Eine Menge $\mathscr{A}\subseteq\mathscr{P}(\Omega)$ von
+    Untermengen von $\Omega$ heißt \textbf{$\sigma$-Algebra auf $\Omega$}, falls folgende Bedingungen erfüllt sind:
+    \begin{enumerate}
+      \item $\Omega\in\mathscr{A}$
+      \item $A\in\mathscr{A}\Rightarrow A^c\in\mathscr{A}$
+      \item $A_n\in\mathscr{A}\forall n\in\nat\Rightarrow\bigcup_{n\in\nat}A_n\in\mathscr{A}$
+    \end{enumerate}
+    $(\Omega,\mathscr{A})$ heißt dann \textbf{messbarer Raum}. Die Mengen $A\in\mathscr{A}$ heißen \textbf{Ereignisse}.\\
+    $\sigma$-Algebren modellieren die Menge aller Informationen, die wir über ein Zufallsexperiment bekommen können,
+    entsprechend lassen sich (a)-(c) interpretieren.
+  \subsection{Wahrscheinlichkeitsmaß \& Wahrscheinlichkeitsraum}
+    Auf eine $\sigma$-Algebra $\mathscr{A}$ engeschänkt können wir die Definition eines diskreten W'maßes auf allgeimene
+    Grundräume $\Omega$ übertragen:\\
+    Sei $(\Omega,\mathscr{A})$ ein messbarer Raum mit Grundraum $\Omega\neq\emptyset$ und $\sigma$-Algebra $\mathscr{A}$.
+    Eine Abbildung
+    $$\prob:\mathscr{A}\ra[0,1]$$
+    heißt \textbf{Wahrscheinlichkeitsmaß auf $(\Omega,\mathscr{A})$}, falls
+    \begin{enumerate}
+      \item $\prob(\Omega)=1$
+      \item $A_n\in\mathscr{A},n\in\nat$, disjunkt $\Ra\prob\left(\bigcup_{n\in\nat}A_n\right)
+        =\sum_{n\in\nat}\prob(A_n)$\hspace{0.5cm}($\sigma$-Additivität).
+    \end{enumerate}
+    $(\Sigma,\mathscr{A},\prob)$ heißt dann \textbf{Wahrscheinlichkeitsraum}.
+  \subsection{Wahrscheinlichkeitsräume}
+    Diskrete Wahrscheinlichkeitsräume ergeben sich als Spezialfälle mit $\mathscr{A}=\mathscr{P}(\Omega)$ und W'maßen mit
+    abzählbarem Träger.\\
+    Die Sätze und Definitionen
+    \begin{itemize}
+      \item Rechenregeln für diskrete W'maße
+      \item Bedingte Wahrscheinlichkeiten
+      \item Satz von der Totalen Wahrscheinlichket und von Bayes
+      \item Stochastische Unabhängigkeit von Ereignissen
+    \end{itemize}
+    übertragen sich sinngemäß auf allgemeine Wahrscheinlichkeitsräume, wobei als Ereignis jeweils nur Mengen aus
+    $\mathscr{A}$ betrachtet werden.\\
+    Wesentlicher Unterschied zu diskreten W'räumen:\\
+    Während diskrete W'maße $\prob$ vollständig durch die Zähldichte $f(\omega):=\prob(\{\omega\}),\omega\in\Omega$
+    bestimmt sind, ist dies \underline{für allgemeine W'maße false!}
+  \subsection{Verteilungsfunktionen}
+    Für eine einfache Beschreibung von W'maßen auf $(\reell,\mathscr{B}_\reell)$ kann man zeigen, dass es genügt,
+    $\prob((-\infty,x])$ für alle $x\in\reell$ festzulegen.\\
+    Ist $\prob$ ein W'maß auf $(\reell,\mathscr{B}_\reell)$, so gilt für die durch
+    $$F:\reell\ra[0,1],F(x):=\prob((-\infty,x])$$
+    definierte \textbf{Verteilungsfunktion} von $\prob$:
+    \begin{enumerate}[label=\roman*)]
+      \item $F$ ist monoton steigend
+      \item $F$ ist rechtsseitig stetig, d.h. es gilt $\lim_{t\downarrow x}F(t)=F(x)$ für alle $x\in\reell$.
+      \item $F(\infty):=\lim_{x\ra\infty}F(x)=1,F(-\infty):=\lim_{x\ra-\infty}F(x)=0$
+    \end{enumerate}
+    Ist umgekehrt $F:\reell\ra[0,1]$ eine Funktion, die (i)-(iii) erfüllt, so existert genau ein W'maß auf 
+    $(\reell,\mathscr{B}_\reell)$, das $F$ als Verteilungsfunktion besitzt.\\
+    Für $a,b\in\reell,a<b$ gilt $\prob((a,b])=\prob((-\infty,b])-\prob((-\infty,a])=F(b)-F(a)$.
+  \subsection{Verteilungsfunktion diskreter W'maße}
+    Für ein diskretes W'maß $\prob$ auf $\Omega=\reell$ mit Zähldichte $f:\Omega\ra[0,1]$ und Träger 
+    $\Omega_\tau:=\{\omega\in\Omega:f(\omega)>0\}\subseteq\ganz$ ist die Verteilungsfunktion einer Treppenfunktion
+    $$F(t)=\prob(-\infty,t])=\sum_{k\in\ganz:k\le t}f(k)\hspace{0.5cm}t\in\reell$$
+  \subsection{Dichte}
+    Sei $\prob$ ein W'maß auf $(\reell,\mathscr{B}_\reell)$. Existiert eine integrierbare Funktion $f:\reell\ra[0,\infty)$,
+    sodass
+    $$F(x)=\prob((-\infty,x])=\int^x_{-\infty}f(t)\text{dt}\hspace{0.5cm}\forall x\in\reell$$
+    so heißt $f$ \textbf{Dichte} von $\prob$ bzw. der zugehörigen Verteilungsfunktion $F$. Für $A\in\mathscr{B}_\reell$ 
+    gilt dann
+    $$\prob(A)=\int_\reell f(x)\cdot\mathbbm{1}_A(x)\dx=:\int_Af(x)\dx$$
+    Umgekehrt ist jede integrierbare Funktion $f:\reell\ra[0,\infty)$ mit $\int^\infty_{-\infty}f(t)\text{dt}=1$ Dichte
+    eines W'maßes auf $(\reell,\mathscr{B}_\reell)$, das durch $(*)$ eindeutig festgelegt ist.\\
+    Falls eine Dichte existert, so ist $F$ stetig (statt eine Treppenfkt. wie für diskrete W'maße)
+    \begin{itemize}
+      \item Falls $\prob$ auf $(\reell,\mathscr{B}_\reell$ eine (stückweise) stetige Dichte hat, gilt für 
+        $-\infty<a<b<\infty$
+        $$\prob([a,b])=\prob((a,b])=\prob([a,b))=\int^b_af(x)\dx$$
+        Anschaulich ist $\prob([a,b])$ also die Fläche unter der Dichte zwischen $a$ und $b$.
+      \item Die Dichte $f$ ist nicht eindeutig bestimmt. $f$ kann an endlich vielen Stellen beliebig geändert werden, ohne
+        dass sich die Integrale ändern.
+      \item Im Folgenden seien Dichten bis auf endlich viele Stellen stetig.
+      \item Falls $F$ stetig diffbar ist, dann ist eine Dichte gegeben durch $f=F'$.
+    \end{itemize}
+    Dichten dürfen nicht mit Zähldichten verwechselt werden: Falls eine stetige Dichte existert, so gilt $\prob(\{a\})=0$
+    für alle $a\in\reell$, denn:
+    $$0\le\prob(\{a\})\le\prob((a-\varepsilon,a])=\int^a_{a-\varepsilon}f(x)\dx\le\varepsilon\max_{x\in(a-1,a]}f(x)
+    \overset{\varepsilon\downarrow0}{\ra}0$$
+  \subsection{Gleichverteilung}
+    Für $-\infty<a<b<\infty$ heißt das W'maß auf $(\reell,\mathscr{B}_\reell)$ zur Dichte 
+    $f:=\frac{1}{b-a}\mathbbm{1}_{(a,b]}$ \textbf{(stetige) Gleichverteilung} $U((a,b])$ und $(a,b]$
+    Tatsächlich gilt:
+    $$\int^\infty_{-\infty}f(t)\text{dt}=\int^\infty_{-\infty}\frac{\mathbbm{1}_{(a,b]}(t)}{b-a}\text{dt}
+    =\frac{b-a}{b-a}=1$$
+    unf für alle $a\le c<d\le b$
+    $$U_{(a,b]}((c,d])=\int^\infty_{-\infty}f(x)\cdot\mathbbm{1}_{(c,d]}(x)\dx
+    =\int^\infty_{-\infty}\frac{\mathbbm{1}_{(a,b]}(x)}{b-a}\cdot\mathbbm{1}_{(c,d]}(x)\dx=\frac{d-c}{b-a}$$
+    Die W'keit von $(c,d]$ hängt nur von der Länge des Intervalls ab, nicht von seiner Lage innerhalb von $(a,b]$, daher
+    der Name "Gleichverteilung"\\
+    Man kann zeigen, dass \underline{kein} W'maß $\prob$ auf $([0,1],\mathscr{P}([0,1]))$ existiert, so dass
+    $$\prob((c,d])=d-c\hspace{0.5cm}\forall0\le c<d\le 1$$
+    Es gibt keine Gleichverteilung auf $[0,1]$, die \underline{jeder} Untermenge von $[0,1]$ eine W'keit zuweist.
+  \subsection{Exponentialvertertilung}
+    Die \textbf{Exponentialvertertilung} $\Exp(\lambda)$ mit Parameter $\lambda>0$ ist gegeben durch die Dichte
+    $$f_\lambda(x):=\lambda e^{\-\lambda x}\cdot\mathbbm{1}_{[0,\infty)}(x),\hspace{0.5cm}x\in\reell$$
+    Wir rechnen nach:
+    $$\int^\infty_{-\infty}f_\lambda(x)\dx=\int^\infty_0\lambda e^{-\lambda x}\dx=-e^{-\lambda x}|^\infty_0=1$$
+    Die Verteilungsfunktion ist gegeben durch
+    $$F_\lambda(x)=\int^x_{-\infty}f_\lambda(t)\text{dt}=-e^{-\lambda t}|^x_0=1-e^{-\lambda x}\hspace{0.5cm}\forall x\ge0$$
+    und $F_\lambda(x)=0$ für alle $x<0$.\\
+    Betrachte Exponentialvertertilung $\Exp(\lambda)$ mit Verteilungsfkt. 
+    $F_\lambda(x)=(1-e^{-\lambda x}\mathbbm{1}_{(0,\infty)}(x)$.\\
+    Für $x,y\ge0$ ist die bedingte W'keit, dass ein Wert größer als $x+y$ beobachtet wird, wenn bekannt ist, dass der 
+    Wert $x$ überschreitet gerade gleich
+    $$\begin{aligned}
+      \Exp_\lambda((x+y,\infty)\mid(x,\infty)) & =\frac{\Exp_\lambda((x+y,\infty)\cap(x,\infty))}
+      {\Exp_\lambda((x,\infty))}=\frac{Exp_\lambda((x+y,\infty))}{\Exp_\lambda((x,\infty))} \\
+       & =\frac{1-\Exp_\lambda((-\infty,x+y])}{1-\Exp_\lambda((-\infty,x])} \\
+       & =\frac{1-F\lambda(x+y)}{1-F_\lambda(x)}=\frac{e^{-\lambda(x+y)}}{e^{-\lambda y}} \\
+       & =e^{-\lambda y}=\Exp_\lambda((y,\infty))
+    \end{aligned}$$
+    Exponentialvertertilungen beschreiben Lebnesdauern von Dingen, die nicht altern. Die W'keit noch andere $y$ Jahre zu 
+    überleben, gegeben, dass bereits $x$ Jahre überlebt wurden, hängt nicht von $x$ ab. Da das bis $x$ erlebte keinen
+    Einfluss hat, spricht man auch von Gedächtnislosigkeit
 
 
 
+
+    
 \end{document}

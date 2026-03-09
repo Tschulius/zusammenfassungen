@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{kit}[2025/04/29 Custom class with custom titlepage]
+\ProvidesClass{kit}[2026/01/13 Custom class with custom titlepage]
 
 % Load base class
 \LoadClass{article}
@@ -8,14 +8,10 @@
 \RequirePackage{amsmath, amssymb, stmaryrd}
 \RequirePackage{enumerate}
 \RequirePackage{mathtools}
-\RequirePackage{bbm}
-\RequirePackage{mathrsfs}
 \RequirePackage{hyperref}
 \RequirePackage{enumitem}
 \RequirePackage{tikz}
 \usetikzlibrary{automata,positioning}
-\RequirePackage{tcolorbox}
-\RequirePackage{multicol}
 
 %allow subtitle
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
@@ -55,7 +51,6 @@
 \newcommand\dx{\ dx}
 
 \newcommand\ra{\rightarrow}
-\newcommand\Ra{\Rightarrow}
 \newcommand\nrai{{n\rightarrow\infty}}
 \newcommand\krai{{k\rightarrow\infty}}
 \newcommand\xrax{{x\rightarrow x_0}}
@@ -87,21 +82,3 @@
 
 \newcommand\prob{\mathbb{P}}
 \newcommand\bin{\text{Bin}}
-\newcommand\po{\text{Po}}
-\newcommand\Exp{\text{Exp}}
-
-\newtcolorbox{grayblock}[1]{%
-  colback=white,
-  colbacktitle=gray!35,
-  colframe=black,
-  coltitle=black,
-  fonttitle=\bfseries,
-  adjusted title=#1,
-  enhanced,
-  sharp corners,
-  boxrule=0.3pt,
-  left=6pt,
-  right=6pt,
-  top=6pt,
-  bottom=6pt,
-  }

@@ -199,11 +199,11 @@
         (a_n)(b_n)&:=(a_nb_n) && \text{(Multiplikation)}\\
         \alpha(a_n) & :=(\alpha a_n) && \text{(skalare Multiplikation)}
       \end{align*}
-      Gilt $b_n\neq0\ (n\ge M)$, so ist die Folge $\left(\frac{a_n}{b_n}\right)^\infty_{n=m}$
+      Gilt $b_n\neq0\ (n\ge M)$, so ist die Folge $\left(\frac{a_n}{b_n}\right)^\infty_{n=m}$ definiert.
     \subsubsection{Wichtige Eigenschaften}
       \begin{enumerate}
         \item $a_n\rightarrow a\Longleftrightarrow\abs{a_n-a}\rightarrow0$
-        \item Existiert ein $m\in\nat$ sodass für alle $n\in\nat$ mit $n\ge m$ gilt, dass $\abs{a_n-a}\le\alpha_n$ und gilt $a_n\rightarrow0$, so konvergiert $(a_n)$ gegen $a$
+        \item Existiert ein $m\in\nat$ sodass für alle $n\in\nat$ mit $n\ge m$ gilt, dass $\abs{a_n-a}\le\alpha_n$ und gilt $\alpha_n\rightarrow0$, so konvergiert $(a_n)$ gegen $a$
         \item Es gelte $a_n\rightarrow a$ und $b_n\rightarrow b$. Dann gilt:\\
         \begin{enumerate}[label=\roman*)]
           \item $\abs{a_n}\rightarrow\abs{a}$
@@ -244,7 +244,7 @@
       nennt man \textbf{eulersche Zahl}
     \subsubsection{Teilfolgen}
       Es sei $(a_n)$ eine Folge und $(n_1,n_2,\dots)$ eine Folge von natürlichen Zahlen mit $n_1<n_2<\dots$ Wir definieren für $k\in\nat$
-      $$b_k;=a_{n_k}\quad \text{ also }\quad b_1=a_{n_1}, b_2=a_{n_2},\ \dots$$
+      $$b_k:=a_{n_k}\quad \text{ also }\quad b_1=a_{n_1}, b_2=a_{n_2},\ \dots$$
       Dann heißt $(b_k)=(a_{n_k})$ eine \textbf{Teilfolge} (TF) von $(a_n)$\\
       Ist die Folge $(a_n)$ konvergent, $a:=\lim_{n\rai}a_n$ und $(a_{n_k})$ eine Teilfoge von $(a_n)$. Dann gilt:
       $$a_{n_k}\ra a\ (k\rai)$$
@@ -258,7 +258,7 @@
       Es sei $(a_n)$ eine Folge. Eine Zahl $m\in\nat$ heißt \textbf{niedrig} (für $(a_n$)), falls $a_n\ge a_m$ für alle $n\ge m$ gilt.\\
       Also ist $m\in\nat$ nicht niedrig, falls ein $n>m$ existiert mit $a_n<a_m$
     \subsubsection{Satz von Bolzano-Weierstraß}
-      Jede beschränkte Folge $\f$ enthält eine konvergente Teilfoge, d.h. es gilt $h(\f)\neq\emptyset$
+      Jede beschränkte Folge $\f$ enthält eine konvergente Teilfoge, d.h. es gilt $H(\f)\neq\emptyset$
     \subsubsection{Eigenschaften eines Häufungswertes}
       Sei $\f$ beschränkt. Dann gilt:
       \begin{enumerate}
@@ -329,18 +329,18 @@
       \begin{enumerate}
         \item \textbf{Monotoniekriterium}: Sind alle $a_k\ge0$ und ist $(s_n)$ beschränkt, so ist $\sumk a_k$ konvergent
         \item \textbf{Cauchykriterium}: Die Reihe $\sumka$ konvergiert genau dann, wenn für alle $\varepsilon>0$ ein $n_0\in\nat$ derart exisstiert, dass für alle $m\ge n\ge n_0$ gilt
-          $$\abs{\sum^m-{k=n}a_k}<\varepsilon$$
+          $$\abs{\sum^m_{k=n}a_k}<\varepsilon$$
       \end{enumerate}
     \subsubsection{Leibnizkriterium}
       Es sei $(b_k)$ eine Folge mit den Eigenschaften
       \begin{enumerate}
-        \item $(b_k)$ its monoton fallend
+        \item $(b_k)$ ist monoton fallend
         \item $b_k\ra0$ für $k\rai$
       \end{enumerate}
       Dann ist $\sumk(-1)^{k+1}b_k$ konvergent
     \subsubsection{Absolute Konvergenz}
       Die Reihe $\sumka$ heißt \textbf{absolut konvergent}, falls $\sumk\abs{a_k}$ konvergiert\\
-      Isst $\sumka$ absolut konvergent, so ist ist $\sumka$ konvergent. Insbesondere gilt die Dreiecksungleichung für Reihen
+      Ist $\sumka$ absolut konvergent, so ist ist $\sumka$ konvergent. Insbesondere gilt die Dreiecksungleichung für Reihen
       $$\abs*{\sumka}\le\sumk\abs{a_k}$$
     \subsubsection{Majoranten-/ Minorantenkriterium}
       \begin{enumerate}
@@ -355,11 +355,11 @@
         \item Ist $c_k\ge0,k\in\nat$, und $\limsup_\krai c_k=0$, so gilt $c_k\ra0$ für $k\rai$
       \end{enumerate}
     \subsubsection{Wurzelkriterium}
+    Es sei $(a_k)$ eine Folge und $c_k:=\sqrt[k]{\abs{a_k}},k\in\nat$
       \begin{enumerate}
         \item Ist $(c_k)$ unbeschränkt, so ist $\sumka$ divergent
-        \item Es sei $(c_k)$ beschränkt und $\alpha:=\limsup_\krai$.
-          \begin{enumerate}[label=
-oman*)]
+        \item Es sei $(c_k)$ beschränkt und $\alpha:=\limsup_\krai c_k$. Dann gilt:
+          \begin{enumerate}[label=\roman*)]
             \item Ist $\alpha<1$, so ist $\sumka$ absolut konvergent
             \item Ist $\alpha>1$, so ist $\sumka$ divergent
           \end{enumerate}
@@ -370,8 +370,7 @@ oman*)]
       \begin{enumerate}
         \item Existtiert ein $k_1\ge k_0$ mit $c_k\ge1$ für alle $k\ge k_1$, so ist $\sumka$ divergent
         \item Es sei $(c_k)$ beschränkt, $\alpha:=\limsup_\krai c_k$ und $\beta:=\liminf_\krai c_k$. Dann gilt:
-          \begin{enumerate}[label=
-oman*)]
+          \begin{enumerate}[label=\roman*)]
             \item Ist $\alpha<1$, so ist $\sum^\infty_{n=1}a_n$ absolut konvergent
             \item Ist $\beta>1$, so ist $\sum^\infty_{n=1}a_n$ divergent
           \end{enumerate}
@@ -386,7 +385,7 @@ oman*)]
       Im Falle $\alpha=1$ ist keine allgemeine Aussage möglich
     \subsubsection{Exponentialfunktion}
       Die \textbf{Exponentialfunktion} $\exp:\reell\ra\reell$ ist definiert durch
-      $$\exp(r):=\sum^\infty_{k=0}\frac{x^k}{k!}=e^r$$
+      $$\exp(x):=\sum^\infty_{k=0}\frac{x^k}{k!}=e^x$$
       Für alle $x,y\in\reell$ unr $r\in\rat$ gilt
       $$\exp(x+y)=\exp(x)\exp(y)$$
       $$\exp(-x)=\frac{1}{\exp(x)}$$
@@ -425,7 +424,7 @@ oman*)]
       Für eine Folge $(a_k)_{k\in\nat}\subseteq\reell$ sei
       $$\rho:=\begin{cases}
         \infty, & \text{ falls }(\sqrt[k]{\abs{a_k}})\text{ unbeschränkt}\\
-        \limsup_\krai ()\sqrt[k]{\abs{a_k}}), & \text{ falls } (\sqrt[k]{\abs{a_k}})\text{ beschränkt}
+        \limsup_\krai (\sqrt[k]{\abs{a_k}}), & \text{ falls } (\sqrt[k]{\abs{a_k}})\text{ beschränkt}
       \end{cases}$$
       Der \textbf{Konvergenzradius} der zugehörigen Potenzreihe $\sumknull a_k(x-x_0)^k,\ x_0\in\reell$, ist definiert durch
       $$r:=\begin{cases}
@@ -495,14 +494,12 @@ oman*)]
       Es gilt:
       \begin{enumerate}
         \item Es sei $a\in\reell$ gegeben. Dann sind äquivalent:
-          \begin{enumerate}[label=
-oman*)]
+          \begin{enumerate}[label=\roman*)]
             \item Der Grenzwert $\lim_\xrax f(x)$ existiert und es gilt $\lim_\xrax f(x)=a$
             \item Für alle $\varepsilon>0$ existiert ein $\delta>0$ derart, das für alle $x\in D\setminus\{x_0\}$ mit $\abs{x-x_0}<\delta$ gilt: $\abs{f(x)-a}<\varepsilon$
           \end{enumerate}
         \item Es sind äquivalent:
-          \begin{enumerate}[label=
-oman*)]
+          \begin{enumerate}[label=\roman*)]
             \item Der Grenzwert $\lim_\xrax f(x)$ existiert
             \item Für jede Folge $(x_n)\subseteq D\setminus\{x_0\}$ mit $x_n\ra x_0$ ist $(f(x_n))$ konvergent
             \item (\textbf{Cauchykriterium}) Für alle $\varepsilon>0$ existiert ein $\delta>0$ derart, dass für alle $x_1,x_2\in D\setminus\{x_0\}$ mit $x_1,x_2\in U_\delta(x_0)$ gilt: $\abs{f(x_1)-f(x_2)}<\varepsilon$
@@ -515,8 +512,7 @@ oman*)]
       $$\lim_\xrax f(x)$$
     \subsubsection{Bestimmte divergentz}
       \begin{enumerate}
-        \item \begin{enumerate}[label=
-oman*)]
+        \item \begin{enumerate}[label=\roman*)]
             \item Wir sagen $(x_n)$ \textbf{divergiere bestimmt gegen} $\infty$, falls für alle $C>0$ ein $n_0\in\nat$ derart existiert, dass für alle $n\ge n_0$ gilt: $x_n\ge C$\\
               Wir schreiben hierfür kurz: $x_n\rai$ für $\nrai$
             \item Analog sagen wir, $(x_n)$ \textbf{divergiere bestimmt gegen} $-\infty$, falls für alle $C<0$ ein $n_0\in\nat$ derart existiert, dass für alle $n\ge n_0$ gilt: $x_n\le C$\\

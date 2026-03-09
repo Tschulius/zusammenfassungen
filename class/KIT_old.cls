@@ -8,14 +8,8 @@
 \RequirePackage{amsmath, amssymb, stmaryrd}
 \RequirePackage{enumerate}
 \RequirePackage{mathtools}
-\RequirePackage{bbm}
-\RequirePackage{mathrsfs}
 \RequirePackage{hyperref}
 \RequirePackage{enumitem}
-\RequirePackage{tikz}
-\usetikzlibrary{automata,positioning}
-\RequirePackage{tcolorbox}
-\RequirePackage{multicol}
 
 %allow subtitle
 \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
@@ -55,14 +49,10 @@
 \newcommand\dx{\ dx}
 
 \newcommand\ra{\rightarrow}
-\newcommand\Ra{\Rightarrow}
 \newcommand\nrai{{n\rightarrow\infty}}
 \newcommand\krai{{k\rightarrow\infty}}
 \newcommand\xrax{{x\rightarrow x_0}}
 \newcommand\rai{{\rightarrow\infty}}
-
-\newcommand\id{\text{Id}}
-\newcommand\eig{\text{Eig}}
 
 \newcommand\sumk{\sum^\infty_{k=1}}
 \newcommand\sumknull{\sum^\infty_{k=0}}
@@ -85,23 +75,3 @@
 \DeclarePairedDelimiter\lh{\langle}{\rangle}
 \DeclarePairedDelimiter\norm{\lvert\lvert}{\rvert\rvert}
 
-\newcommand\prob{\mathbb{P}}
-\newcommand\bin{\text{Bin}}
-\newcommand\po{\text{Po}}
-\newcommand\Exp{\text{Exp}}
-
-\newtcolorbox{grayblock}[1]{%
-  colback=white,
-  colbacktitle=gray!35,
-  colframe=black,
-  coltitle=black,
-  fonttitle=\bfseries,
-  adjusted title=#1,
-  enhanced,
-  sharp corners,
-  boxrule=0.3pt,
-  left=6pt,
-  right=6pt,
-  top=6pt,
-  bottom=6pt,
-  }
