@@ -502,4 +502,283 @@
       $\Rightarrow$ You might still need to disable interrupts for those
     \end{itemize}
 \section{Deadlocks}
+  Several processes or activities can  not make progress, as tehy are waiting for resources held by each other
+  \subsection{The Four Coffman Conditions}
+    \begin{itemize}
+      \item Mutual Exclusion: Resources can not be shared between processes
+      \item Hold and Wait: A process already holding a resource can acquire more
+      \item No Preemtion: Resources can not be forcibly taken away from processes
+      \item Circular Wait: The resources are "held in a circle" so no one can take the one it needes
+    \end{itemize}
+  \subsection{Deadlock Prevention}
+    You can break at least one of the four necessary conditions to break a deadlock
+    \begin{itemize}
+      \item Negate Mutual Exclusion: Spooling (like a printer). You send a job and it is executed. $\Rightarrow$ only the
+        executer has access to the resource
+      \item Negate Hold and Wait: Allocate resoources atomically (all you will need or nothing) $\Rightarrow$ Once you
+        have resources, you can no longer request new ones
+      \item Negate Preemtion: Allow Preemtion. Normally done by multiplexing resources (how RAM or CPU time is handled)
+        (Not always possible)
+      \item Negate Circular Wait: Order resources and only allocate in the same order, everywhere. Commonly used.
+    \end{itemize}
+\section{Device Menagement}
+  \begin{itemize}
+    \item Block Devices
+      \begin{itemize}
+        \item Offer random acces to fixed-size blocks
+        \item Applications typically deal with a file system on top of the device
+        \item Examples: SSD, HDD, ...
+      \end{itemize}
+    \item Character Devices
+      \begin{itemize}
+        \item Provide a stream of characters
+        \item Examples: Mice, Keyboards, (classic) text terminal
+      \end{itemize}
+    \item Network devices
+  \end{itemize}
+  \subsection{Communication with Devices}
+    \begin{itemize}
+      \item Port Based I/O: Separate address space with dedicated instructions for reading / writing\\
+        + Clear distinction in code $\Rightarrow$ Optimizing easier (reordering, cachind, ...)\\
+        - Less flexible, often lower perfomrance
+      \item Memory-mapped I/O: Device registers are mapped into the physical address space. You acces it with normal
+        instructions.\\
+        + Higher flexibility: Virtual memory, larger instruction set, mostly transparent\\
+        - Some special rules apply to I/O regions software needs to be aware of
+      \item Direct Memory Access (DMA):
+        \begin{itemize}
+          \item Devices can access the physical memory without involving the CPU
+          \item Nedds special setup from the OS to know how and what to read / write
+        \end{itemize}
+      \item Memory Mapped Files
+        \begin{itemize}
+          \item OS abstraction: Treat a file like a normal range of virtual memory
+          \item No real relation to DMA, though the OS might use it to synchronize Memory Mapped Files with the
+            unerlaying device
+        \end{itemize}
+      \item How does the OS know an I/O operation is finished?
+        \begin{itemize}
+          \item Polling: $\Rightarrow$ Periodically check device registers
+          \item Interrupts $\Rightarrow$ I/O devices send an interrupt signal
+        \end{itemize}
+    \end{itemize}
+  \subsection{Hard Disks}
+    \subsection{Layout}
+      \includegraphics[width=\textwidth]{img/hdd.png}
+    \subsection{Addressing data}
+      \begin{itemize}
+        \item Cylinder - Head - Sector (CHS): Limited to "small" disks (8GB), rarely used these days
+        \item Logical Block Addressing (LBA): Each data block has its own unique number
+        \item Optimizing OS $\Leftrightarrow$ Disk interface: Native-Command-Queuing. OS sends reads and writes in batches
+        and the disk reorders them based on internal geomretry
+      \end{itemize}
+      If a sector is damaged, the disk marks it as such an never uses it again $\Rightarrow$ Secort sparing.\\
+      Affect: OS disk schedular is unaware and optimizes for wrong geometry
+      \newpage
+    \subsection{Shingled Magnet Recording}
+      In some tracks the Write area is much bigger then the read area, so tracks are overlapping sometimes. If you write to 
+      one track you overwrite the adjacent ones\\
+      $\Rightarrow$ Append only and group shingled tracks\\
+      $\Rightarrow$ Can rewrite the whole group at once
+      How can such a device interface with the OS?
+      \begin{itemize}
+        \item Device Menaged: Pretend you are a normal disk. Buffer writes in a normal zone and flush once they fill up a
+          group
+        \item Host Managed: Tell the OS where your shingled zones are. The OS needs to wirte carefully to not destroy data
+        \item Hot Aware: Compromise. Tell the OS where your shingled zones are and expose their tail. If the OS writes
+          to the tail, directly commit it - else buffer
+      \end{itemize}
+  \subsection{Solid-State Drives}
+    Read / Write speeds:
+    \begin{itemize}
+      \item Reading a page: 25$\mu s$
+      \item Writing a page: 250$\mu s$
+      \item Erasing a block: 2ms
+    \end{itemize}
+    To speed things up you could
+    \begin{itemize}
+      \item Keep around spare erased pages ($\Rightarrow$ You do not pay the erase penalty)
+      \item You create / reserve / erase those spare pages in the background (might get exhausted if you write too much
+        data in a short timeframe or the disk is full)
+    \end{itemize}
+    When you delete a file the block is not freed directly ($\Rightarrow$ can't be used as an erased empty page).\\
+    But the trim command can be issued by the OS to tell the SSD firmware what pages can be safely erased
+  \newpage
+  \subsection{Redundant Array of Independant/Inexpensive Disks (RAID)}
+    \subsubsection{RAID 0}
+      \begin{multicols}{2}
+        \includegraphics[width=.4\textwidth]{img/RAID_0.png}\\
+        + Extremely fast (parallel reads an writes)\\
+        + Can use full capacity\\
+        - If a single disk fails your files are toast
+      \end{multicols}
+    \subsubsection{RAID 1}
+      \begin{multicols}{2}
+        \includegraphics[width=.4\textwidth]{img/RAID_1.png}\\
+        + You can lose all but one disk without losing data\\
+        + Parallel reads possible\\
+        - Writes slower as they need to write to all disks\\
+        - Size equals the size of a single disk
+      \end{multicols}
+    \subsubsection{RAID 2}
+        \includegraphics[width=\textwidth]{img/RAID_2.png}\\
+        \begin{itemize}
+          \item Have $\log_2(N)$ parity disk
+          \item Stripe data at the bit level
+          \item Use a hamming code of proper size
+          \item Spin the disks in lockstep (so you read all bits of your word at once)
+        \end{itemize}
+        + External error checking\\
+        - Really slow\\
+        - Not that useful as disks have internal error checking by now\\
+        - Spins in lockstep $\Rightarrow$ Can only service on request at a time
+        \newpage
+    \subsubsection{RAID 3}
+      \begin{multicols}{2}
+      \begin{center}
+        \includegraphics[width=.5\textwidth]{img/RAID_3.png}
+      \end{center}
+      \begin{itemize}
+        \item Have a dedicated parity disk
+        \item Stripe data at the byte level
+        \item Spin the disks in lockstep (so you read all bytes of your word at once)
+      \end{itemize}
+      + You can lose a disk and restore it using the parity\\
+      - Slow when reading/writing small files at random locations\\
+      - Spins in lockstep $\Rightarrow$ Can only service one request at a time\\
+      - Every write and read hits the same single parity disk
+      \end{multicols}
+    \subsubsection{RAID 4}
+      \begin{multicols}{2}
+      \begin{center}
+        \includegraphics[width=.5\textwidth]{img/RAID_4.png}
+      \end{center}
+      \begin{itemize}
+        \item Have a dedicated parity disk
+        \item Stripe data at the block level
+      \end{itemize}
+      + You can lose a disk and restore it using the prity\\
+      + Good read performance\\
+      - Every write and read hits the same parity disk $\Rightarrow$ Bettleneck, prone to failure\\
+      - Slow writes (write to same parity disk)
+      \end{multicols}
+    \subsubsection{RAID 5}
+      \begin{multicols}{2}
+      \begin{center}
+        \includegraphics[width=.5\textwidth]{img/RAID_5.png}
+      \end{center}
+      \begin{itemize}
+        \item Stripe data at the block level
+        \item Destribute parity across your disk
+      \end{itemize}
+      + You can lose a disk and restore it using the parity\\
+      + Good read performance\\
+      + Okay write performance\\
+      - Still slower then RAID 0 or a SLED
+      \end{multicols}
+\section{Files and Directories}
+  \subsection{Reading a file}
+    \begin{itemize}
+      \item Sequential Access: Accessed in order, reading sequential bytes. Writes append at the end
+      \item Random Access: Reading and writing at arbitrary positions, programmer needs to specify where to write/read
+    \end{itemize}
+  \subsection{Open Files}
+    \includegraphics[width=\textwidth]{img/open_files.png}
+  \subsection{Additional Storage Technologies}
+    \begin{itemize}
+      \item Optical Media: Indludes CDs, DVDs, and Blu-ray disks, whicht store data using laser technology\\
+        + Very stable over time\\
+        + Easily portable and inexpensive\\
+        + High data-to-eight ration\\
+        - Typically write-once only\\
+        - Susceptible to mechanical damage (scratches, breaks)\\
+        - Requires special drives\\
+      \item Tape Storage: A high-capacity, long-term backup solution often used by enterprise\\
+        + High capacity (up to ~40 TB per tape)\\
+        + More cost-effective than hard drives for archival storage\\
+        - Very slow write speeds\\
+        - No random access, append-only\\
+        - Require expensive specialized drives
+    \end{itemize}
+  \subsection{Disk Space Allocation}
+    \subsubsection{Continuous Allocation}
+      \includegraphics[width=\textwidth]{img/continuous_allocation.png}
+      \begin{itemize}
+        \item Sizing your block (internal fragmentation, growth)
+        \item External fragmentation
+      \end{itemize}
+    \subsubsection{Chained Allocation}
+      \includegraphics[width=\textwidth]{img/chained_allocation.png}
+      + No longer need a continuous chunk\\
+      - Only sequential access\\
+      - A single corrupted pointer is very bad news
+      \pagebreak
+    \subsubsection{Linked List Allocation with File Access Table (FAT)}
+      \includegraphics[width=\textwidth]{img/linked_list_allocation.png}
+      + Hopefully fits in RAM $\Rightarrow$ Iteration fast\\
+      + Even if it doesen't fit: Less disk seeks\\
+      - Size depends on size of hard disk (one entry per Block)\\
+      - Might be too large to be cached in RAM (on large disk)
+    \subsubsection{Indexed Allocation}
+      \includegraphics[width=\textwidth]{img/indexed_allocation.png}
+      + Hopefully fits in RAM $\Rightarrow$ Lookups fast\\
+      + Random access possible (just fetch the $i$th block)\\
+      - File size limited by how many references fit into one block\\
+      - Wasteful for small files\\\\
+      How to sorge Huge files?\\
+      - Increase Block size\\
+      + Store large files by indirection. Make index blocks link to other index blocks (like pagetables)\\
+      \includegraphics[width=\textwidth]{img/inodes.png}
+  \subsection{File System Implementation}
+  \begin{itemize}
+    \item Hard links: Pointer to the same inode. $\Rightarrow$ Everything is identical: Size, content, access time, ...\\
+      Can therefore not cross file system boundaries.
+    \item Symlinks: Are (mostly) normal files containing a filepath with their own access time, mode, ...\\
+      When programs access the file the OS transparently:
+      \begin{itemize}[label=\arabic*.]
+        \item Reads the contetns of the symlink file
+        \item Resolves the file path it read
+        \item Performs the operation on that path instead
+      \end{itemize}
+      Can cross file system boundaries or point to non-existint files or change what they point to if the file is move, ...
+    \end{itemize}
+  \subsection{Inodes}
+    Data typically stored in an inode:\\
+    \includegraphics[width=\textwidth]{img/inode_data.png}
+  \subsection{Virtual File System}
+    A VFS layer in an OS provides abstraction. It provides a high-level API that works no matter what file system you use\\
+    Lowest common denominator: Might hide speical FS features\\
+    $\Rightarrow$ Allow accessing underlaying FS (e.g. via ioctl)\\
+    $\Rightarrow$ Lose compatibility with other file systems\\
+    When you mount a file system it makes files from that file system accessible. It will make the given path (e.g. /mnt)
+    the root of the new file system. Any access to /tmp/* is stripped of the /tmp/ prefix and then searched in the mounted
+    file system.\\
+    File System in USErspace (FUSE):
+    \begin{itemize}
+      \item Allows users to write their own file system without writing kernel code
+      \item Runs as an unprivileged user process
+      \item Is really awsome. You suddenly can use all your normal tools on whatever the FUSE filesystem exposes.
+    \end{itemize}
+  \subsection{File System Cache}
+    Writing to the disk every time is really slow, so it is probably cached in memory and fulushed in chunks. But why is
+    a cache even helpful?
+    \begin{itemize}
+      \item Temporal and spatial locality
+      \item When exactly is it flushed to disk then? Is that even important to know/control?
+      \item Using flush (for buffer) and fsynch (for the page cache) and after some time by a daemon
+    \end{itemize}
+  \subsection{Modern File Systems}
+    If your computer crashed it is possible that a file that an inode still has a ref counter of 1 but no file anymore.
+    \subsubsection{Error Detection}
+      To detect errors you can use the fsck (file system consistency check) program to
+      \begin{itemize}
+        \item Check whether all data blocks are referenced by exactly one inode
+        \item Do all directories contain valid entries (and just one with a given name)
+        \item Is every directory / file connected to the directory tree
+        \item Is the refcount consistend with the number of hardlinks\\
+          refcount > 0 but no links? $\Rightarrow$ Attatch to lost+found and update the refcount to be consistent
+      \end{itemize}
+      Won't find corrupted data blocks, just tries to keep the filesystem internally consistent.
+
+
 \end{document}
