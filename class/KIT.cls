@@ -40,6 +40,7 @@
 % New namings
 \renewcommand{\maketitle}{\customtitlepage}
 \renewcommand{\contentsname}{Inhalt}
+\setcounter{tocdepth}{2}
 \setlist[enumerate,1]{label=\emph{\alph*})}
 
 %Shortcuts
