@@ -1,3 +1,287 @@
 \newpage
-\section{Transportschicht}
-
+\section{Dienste und Modelle}
+  \subsection{Grundmodell der Kommunikation}
+    \begin{itemize}
+      \item Ein abstraktes Medium überbrückt die räumliche Distanz zwischen Nutzern (Sender, Empfänger).
+        Es abstrahiert von der konkreten Umsetzung.
+      \item Stellt einen (Kommunikations-)Dienst zur Verfügung
+    \end{itemize}
+  \subsection{Dienste}
+    Dienstesicht
+    \begin{itemize}
+      \item Modellierung eines Rechnernetztes bzw. des abstrakten Mediums als Black-Box
+        \begin{itemize}
+          \item Abstraktes Medium ist Diensterbringer, erbringt einen Dienst für dessen Nutzer
+          \item Nutzer sind Dienstnehmer: z.B. Prozess auf einem Rechner, Mensch
+        \end{itemize}
+    \end{itemize}
+    Dienst
+    \begin{itemize}
+      \item Ein Dienst bündelt zusammengehörende Funktionen und stellt diese einem Nutzer (Dienstnehmer)
+        zur Verfügung
+        \begin{itemize}
+          \item Einzelne Teile eines Dienstes können unabhängig voneinander in Anspruch genommen werden
+        \end{itemize}
+      \item Dienstnehmer nimmt ein Dienst in Anspruch
+      \item Diensterbringer stellt einen Dienst zur Verfügung
+      \item Dienstzugangspunkt (Service Acess Point, SAP) stellt die Schnittstelle zu einem Dienst dar
+      \item Dienstprimitive beschreiben die Interaktion zwischen Dienstnehmer und Diensterbringer
+        am Dienstzugangspunkt
+      \item Die Beschreibung eine Dienstes reflektiert das Verhalten an den Dienstzugangspunkten zum
+        Diensterbringer
+    \end{itemize}
+    Dienstzugangspunkt
+    \begin{itemize}
+      \item Typen von Dienstprimitiven (Schnittstellenereignissen)
+        \begin{itemize}
+          \item Request (req)
+            \begin{itemize}
+              \item Beauftragen (Dienstnehmer $\ra$ Diensterbringer)
+            \end{itemize}
+          \item Indication (ind)
+            \begin{itemize}
+              \item Benachrichtigung des Partners (Diensterbringer $\ra$ Dienstnehmer)
+            \end{itemize}
+          \item Response (rsp)
+            \begin{itemize}
+              \item Beantwortung durch Partner (Dienstnehmer $\ra$ Diensterbringer)
+            \end{itemize}
+          \item Confirmation (cnf)
+            \begin{itemize}
+              \item Benachrichtigung über Abschluss (Diensterbringer $\ra$ Dienstnehmer)
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Grundformen von Diensten
+    \begin{itemize}
+      \item Unzuverlässiger Dienst
+        \begin{itemize}
+          \item Unbestätigter Dienst (Best Effort)
+          \item Bestätigter Dienst
+        \end{itemize}
+      \item Zuverlässiger Dienst
+    \end{itemize}
+  \subsection{Schichtenmodell / Referenzmodell}
+    Vereinfachung des Grundmodells
+    \begin{itemize}
+      \item Prinzip
+        \begin{itemize}
+          \item Einführung einer Abstraktion auf der Basis von Schichten
+            \begin{itemize}
+              \item Bereitstellen von Diensten an der (Dienst-)Schnittstelle zum Dienstnehmer
+              \item Nutzung von Diensten an der Schnittstelle nach unten
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Schicht
+    \begin{itemize}
+      \item Eine Schicht bündelt zusammengehörende Funktionalitäten, die sich von denen anderer
+        Schichten unterscheiden
+      \item Eine Schicht bietet an ihrer Dienstschnittstelle wohldefinierte Dienste an     
+        \begin{itemize}
+          \item Die technische Umsetzung der Schicht ist an dieser Dienstschnittstelle nicht sichtbar
+            (transparent, opak) $\ra$ Black-Box
+          \item Zur Erbringung dieser Dienste nutzt eine Schicht die Dienste der darunter liegenden
+            Schicht
+        \end{itemize}
+      \item Schichten sind hierarchisch angeordnet
+        \begin{itemize}
+          \item Schichten können nicht entfallen
+        \end{itemize}
+      \item Eine Schicht kann weiter in Teilschichten geglieder werden
+        \begin{itemize}
+          \item Teilschichten können entfallen
+        \end{itemize}
+    \end{itemize}
+    Protokolle und Dienste
+    \begin{itemize}
+      \item Protokolle definieren Regeln und Formate für die Kommunikation (Interaktion) zwischen zwei
+        oder mehr Instanzen sowie die beim Senden bzw. Empfangen von Daten bzw. Ereignissen jeweils
+        durchzuführenden Aktionen
+      \item Protokolle sind innerhalb einer Schicht lokalisiert
+        \begin{itemize}
+          \item Werden durch Protokollinstanzen ausgeführt
+          \item Protokollinstanz ist i.d.R. einem Gerät zugeordnet
+        \end{itemize}
+      \item Dienst einer Schicht wird durch Zusammenwirken der Protokollinstanzen dieser Schicht
+        erbracht
+        \begin{itemize}
+          \item Schicht zieht sich über mehrer Geräte hinweg. Sie ist nicht auf ein einzelnes Gerät
+            limitiert
+        \end{itemize}
+    \end{itemize}
+    Horizontale und vertikale Kommunikation
+    \begin{itemize}
+      \item Horizontale Kommunikation
+        \begin{itemize}
+          \item Zwischen Sender und Empfänger (innerhalb einer Schicht)
+          \item Protokollinstanzen einer Schicht tauschen Daten untereinander aus um den geforderten
+            Dienst zu erbringen
+        \end{itemize}
+      \item Vertikale Kommunikation
+        \begin{itemize}
+          \item Zwischen Schichten (innerhalb eines Gerätes)
+          \item Protokollinstanz der Schicht N greift auf Dienste der Protokollinstanz in Schicht
+            N-1 zu bzw. gibt Daten an Protokollinstanz der Schicht N+1 weiter
+        \end{itemize}
+    \end{itemize}
+    Physikalische Schicht (Physical Layer)
+    \begin{itemize}
+      \item Zwei direkt über ein physikalisches Übertragungsmedium verbundene Geräte können Bits
+        austauschen
+      \item Aufgaben
+        \begin{itemize}
+          \item Übertragung von (unstrukturierten) Bitfolgen über ein längenbeschränktes physikalisches
+            Medium
+        \end{itemize}
+      \item Eigenschaften
+        \begin{itemize}
+          \item Bietet Schicht 2 einen unzuverlässigen Dienst an
+          \item Verwendung von Leitungscodes, Modulation etc.
+          \item Auf dem Medium werden Bits nicht gepuffert
+          \item Bei einer Übertragung können Störungen auftreten
+        \end{itemize}
+    \end{itemize}
+    Sicherungsschicht (Data Link Layer)
+    \begin{itemize}
+      \item Übertragung von Paketen zwischen physikalisch benachbarten Geräten
+        \begin{itemize}
+          \item Strukturierte Übertragung
+          \item Pakete werden hier als Rahmen bezeichnet
+        \end{itemize}
+      \item Aufgabe
+        \begin{itemize}
+          \item Kommunikation zwischen physikalisch benachbarten Systemen
+        \end{itemize}
+      \item Eigenschaften
+        \begin{itemize}
+          \item Bereitstellung zuverlässiger und unzuverlässiger Dienste
+            \begin{itemize}
+              \item Zur Bereitstellung zuverlässiger Dienste Erkennung und Behebung von Fehlern der
+                physikalischen Schicht
+            \end{itemize}
+          \item Adressierung der Geräte
+          \item Pufferung der Daten sowohl beim Sender als auch beim Empfänger
+          \item Strukturierung der Übertragung in Rahmen
+          \item Abstrahierung vonm physikalischen Medium
+        \end{itemize}
+    \end{itemize}
+    Vermittlungsschicht (Network Layer)
+    \begin{itemize}
+      \item Datenaustausch zwischen Endsystemen
+        \begin{itemize}
+          \item Sind i.d.R. nicht physikalisch benachbart
+          \item Sind nicht mit gleichem physikalischen Medium verbunden
+            \begin{itemize}
+              \item Benötigt Zwischensysteme
+            \end{itemize}
+          \item Pakete werden hier typischerweise als Datagramme bezeichnet
+        \end{itemize}
+      \item Aufgabe
+        \begin{itemize}
+          \item Verknüpft Teilstrecken zwischen Geräten zu Ende-zu-Ende-Strecken
+        \end{itemize}
+      \item Eigenschaften
+        \begin{itemize}
+          \item Wegewahl
+            \begin{itemize}
+              \item Finden geeigneter Wege zwischen kommuniziernden Endsystemen
+            \end{itemize}
+          \item Adressierung von Endsystemen
+          \item Bereitstellung zuverlässiger und unzuverlässiger Dienste
+          \item Datagramme können in Zwischensystemen gepuffert werden
+          \item Datagramme der Vermittlungsschicht werden in einem oder mehreren Rahmen der
+            Sicherungsschicht übertragen
+        \end{itemize}
+    \end{itemize}
+    Tranpsortschicht (Transport Layer)
+    \begin{itemize}
+      \item Datenaustausch zwischen Anwendungsprozessen auf Endsystemen
+        \begin{itemize}
+          \item Pakete werden hier typischerweise als Segmente oder Datagramme bezeichnet
+        \end{itemize}
+      \item Aufgabe
+        \begin{itemize}
+          \item Übertragung von Daten zwischen Anwendungsprozessen
+        \end{itemize}
+      \item Eigenschaften
+        \begin{itemize}
+          \item Bereitstellung zuverlässiger und unzuverlässiger Dienste
+            \begin{itemize}
+              \item Fehlererkennung und -behebung für zuverlässige Dienste
+            \end{itemize}
+          \item Pufferung der Daten in den Endsystemen
+          \item Adressierung von Anwendungsprozessen
+          \item Segmente/Datagramme der Transportschicht werden in ein oder mehrere Datagrammen der
+            Vermittlungsschicht übertragen
+        \end{itemize}
+    \end{itemize}
+    Nutzer-zu-Nutzer vs Ende-zu-Ende
+    \begin{itemize}
+      \item Transportschicht
+        \begin{itemize}
+          \item Logische Kommunikation zwischen (Anwendungs-)Prozessen
+          \item Nutzer-zu-Nutzer
+          \item Benutzt hierzu die Dienste der Vermittlungsschicht
+        \end{itemize}
+      \item Vermittlungsschicht
+        \begin{itemize}
+          \item Logische Kommunikation zwischen Endsystemen
+          \item Ende-zu-Ende
+          \item Benutzt hierzu die Dienste der Sicherungsschicht
+        \end{itemize}
+    \end{itemize}
+    Anwendungsschicht
+    \begin{itemize}
+      \item Logik der Anwendung und hierfür erforderlichen Mechanismen und Datenstrukturen
+        \begin{itemize}
+          \item Instanzen der Anwendungsschicht tauschen Nachrichten aus
+        \end{itemize}
+    \end{itemize}
+    Zusammenspiel der Sichten
+    \begin{itemize}
+      \item Daten senden
+        \begin{itemize}
+          \item Erstellen und hinzufügen von Metainformationen (Kopf, Anhang)
+        \end{itemize}
+        \includegraphics[width=.9\textwidth]{img/schichten_senden.png}
+      \item Daten empfangen
+        \begin{itemize}
+          \item Interpretieren und Löschen von Metainformationen (Kopf, Anhang)
+        \end{itemize}
+        \includegraphics[width=.9\textwidth]{img/schichten_empfangen.png}
+    \end{itemize}
+  \subsection{OSI-Referenzmodell}
+    \begin{itemize}
+      \item Von ISO standardisiert
+        \begin{itemize}
+          \item Umfasst sieben Schichten
+          \item Häufig als "das" Referenzmodell gesehen
+        \end{itemize}
+        \includegraphics[width=.6\textwidth]{img/osi.png}
+    \end{itemize}
+    Transportorientierte Schichten
+    \begin{itemize}
+      \item Übertragung von Daten zwischen Prozessen
+        \begin{itemize}
+          \item Nur den Bedürfnissen des Datenaustauschs und des bereitzustellenden Dienstes unterstellt
+          \item Funktionsweise unabhängig von Inhalt der Daten
+        \end{itemize}
+      \item Begriff Transportsystem: die transportorientierten Schichten
+        \begin{itemize}
+          \item Schichten 1 bis 4 identisch mit 5-Schichten-Modell
+        \end{itemize}
+    \end{itemize}
+    Anwendungsorientierte Schichten
+    \begin{itemize}
+      \item Datenaustausch zwischen Anwendungsprozessen
+      \item Anwendungsaspekte relevant
+        \begin{itemize}
+          \item Informationsdarstellung und Informationsaustausch
+          \item Steuerung des Ablaufs nach anwendungsorientierten Gesichtspunkten
+        \end{itemize}
+        \item Nur in Systemene vorhanden, in denen sich Anwendungsinstanzen befinden
+        \begin{itemize}
+          \item Typischerweise Endsysteme
+        \end{itemize}
+    \end{itemize}
