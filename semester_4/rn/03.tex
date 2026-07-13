@@ -344,3 +344,228 @@
         \item Staukontrolle (um Netz nicht zu überlasten)
       \end{itemize}
       TCP-Sequenznummern und -Quittungen
+      \begin{itemize}
+        \item Sequenznummern
+          \begin{itemize}
+            \item pro Byte, nicht pro Segment (erstes Byte in Segment)
+            \item Initiale Sequenznummer von Endsystem zufällig gewählt
+          \end{itemize}
+        \item Quittungen
+          \begin{itemize}
+            \item positive kumulative Quittungen
+            \item Sequenznummer des nächsten Bytes, das vom Kommunikationspartner erwartet wird
+          \end{itemize}
+      \end{itemize}
+      Format des TCP-Segments\\\\
+      \includegraphics[width=.8\textwidth]{img/tcp_segment.png}
+    \subsubsection{Flusskontrolle}
+      \begin{itemize}
+        \item Empfänger reserviert Pufferplatz pro Verbindung (explizite Kreditvergabe)
+          \begin{itemize}
+            \item RcvBuffer: gesamter Pufferplatz für zu empfangene Daten
+            \item RcvWindow: derzeit noch freier Pufferplatz (Empfangsfenster)
+              \begin{itemize}
+                \item Field Empfangsfenster im Kopf des TCP-Segments
+                \item Empfänger informiert Sender
+              \end{itemize}
+          \end{itemize}
+        \item Sender sendet nicht mehr unbestätigte Daten als in RcvWindow passen
+      \end{itemize}
+    \subsubsection{Verbindungsverwaltung}
+      TCP-Verbindungsverwaltung
+      \begin{itemize}
+        \item Verbindungsaufbau
+          \begin{itemize}
+            \item Client initiiert Verbindung, Server wartet auf Verbindungswünsche
+            \item 3-Wege-Handshake (SYN, SYN/ACK, ACK)
+            \item Connect.request/confirm führen keine Nutzdaten mit sich
+            \item Festlegen der initialen Sequenznummern (..\_isn)
+            \item Bekanntgabe der Größe des Flusskontrollfensters, Allokatoin Puffer, ...
+          \end{itemize}
+        \item Verbindungsabbau
+          \begin{itemize}
+            \item Kann sowohl vom Client als auch vom Server initiiert werden
+            \item Nach letztem ACK wird noch gewartet, bevor loklaer Kontext gelöscht wird
+              \begin{itemize}
+                \item Zur Vermeidung der Zustandshaltung: senden von RST-Segment
+              \end{itemize}
+            \item Ordnungsmäßiger Abbau
+              \begin{itemize}
+                \item 4-Wege-Handshake
+                \item "Richtungen" werden unabhängig voneinander geschlossen
+                  \begin{itemize}
+                    \item FIN-,ACK- und FIN/ACK-Segmente
+                  \end{itemize}
+                \item Lediglich eine Richtung geschlossen (simplex Datentransfer möglich)
+                  \begin{itemize}
+                    \item Unidirektionaler Datentenfluss (Neue Nutzdaten in "offener Richtung" möglich
+                    \item In "Gegenrichtung" (Kontrolldaten (z.B. ACK), keine neuen Nutzdaten
+                  \end{itemize}
+              \end{itemize}
+            \item Abbruch einer Verbindung
+              \begin{itemize}
+                \item Reset (RST-Segment)
+                \item Verbindung wird unmittelbar geschlossen
+                  \begin{itemize}
+                    \item z.B. keine weiteren Sendewiederholungen
+                    \item Kontext wird unmittelbar gelöscht
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Verteilte Anwendungen über TCP programmieren - TCP-Sockets}
+      TCP Sockets
+      \begin{itemize}
+        \item TCP-Verbindung zwischen Client und Server muss aufgebaut werden
+          \begin{itemize}
+            \item Server muss bereit sein für einen solchen Verbindungsaufbau
+            \item 3-Wege-Handshake ist für verteilte Anwendung nicht sichtbar
+          \end{itemize}
+        \item Server nutzt zwei Sockets
+          \begin{itemize}
+            \item Welcome-Socket, über den er angesprochen wird (muss ständig aktiv sein, beim
+              Verbindungsaufbau genutzt)
+            \item Connection-Socket, der für den eigentlichen Datentransfer etabliert wird
+          \end{itemize}
+      \end{itemize}
+      Wichtige Eigenschaften von TCP-Sockets
+      \begin{itemize}
+        \item Schnittstelle
+          \begin{itemize}
+            \item TCP-Verbindung besteht aus zwei Datenströmen (empfangen/senden)
+            \item Als Input/Output-Streams für Prozesse zugägnglich (lesen/schreiben)
+          \end{itemize}
+        \item Pufferung
+          \begin{itemize}
+            \item Taten werden als Bytestrom übergeben und nicht immer sofort gesendet
+              \begin{itemize}
+                \item Vermeidet Overhead durch viele kleine TCP-Segmente
+              \end{itemize}
+          \end{itemize}
+        \item Transparente Bedienung
+          \begin{itemize}
+            \item TCP-Verbindungsaufbau für verteilte Anwendungen nicht sichtbar
+            \item Keine Informationen, welche Daten Client bereits empfangen hat
+              \begin{itemize}
+                \item Obwohl dies der Socket-Implementierung bekannt ist
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Staukontrolle}
+      TCP-Staukontrolle
+      \begin{itemize}
+        \item Verfahren
+          \begin{itemize}
+            \item Einfühurung eines Staukontrollfensters (CWnd, Congestion Window)
+              \begin{itemize}
+                \item Beim Senden muss auch Empfangsfenster beachtet werden (Minumum beider
+                  Fenstergrößen bestimmt maximal zu sendende Datenenmenge
+              \end{itemize}
+            \item ... und eines Schwellenwertes (SSThresh)
+            \item Wie Stau erkennen?
+              \begin{itemize}
+                \item Nutzung von Zeitgebern als Hilfsmittel für Stausignal
+                \item Ausbleibende Quittung ... Vermutung einer Stausituation
+              \end{itemize}
+            \item Reaktion nach Erkennung?
+              \begin{itemize}
+                \item Reduktion des Staukontrollfenster CWnd
+                \item Langsames Erhöhen von CWnd ... "Herantasten" an Netzkapazität
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Ablauf TCP-Staukontrolle
+      \begin{itemize}
+        \item Start: CWnd = 1 MSS
+        \item CWnd $<$ SSTresh \& Quittingen rechzeitig empfangen: Slow-Start
+          \begin{itemize}
+            \item Exponentielles Erhöhen des Staukontrollfensters
+              \begin{itemize}
+                \item Bei jeder empfangen Quittung: CWnd += 1
+              \end{itemize}
+          \end{itemize}
+        \item CWnd $\ge$ \& Quittungen rechzeitig empfangen: Congestion Avoidence
+          \begin{itemize}
+            \item Lineares Erhöhren des Staukontrollfensters
+              \begin{itemize}
+                \item Erhöhen des Staukontrollfensters um 1 pro vollständig gesendetem und bestätigtem
+                  Sendefenster
+                \item Bei jeder empfangen Quittung: CWnd += 1/CWnd
+              \end{itemize}
+          \end{itemize}
+        \item Quittung nicht rechzeitig empfangen (Timer abgelaufen)
+          \begin{itemize}
+            \item Stau vermutet
+            \item SSThresh = max(FlightSize/2, 2*MSS)
+              \begin{itemize}
+                \item FlightSize: Daten, die gesendet, aber noch nicht quittiert wurden
+              \end{itemize}
+            \item CWnd zurücksetzten (neue Slow-Start-Phase): CWnd = 1 MSS
+          \end{itemize}
+      \end{itemize}
+  \subsection{Multiplexen / Demultiplexen}
+    \subsubsection{Identifikation eines Datensroms im Internet}
+      \begin{itemize}
+        \item Datensrom (Flow)
+          \begin{itemize}
+            \item Hier: Daten, die zwischen zwei Anwendungsprozessen ausgetauscht werden
+            \item Eindeutige Identifikation eines Datenstroms ruch 5-Tupe\\
+              (Ziel-IP-Adresse, Ziel-Port, Quiell-IP-Adresse, Quell-Port, Transportprotokoll)
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{UDP}
+      UDP-Socket
+      \begin{itemize}
+        \item Erzeugung eines UDP-Sockets beim Client
+        \begin{itemize}
+          \item Portnummer wird automatisch zugewiesen
+            \begin{itemize}
+              \item Zwischen 49152 und 65535 - derzeit im Endsystem nicht genutzt
+            \end{itemize}
+        \end{itemize}
+      \item Erzeugen eines UDP-Sockets beim Server
+        \begin{itemize}
+          \item Port wird dediziert gewählt (z.B. well-known Port)
+        \end{itemize}
+      \end{itemize}
+      Multiplexen
+      \begin{itemize}
+        \item Sender sendet Daten zu Socket mit entsprechendem Ziel-Port und IP-Zieladresse
+      \end{itemize}
+      Demultiplexen
+      \begin{itemize}
+        \item Empfangssockt beim Server wird von 2-Tupel bestimmt: IP-Zieladresse und Ziel-Port
+          \begin{itemize}
+            \item Weitere Informationen des 5-Tupels werden nicht beachtet, da UDP verbindugslos
+              operiert
+            \item Empfänger leitet Daten zu Socket mit entsprechendem Ziel-Port weiter
+            \item $\ra$ UDP-Datagramm mit verschiedenen Quell-Ports und IP-Quelladressen, aber
+              gleichem Ziel-Port und gleicher IP-Zieladresse werden zum gleichen Socket weitergeleitet
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{TCP}
+      TCP arbeitet verbindugsorientiert 
+      \begin{itemize}
+        \item $\ra$ Verbindungskontest existert (u.a. 4-Tupel aus 
+          Quell-/Ziel-Port, Quell-/Ziel-IP-Adresse)
+      \end{itemize}
+      Demultiplexen
+      \begin{itemize}
+        \item Empfänger leitet Daten zu Socket mit entsprechendem 4-Tupel weiter
+          \begin{itemize}
+            \item $\ra$ TCP-Segmente mit verschiedenen Quell-Ports und IP-Quelladressen, aber gleichem
+              Ziel-Port und gleicher IP-Zieladresse werden zu verschiedenen Sockets weitergeleitet
+          \end{itemize}
+      \end{itemize}
+      Grundlegende Annahme hinter dem Konzept
+      \begin{itemize}
+        \item 5-Tupel bleibt während einer bestehenden TCP-Verbindung konstant
+        \item $\ra$ d.h. IP-Adressen dürfen sich während bestehender TCP-Verbindung nicht ändern
+      \end{itemize}
+      Problem
+      \begin{itemize}
+        \item Viele Clients sind heute mobil
+        \item Mobilität kann dazu führen, dass Client seine IP-Adresse wechseln muss
+        \item $\ra$ aktive TCP-Verbindungen sind damit unbrauchbar (und werden nach Timeout geschlossen)
+      \end{itemize}
+
