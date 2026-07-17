@@ -1,3 +1,1055 @@
 \newpage
 \section{Vermittlungsschicht}
-
+  \subsection{Paketvermittlung}
+    \subsubsection{Paketvermittlung (Packet Switching)}
+      \begin{itemize}
+        \item Paketvermittlung werden die Daten in Pakete geglieder und zu den Zielsystemen
+          weitergeleitet. Hierzu führen die Pakete Metainformationen (Kontrollinformationenen) mit sich.
+      \end{itemize} 
+    \subsubsection{Eigenschaften}
+      \begin{itemize}
+        \item Abschnittsweise Übermittlung von Paketen (Hop-by-Hop)
+        \item Zwischenspeicherung (Pufferung) erfolgt ggf. in Warteschlangen/Puffern
+          (engl. Queue/Buffer) der Zwischensysteme (Führt zu variablen Verzögerungen)
+        \item Verlust von Paketen möglich (Begrenzte Pufferkapazität in den Zwischensystemen)
+      \end{itemize}
+  \subsection{Prinzipien}
+    \subsubsection{Vermittlungsschicht}
+      \begin{itemize}
+        \item Datenaustausch zwischen Endsystemen, die nicht direkt physiklaisch benachbart sind, d.h.
+          die nicht mit dem gleichen physiklaischen Medium verbunden sind
+          \begin{itemize}
+            \item Pakete werden typischerweise als Datagramm bezeichnet
+            \item Zwischensysteme werden als Router bezeichnet
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Zwei grundlegende Aufgaben}
+      \begin{itemize}
+        \item Wegewahl (Routing) - Kontrollebene (Kontrollpfade)
+          \begin{itemize}
+            \item Ermittelt den Weg (Pfad), den die Pakete zurücklegen
+            \item Erfordert Routingalgorithmus und -protokoll
+          \end{itemize}
+        \item Weiterleitung (Forwarding) - Datenebene (Datenpfad)
+          \begin{itemize}
+            \item Leitet Pakete vom Eingangsinterface des Routers an ein geeignetes Ausgangsinterface
+              weiter
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Routing und Weiterleitung}
+      \begin{itemize}
+        \item Wege für Paketweiterleitung zum Ziel finden
+          \begin{itemize}
+            \item In Netzen (Nutzung von Switches)
+            \item Zwischen Netzten (Nutzung von Routern)
+            \item Weiterleitungstabelle durch Routingprotokoll etabliert
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Aufgabe der Kontrollebende: Wegewahl}
+      \begin{itemize}
+        \item Wegewahl (Routing) ermittelt den Weg (Pfad), den die Pakete vom Quell-Endsystem zum
+          Ziel-Endsystem zurücklegen
+        \item Weg (Pfad) setzt sich aus Sequenz von Routern zusammen. Diese sind über
+          übertragungsabschnitte (Hops/Links) miteinander verbunden
+          \begin{itemize}
+            \item Übertragungsabschnitte
+              \begin{itemize}
+                \item Endsystem und benachbarter Router
+                \item Router und benachbarter Router
+                \item Router und benachbartes Endsystem
+              \end{itemize}
+          \end{itemize}
+        \item Typischerweise
+          \begin{itemize}
+            \item Erster Router auf dem Pfad ist Default-Router für Quell-Endsystem
+            \item Routingalgorithmen bestimmen Pfad zwischen Default-Router und Ziel-Router
+            \item Ziel-Router leitet Paket direkt an Ziel-Endsystem weiter
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Kontrollebene}
+      \begin{itemize}
+        \item Routingprotokoll
+          \begin{itemize}
+            \item Protokoll, das für die Wegewahl verantwortlich ist
+            \item Oberhalb der Schicht 3 (Vermittlungsschicht) angesiedelt
+          \end{itemize}
+        \item Routingalgorithmus
+          \begin{itemize}
+            \item Algorithmus der für die Wegewahl eingesetzt wird
+            \item Routingprotokolle setzen Routingalgorithmen in Rechnernetzten um
+          \end{itemize}
+        \item Weiterleitungstabelle
+          \begin{itemize}
+            \item Enthält Einträge für mögliche Ziele mit Interfaces, auf denen Datagramme in Richtung
+              Ziel weitergeleitet werden
+            \item Ist Schnittstelle zwischen Kontroll- und Datenebene
+            \item Einträge in der Weiterleitungstabelle werden
+              \begin{itemize}
+                \item von Routingprotokollen geliefert
+                \item in der Datenebene für die Weiterleitung der Datagramme ausgewertet
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Begriffe}
+      \begin{itemize}
+        \item Router
+          \begin{itemize}
+            \item Auf Vermittlungsschicht operierendes Zwischensystem
+            \item Leitet eingehende Datagramme in Richtung Ziel weiter
+              \begin{itemize}
+                \item Nutzt Informationen in der Weiterleitungstabelle
+              \end{itemize}
+            \item Tauscht über Routingprotokolle Informationen mit anderen Routern aus
+              \begin{itemize}
+                \item Erstellung der Routing- und Weiterleitungstabellen bzw. Flow-Tables (SDN)
+                  \begin{itemize}
+                    \item Verteiltes adaptives Routing (traditionell) oder
+                    \item logisch zentrales Routing (SDN)
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+        \item Route
+          \begin{itemize}
+            \item Hier: Weg (Pfad) eines Datagramms zum Zielsystem
+              \begin{itemize}
+                \item Daher auch "Wege"-wahl für die Auswahl der besten Route
+              \end{itemize}
+          \end{itemize}
+        \item Link
+          \begin{itemize}
+            \item Hier: Übertragungsabschnitt zwischen zwei Routern
+          \end{itemize}
+        \item Port
+          \begin{itemize}
+            \item Eingangs- oder Ausgangsinterface
+          \end{itemize}
+      \end{itemize}
+  \subsection{Datenebene}
+    \subsubsection{IP-Adressen und Subnetze}
+      IP-Adressen
+      \begin{itemize}
+        \item Ziel
+          \begin{itemize}
+            \item Eindeutige Identifikation aller Interfaces
+              \begin{itemize}
+                \item Ein Gerät kann mehrere Interfaces haben (z.B. Ethernet, WLAN, LTE)
+              \end{itemize}
+          \end{itemize}
+        \item IP-Adressen
+          \begin{itemize}
+            \item Eindeutige Kennung für Interfaces von Routern und Endsystemen
+            \item Einfaches, für Maschinen leicht zu verarbeitendes Format
+            \item IPv4
+              \begin{itemize}
+                \item Adressen einer Länge von 32 Bit
+              \end{itemize}
+            \item IPv6
+              \begin{itemize}
+                \item Größerer Adressraum durch Adressen einer Länge von 128 Bit
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      IP-Adressen: Notation und Beispiel
+      \begin{itemize}
+        \item IPv4-Adresse (32 Bit)
+          \begin{itemize}
+            \item 4 Gruppen mit jeweils 8 Bit, separiert durch Punkt
+          \end{itemize}
+          \includegraphics[width=.8\textwidth]{img/ipv4.png}
+        \item IPv6-Adresse (128 Bit)
+          \begin{itemize}
+            \item 8 Gruppen mit jeweils 16 Bit, separiert durch Doppelpunkt
+              \begin{itemize}
+                \item Jede Gruppe als 4 hexadezimale Zeichen notiert
+              \end{itemize}
+            \item Vereinfachungen
+              \begin{itemize}
+                \item Führende Nullen in jeder Gruppe werden entfernt
+                \item Eine Riehe von Nullen kann durch :: ersetzt werden
+                  \begin{itemize}
+                    \item Typischerweise die längste Reihe von Nullen
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+          \includegraphics[width=.8\textwidth]{img/ipv6.png}
+      \end{itemize}
+      Gliederung von IPv4-Adressen
+      \begin{itemize}
+        \item Gliederung in
+          \begin{itemize}
+            \item Subnetz-Teil
+              \begin{itemize}
+                \item Kann unterschiedliche Länge haben, identifiziert das Netz
+              \end{itemize}
+            \item Endsystem-Teil
+              \begin{itemize}
+                \item Teil der Adresse die nicht zum Subnetz-Teil gehört, identifiziert Endsystem in
+                  diesem Netz
+              \end{itemize}
+            \item $Format a.b.c.d/x$
+              \begin{itemize}
+                \item $x$: Anzahl der Bits im Subnetz-Teil
+              \end{itemize}
+          \end{itemize}
+        \item Beispiel (IPv4) 200.63.16.0/23\\\\
+          \includegraphics[width=.8\textwidth]{img/ipv4_bsp.png}
+        \item Subnetzmaske
+          \begin{itemize}
+            \item "1"-Bits definieren Subnetz-Teil (ersten $x$-Bits = 1 setzen)
+          \end{itemize}
+        \item Präfix = Adresse AND Subnetzmaske
+      \end{itemize}
+      Subnetz
+      \begin{itemize}
+        \item Interfaces mit dem selben Subnetz-Teil der Adresse bilden ein Subnetz
+      \end{itemize}
+      Zuteilung von IP-Adressen
+      \begin{itemize}
+        \item Aufgabe der ICANN
+          \begin{itemize}
+            \item Internet Corporation for Assigned Names und Numbers
+            \item Zeintraler Vertrauensanker
+              \begin{itemize}
+                \item Allokiert Adressen
+                \item Verwaltet DNS
+                \item Weist Domänennamen zu
+              \end{itemize}
+          \end{itemize}
+        \item Delegierung der Vergabe an lokale Organisationen
+          \begin{itemize}
+            \item Regional IP Address Registers (RIR)
+          \end{itemize}
+        \item Lokale Organisationen verteilen an Provider und Unternehmen
+      \end{itemize}
+    \subsubsection{Das Protokoll IP}
+      Internet Protocoll (IP)
+      \begin{itemize}
+        \item "Das" Protokoll im Internt
+          \begin{itemize}
+            \item Best-Effort Vermittlungsdienst
+          \end{itemize}
+        \item Verantwortlich für das Weiterleiten von IP-Datagrammen im Internet
+      \end{itemize}
+      Format eines IPv4-Datagramms\\\\
+      \includegraphics[width=\textwidth]{img/ipv4_datagramm.png}
+      \begin{itemize}
+        \item Minimale Länge IP-Kopf: 20 Bits
+      \end{itemize}
+      Fragmentieren und Reassemblieren
+      \begin{itemize}
+        \item Anpassung an verschieden lange maximale Rahmenlängen unterliegender Netze (MTU:
+          Maximum Transfer Unit)
+        \item Vorgehensweise
+          \begin{itemize}
+            \item Flag-Felder des IP-Kopfs nutzen
+              \begin{itemize}
+                \item Bit 0: reserviert, muss 0 sein
+                \item Bit 1:
+                  \begin{itemize}
+                    \item 0 = darf fragmentiert werden
+                    \item 1 = darf nicht fragmentiert werden
+                  \end{itemize}
+                \item Bit 2:
+                  \begin{itemize}
+                    \item 0 = letztes Fragment
+                    \item 1 = es folgen weitere Fragmente
+                  \end{itemize}
+                \item Fragment-Offset: Stelle, an der empfangenes Fragment in ursprüngliches
+                  Datagramm eingesetzt werden muss (Basiseinheit: 8 Bytes)
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Weiterleitung in IP
+      \begin{itemize}
+        \item Für ein Endsystem
+          \begin{itemize}
+            \item Rechner mit Zieladresse ist im gleichen Subnetz
+              \begin{itemize}
+                \item IP-Datagramm wird direkt zu diesem Empfänger geschickt
+              \end{itemize}
+            \item Ansonsten
+              \begin{itemize}
+                \item IP-Datagramm wird an voreingestelltem Router (Default-Router) weitergeleitet
+              \end{itemize}
+          \end{itemize}
+        \item Für einen Router. Weiterleitungstabelle u.a. mit
+          \begin{itemize}
+            \item Angaben zum Ziel (Zieladresse oder Netzpräfix)
+            \item Angabe des "Next-Hop" Routers
+            \item Angabe des Interfaces, über welches das IP-Datagramm weitergeleitet werden soll
+          \end{itemize}
+      \end{itemize}
+      Empfang eines IP-Datagramms
+      \begin{itemize}
+        \item Folgende Überprüfunungen werden durchgeführt
+          \begin{itemize}
+            \item Korrekte Länge des Kopfs?
+            \item IP-Versionsnummer?
+            \item Korrekte Datagrammlänge?
+            \item Prüfsumme?
+            \item Lebenszeit?
+            \item Protokoll-Identifikation?
+          \end{itemize}
+        \item Falls ein Fehler erkannt wird
+          \begin{itemize}
+            \item Benachrichtigung mittels ICMP (Internet Control Message Protocoll)
+              \begin{itemize}
+                \item D.h. ICMP wird hier als Funktion aus IP ausgerufen
+                \item Reagiert möglicherweise mit dem Aussenden eines ICMP-Datagramms
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{IPv6}
+      \begin{itemize}
+        \item Ursprüngliche Motivation
+          \begin{itemize}
+            \item Größerer Adressraum durch längere Adressen: IPv6-Adressen (128 Bit)
+            \item Adressraum von IPv4-Adressen (32 Bit) wird knapp bzw. geht aus $\ra$ heute kaum noch
+              freie IPv4 Adressen
+          \end{itemize}
+        \item IPv4-Adressraum mittlerweile stark fragmentiert
+          \begin{itemize}
+            \item Viele kleine, verteilte Subnetze
+            \item Gro0e Routingtabellen
+          \end{itemize}
+          $\ra$ IPv6 Adressvergabe an Netztopologie orientieren erlaubt starkes aggregieren
+        \item Vereinfachungen im Vergleich zu IPv4
+          \begin{itemize}
+            \item Keine Fragmentierung in Routern
+            \item Keine Berechnungen einer Prüfsumme
+              \begin{itemize}
+                \item UDP Prüfsumme jetzt verpflichtend
+              \end{itemize}
+            \item Einfacheres Handling der IP-Datagramme
+              \begin{itemize}
+                \item Einfacheres Kopfformat
+                \item Feld "Header Length" nicht mehr erforderlich
+                \item Kopferweiterungen statt Optionen
+              \end{itemize}
+            \item Einfachere Klassifikation von Paketen in Datenströme
+              \begin{itemize}
+                \item Einführung des Felds "Flow Label"
+              \end{itemize}
+          \end{itemize}
+          \includegraphics[width=\textwidth]{img/ipv6_datagramm.png}
+      \end{itemize}
+      Typen von IPv6-Adressen
+      \begin{itemize}
+        \item Unicast
+          \begin{itemize}
+            \item Identifiziert ein dediziertes Interface
+            \item Datagramm wird zu diesem Interface ausgeliefert
+          \end{itemize}
+        \item Multicast
+          \begin{itemize}
+            \item Identifiziert eine Gruppe von Interfaces
+            \item Datagramm wird zu allen Mitgliedern dieser Gruppe ausgeliefert
+          \end{itemize}
+        \item Anycast
+          \begin{itemize}
+            \item Identifiziert eine Gruppe von Interfaces
+            \item Datagramm wird an ein Interface der Gruppe ausgeliefert
+          \end{itemize}
+      \end{itemize}
+      Global Unicast IPv6 Adressen
+      \begin{itemize}
+        \item Global routbare IPv6-Adressen
+          \begin{itemize}
+            \item Äquivalent zu "public IPv4 adress"
+          \end{itemize}
+        \item Strukturierung:
+          \begin{itemize}
+            \item Globales Routing Präfix
+              \begin{itemize}
+                \item Präfix oder "network portion"
+              \end{itemize}
+            \item Subnetz ID
+              \begin{itemize}
+                \item Bilden von Subnetzen
+              \end{itemize}
+            \item Interface ID
+              \begin{itemize}
+                \item Identifiziert Interface in Subnetz
+                \item Meistens 64 Bit lang
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+  \subsection{Kontrollebene}
+    Modellierung eines Rechnernetztes als Graph
+    \begin{itemize}
+      \item Router (Zwischensysteme) sind Knoten
+      \item Übertragungsabschnitte sind Kanten
+        \begin{itemize}
+          \item "Kosten" der Kanten bspw. Verzögerung, aktuelle Last, Preis ...
+          \item Weg (Pfad) ist Folge von Knoten $(n_1,...,n_k)$, wobei $(n_1,n_2),(n_2,n_3),...$ Kanten
+            des Graphs sind und kein Knoten mehrfach vorkommt
+        \end{itemize}
+    \end{itemize}
+    Routingprotokoll (Finden eines "guten" Wegs
+    \begin{itemize}
+      \item Typischerweise ist die der Weg mit den geringsten Kosten
+      \item Wie Kosten messen?
+        \begin{itemize}
+          \item Verschiedene Metriken denkbar
+            \begin{itemize}
+              \item Geringste Anzahl von Hops
+              \item Schnellster Weg
+              \item Am wenigsten belastbarer Weg
+              \item Weg mit geringsten monetären Kosten
+              \item ...
+            \end{itemize}
+        \end{itemize}
+      \item Routingalgorithmen
+    \end{itemize}
+    \subsubsection{Grundlegende Routingverfahren}
+      Wie dynamisch ist das Routing-Verfahren?
+      \begin{itemize}
+        \item Nicht adaptiv (statisch)
+          \begin{itemize}
+            \item Routen ändern sich nur sehr selten
+            \item Routenänderungen sind viel seltener als Verkehrsänderungen
+          \end{itemize}
+        \item Adaptiv (dynamisch)
+          \begin{itemize}
+            \item Routen ändern sich in Abhänigkeit des Verkehrs bzw. der Netztopologie
+              \begin{itemize}
+                \item Aktueller Zustand des Netzes wird damit berücksichtigt
+                \item Schleifen und Oszillation in Routen wahrscheinlicher als bei nicht adaptiven
+                  Verfahren
+              \end{itemize}
+            \item Können periodisch operieren oder in direkter Reaktion auf Änderungen
+            \item Zielkonflikt
+              \begin{itemize}
+                \item Router haben veraltetete oder unvollständige Informationen über den Zustand
+                  des Netzes
+                \item Evt. hohe Belastung durch Austausch von Routinginformationen
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Routing: zentral vs. dezentral
+      \begin{itemize}
+        \item Zentral
+          \begin{itemize}
+            \item Wegewahl wird durch eine zentrale Komponente durchgeführt
+              \begin{itemize}
+                \item Weiterleitungstabelle in den Routern müssen von dieser zentralen Komponente
+                  erstellt und verteilt werden
+              \end{itemize}
+            \item Zentrale Komponente benötigt globale Sicht auf Netz
+          \end{itemize}
+        \item Dezentral
+          \begin{itemize}
+            \item Routingentscheidungen/Wegewahl wird dezentral in den Routern durchgeführt
+            \item Erfordert keine zentrale Komponente
+            \item Isoliert
+              \begin{itemize}
+                \item Router entscheiden nur auf der Basis von Informationen die er selbst sammelt,
+                  kein Austausch mit anderen Routern
+              \end{itemize}
+            \item Verteilt
+              \begin{itemize}
+                \item Router tauschen Routinginformationen mit Nachbarn aus
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Grundlegende Routingverfahren: Überblick
+      \begin{itemize}
+        \item Statisches Routing
+          \begin{itemize}
+            \item Statische Weiterleitungstabelle
+          \end{itemize}
+        \item Zentralisiertes Routing
+          \begin{itemize}
+            \item Routing Control Center
+          \end{itemize}
+        \item Dezentrales Routing
+          \begin{itemize}
+            \item Isoliert
+              \begin{itemize}
+                \item Fluten
+                \item Hot Potato
+              \end{itemize}
+            \item Verteilt
+              \begin{itemize}
+                \item Distanz-Vektor
+                \item Link-State
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Zentralisiertes Routing
+      \begin{itemize}
+        \item Einordnung
+          \begin{itemize}
+            \item Zentral, adaptiv
+          \end{itemize}
+        \item Zentrales Routing Control Center (RCC)
+          \begin{itemize}
+            \item Jeder Router sendet periodisch Zustandsinformationen an RCC
+              \begin{itemize}
+                \item Z.B. Liste aller aktiven Nachbarn, aktuelle Warteschlangenlänge, Umfang an
+                  Verkehr seit dem letzten Bericht
+              \end{itemize}
+            \item RCC berechnet mit diesen Informationen optimale Wege
+            \item RCC verteilt neu Weiterleitungsinformationen an Router
+              \begin{itemize}
+                \item Jeder Router trifft Weiterleitungsentscheidungen anhand dieser Informationen
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Zentralisiertes Routing - Vor- und Nachteile
+      \begin{itemize}
+        \item Vorteile
+          \begin{itemize}
+            \item RCC hat theoretisch die vollständige Übersicht
+            \item Router müssen keine aufwendige Routingberechnung durchführen
+          \end{itemize}
+        \item Nachteile
+          \begin{itemize}
+            \item Für große Netze dauert die Berechnung u.U. sehr lange
+            \item Ausfall des RCC lähmt das gesamte Netz
+              \begin{itemize}
+                \item Erfordert daher möglichst robuste Auslegung (z.B. durch Redundanz, etwa 
+                  Backup-Rechner, etc.
+              \end{itemize}
+            \item Inkonsistenzen möglich
+              \begin{itemize}
+                \item Router nahe dem RCC verfügen früher über aktualisierte Weiterleitungstabellen
+                  als weiter entfernte
+              \end{itemize}
+            \item Starke Belastung des RCC
+              \begin{itemize}
+                \item Durch zentrale Funktion sowie der Links in der Nähe des RCC
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Fluten
+      \begin{itemize}
+        \item Einordnung
+          \begin{itemize}
+            \item Isoliert, nicht adaptiv
+          \end{itemize}
+        \item Grundlegende Vorgehensweise
+          \begin{itemize}
+            \item Jedes eingehende Datagramm wir auf jedem Interface weitergeleitet, außer auf
+              demjenigen, auf dem es empfangen wurde
+          \end{itemize}
+        \item Maßnahmen zur Eindämmung der Flut
+          \begin{itemize}
+            \item Erkennung von Duplikaten durch Sequenznummern
+            \item Kontrolle der Lebensdauer eines Datagramms durch Zählen der zurückgelegten
+              Übertragungsabschnitte (Hops)
+              \begin{itemize}
+                \item Hop-Zähler wird mit maximal erlaubter Weglänge initialisiert
+                \item In jedem Router wird Zähler um 1 dekrementiert
+                \item Falls Zähler den Wert 0 erreichen, muss Datagramm verworfen werden
+              \end{itemize}
+          \end{itemize}
+        \item Varianten
+          \begin{itemize}
+            \item Selektives Fluten
+              \begin{itemize}
+                \item Weiterleitung nicht auf allen, sondern nur auf einigen Übertragungsabschnitten
+              \end{itemize}
+            \item Random Walk
+              \begin{itemize}
+                \item Zufällige Auswahl eines/mehrerer Übertragungsabschnitte(s)
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Hot Potato
+      \begin{itemize}
+        \item Einordnung
+          \begin{itemize}
+            \item Isoliert, adaptiv
+          \end{itemize}
+        \item Jedes System versucht, eingehende Datagramme so schnell wie möglich weiterzuleiten
+          \begin{itemize}
+            \item Wählt Interface mit kürzester Warteschlange
+            \item Weiterleitung nie auf dem Übertragungsabschnitt, auf dem Datagramm empfangen wurde
+          \end{itemize}
+      \end{itemize}
+      Verteiltes adaptives Routing
+      \begin{itemize}
+        \item Systeme tauschen Routinginformationen mit Nachbarn aus
+        \item Jedes System hat Routingtabelle (Informationen über zu erreichende Systeme, z.B.)
+          \begin{itemize}
+            \item Bevorzugert Übertragungsabschnitt zum Ziel
+            \item Schätzung über Zeit oder Entfernung zum Ziel, z.B.
+              \begin{itemize}
+                \item Anzahl Hops
+                \item Geschätzte Verzögerung in Millisekunden
+                \item Geschätzte Anzahl von Datagrammen, die entlang des Weges warten
+              \end{itemize}
+          \end{itemize}
+        \item Schätzungen werden gewonnen aus
+          \begin{itemize}
+            \item Zeit oder Entfernung zu den Nachbarn
+              \begin{itemize}
+                \item z.B. aus speziellen Echo-Paketen mit Zeitstempeln
+              \end{itemize}
+            \item Schätzung der Nachbarn
+          \end{itemize}
+        \item Varianten
+          \begin{itemize}
+            \item Periodischer Austausch von Routinginformationen
+            \item Austausch nur bei signifikanten Änderungen
+          \end{itemize}
+      \end{itemize}
+      Verteiltes adaptives Routing: Routingalgorithmen
+      \begin{itemize}
+        \item Distanz-Vektor-Algorithmen
+          \begin{itemize}
+            \item Routing-Metrik: Distanz
+            \item Jeder Router kennt Distanz zu allen anderen Systemen im Netz
+              \begin{itemize}
+                \item Hierzu: Austausch der aktuellen Distanz zwischen den Nachbarn
+              \end{itemize}
+            \item Problem
+              \begin{itemize}
+                \item Kürzerer langsamerer Weg wird längerem schnellerem Weg vorgezogen
+              \end{itemize}
+            \item Beispielprotokolle
+              \begin{itemize}
+                \item Routing Information Protocol (RIP), Distance Vector Routing Protocol (DVRP)
+              \end{itemize}
+          \end{itemize}
+        \item Link-State-Algorithmen
+          \begin{itemize}
+            \item Unterschiedliche Routing-Metriken pro Netz möglich
+              \begin{itemize}
+                \item Beispiel: Finanzielle Kosten, Auslastung
+                \item Kann aktuelle Zustände der Netzinterfaces berücksichtigen
+              \end{itemize}
+            \item Jeder Router kennt die komplette Netztopologie
+              \begin{itemize}
+                \item Berechnet auf dieser Basis (konsistente) Routinginformationen
+              \end{itemize}
+            \item Konvergieren im Allg. schneller als Distanz-Vektor-Algorithmen
+              \begin{itemize}
+                \item Damit potentiell besser für größere Netzte geeignet
+              \end{itemize}
+            \item Beispielprotokolle
+              \begin{itemize}
+                \item Open Shortets Path First (OSPF)
+                \item Intra-Domain Intermediate System to Intermediate System Routing (IS-IS)
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Intra-Domain-Routing vs. Inter-Domain-Routing}
+      Internet: Netz aus Netzen
+      \begin{itemize}
+        \item Routing vom Endsystem A zu Endsystem B
+          \begin{itemize}
+            \item Von A zum lokalen Default Router
+            \item Über mehrere Domänen hinweg zur Zieldomäne (Inter-Domain-Routing) (z.B. BGP)
+            \item Innerhalb jeder Domäne vom Eingangs- zum Ausgangsrouter (Intra-Domain-Routing)
+              (z.B. OSPF, IS-IS)
+            \item In Zieldomäne zu B
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Distanz-Vektor-Routing}
+      \begin{itemize}
+        \item Eigenschaften
+          \begin{itemize}
+            \item Verteilt
+              \begin{itemize}
+                \item Jeder Router enthält Informationen von seinen direkten Nachbarn, führt eine
+                  Berechnung durch und verteilt dann neue Information an seine direkten Nachbarn
+              \end{itemize}
+            \item Iterativ
+              \begin{itemize}
+                \item Das Verteilen und Berechnen von Informationen geht so lange vor sich bis keine
+                  neue Information mehr ausgetauscht wird
+              \end{itemize}
+          \end{itemize}
+        \item Distanz-Vektor-Tabelle
+          \begin{itemize}
+            \item Grundlegende Datenstruktur für Distanz-Vektor-Algorithmen
+              \begin{itemize}
+              \item In jedem Router vorhanden
+              \item Zeile für jedes mögliche Ziel
+              \item Spalte für jeden direkten Nachbarn (Next Hop)
+              \end{itemize}
+            \item Weiterleiten von Daten
+          \end{itemize}
+      \end{itemize}
+      Distanz-Vektor-Algorithmus
+      \begin{itemize}
+        \item Initialisierung
+          \begin{itemize}
+            \item $\forall\text{ Nachbarn }v: D^X(*,v)=\infty,D^X(v,v)=c(X,v)$
+            \item $\forall$ Ziele $y:$ sende $\min_wD^X(y,w)$ zu jedem Nachbarn, wobei $w$ alle
+              Nachbarn enthält
+          \end{itemize}
+        \item Schleife
+          \begin{itemize}
+            \item Geänderte Übertragungsabschnittskosten
+              \begin{itemize}
+                \item $c(X,V$ ändert sich um Wert $d$ (kann positiv oder negativ sein)
+                \item $\forall$ Ziele $y$: $D^X(y,V)=D^X(y,V)+d$
+              \end{itemize}
+            \item Update-Nachricht von einem Nachbarn
+              \begin{itemize}
+                \item Kürzester Pfad von $V$ zu einem Ziel $Y$ hat sich geändert zu "neuer Wert"
+                \item $D^X(Y,V)=c(X,V)+$ "neuer Wert" für dieses Zeil
+              \end{itemize}
+            \item Falls neuer $\min_wD^X(Y,w)$ für ein Ziel $Y$ existiert, sende diesen Wert zu allen
+              Nachbarn
+          \end{itemize}
+        \item Betrachteter Algorithmus: Bellman-Ford-Algorithmus
+          \begin{itemize}
+            \item Eingesetzt im Routingprotokoll RIP (Routing Information Protocol)
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Link-State-Routing}
+      \begin{itemize}
+        \item Grundlegende Vorgehensweise
+          \begin{itemize}
+            \item Systeme kennen am Anfang nur ihre direkten Nachbarn
+            \item Entdecken neuer Nachbarn mittels spezieller Routingnachrichten
+              \begin{itemize}
+                \item z.B. HELLO-Nachricht
+              \end{itemize}
+            \item Bestimmen der Kosten zu direkten Nachbarn
+            \item Link State Broadcast
+              \begin{itemize}
+                \item Identität und Kosten zu direkten Nachbarn werden an alle Router im Netz
+                  weitergeleitet (Fluten)
+                \item Systeme können durch empfangene Link State Broadcasts Topologie lernen
+                \item Ergebnis: Alle Systeme haben identisches Wissen über das Netz
+              \end{itemize}
+          \end{itemize}
+        \item Berechnung der kürzesten Pfade durch Link-State-Algorithmus
+          \begin{itemize}
+            \item Jedes System berechnet de kürzesten Pfade
+            \item Die berechneten Pfade sind aufgrund der identischen Information gleich
+          \end{itemize}
+        \item Nach Fluten und Berechnung der kürzesten Pfade in jedem System
+          \begin{itemize}
+            \item Schleifenfrei
+            \item In stabilen Zustand konvergiert
+          \end{itemize}
+        \item Im folgenden betrachteter Algorithmus: Dijkstra-Algorithmus
+          \begin{itemize}
+            \item Berechnet Pfade mit geringsten Kosten von einem System zu allen anderen Systemen
+              im Netz
+          \end{itemize}
+        \item Eingesetzt in den Routingprotokollen
+          \begin{itemize}
+            \item OSPF (Open Shortest Path First) 
+            \item IS-IS (Intermediate System to Intermediate System)
+          \end{itemize}
+      \end{itemize}
+      \includegraphics[width=\textwidth]{img/link_state.png}
+      Link-State vs. Distanz-Vektor
+      \begin{itemize}
+        \item Link-State
+          \begin{itemize}
+            \item Konvergiert schnell
+              \begin{itemize}
+                \item Link-State-Nachrichten können während der Berechnung verschickt werden
+                \item Fluten ist unabhängig von berechneten Pfaden, unabhängig von Routing-Schleifen
+              \end{itemize}
+            \item Kompliziert zu implementieren
+              \begin{itemize}
+                \item Speichern aller empfangenen Link-State-Nachrichten
+                \item Rekonstruktion der Topologie erforderlich
+              \end{itemize}
+          \end{itemize}
+        \item Distanz-Vektor
+          \begin{itemize}
+            \item Konvergiert langsam
+              \begin{itemize}
+                \item Bei "schlechten Nachrichten": Schleifen und Count-to-Infinity-Probleme
+                \item Bei "guten Nachrichten": Routen müssen nacheinander pro Router angepasst werden
+              \end{itemize}
+            \item Leicht zu implementieren
+              \begin{itemize}
+                \item Update der Tabelleen beim Empfang einer Nachricht
+              \end{itemize}
+          \end{itemize}
+        \item Gewinner?
+          \begin{itemize}
+            \item Distanz-Vektor: Gut für kleine Netze
+            \item Link-State: Besser geeignet für größere (aber nicht sehr große) Netze
+          \end{itemize}
+      \end{itemize}
+  \subsection{Weitere Protokolle der Kontrollebene}
+    \subsubsection{Zuteilung von Adressen: DHCP}
+      Zuteilung von IP-Adressen
+      \begin{itemize}
+        \item Manuelle Konfiguration
+          \begin{itemize}
+            \item Durch Systemadministrator
+              \begin{itemize}
+                \item Windows: Systemsteuerung $\ra$ Netzwerkstatus und Aufgaben anzeigen $\ra$
+                  Adaptereinstellungen
+                \item Unix: /etc/rc.config
+                \item Linux: /etc/network/interfaces, /etc/sysconfig, ...
+              \end{itemize}
+          \end{itemize}
+        \item Dynamische Konfiguration
+          \begin{itemize}
+            \item Dynamische Host Configuration Protocol (DHCP)
+            \item DHCP-Server liefert bei Anfrage eine IP-Adresse an den Cleient
+              \begin{itemize}
+                \item "plug-and-play", "zero-config"
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      DHCP: Dynamic Host Configuration Protocol
+      \begin{itemize}
+        \item Aufgabe
+          \begin{itemize}
+            \item Dynamischer Bezug von IP-Adressen durch Endsysteme
+            \item Anforderung einer IP-Adresse bei Beitritt zum Subnetz
+          \end{itemize}
+        \item Eigenschaften
+          \begin{itemize}
+            \item Client-Server-Protokoll
+              \begin{itemize}
+                \item Zuteilung von IP-Adressen durch DHCP-Server
+              \end{itemize}
+            \item Zeitliche Gültigkeit der Zuteilung beschränkt
+              \begin{itemize}
+                \item Kann auf Anfrage verlängert werden
+                \item Wiedervergabe nach Ablauf möglich
+              \end{itemize}
+            \item Unterstützt mobile Endsysteme
+              \begin{itemize}
+                \item Aber keine "seamless mobility": neue IP-Adresse in neuem Subnetz
+                \item Bei Wechsel der IP-Adresse $\ra$ Unterbrechung einer aktiven TCP-Verbindung
+              \end{itemize}
+          \end{itemize}
+        \item Funktionsweise für IPv4
+        \item Standardablauf
+          \begin{itemize}
+            \item Endsystem tritt einem Subnetz bei
+              \begin{itemize}
+                \item Endsystem sind keine IP-Adressen von DHCP-Servern bekannt
+              \end{itemize}
+            \item Austausch von DHCP-Nachrichten zwischen Client und Server
+              \begin{itemize}
+                \item Endsystem sendet Brodcast: "DHCP discover"
+                \item DHCP-Server antwortet mit: "DHCP offer"
+                \item Endsystem fordert IP-Adresse an: "DHCP request"
+                \item DHCP-Server teilt IP-Adresse zu: "DHCP ack"
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      DHCP: Mehr als nur IPv4-Adressen
+      \begin{itemize}
+        \item Mit DHCP können weitere Informationen im Subnetz verteilt werden
+          \begin{itemize}
+            \item Adressen des Default-Routers für das Subnetz
+            \item Name und IP-Adresse des DNS-Servers
+            \item Subnetzmaske
+            \item Zeitserver (NTP - Network Time Protocol)
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{ICMP}
+      Internet Control Message Protocol (ICMP)
+      \begin{itemize}
+        \item Einzelne Verluste von Datagrammen werden von IP nicht gemeldet
+          \begin{itemize}
+            \item IP stellt zuverlässigen Dienst bereit
+          \end{itemize}
+        \item Schwerwiegende Probleme (z.B. Unterbrechung einer Leitung)
+          \begin{itemize}
+            \item werden Kommunikationspartnern zur Vermeidung von Folgefehlern mittels ICMP mitgeteilt
+          \end{itemize}
+        \item ICMP unterstützt den Austausch von Fehlernachrichten, Statusanfrage und
+          Zustandsinformationen
+      \end{itemize}
+      ICMP-Statusanfrage
+      \begin{itemize}
+        \item Echo und Echoantwort (echo and echo reply)
+          \begin{itemize}
+            \item Dient der Überprüfung der Aktivität von Geräten
+            \item Der Empfänger einer Echo-Anfrage sendet in der Echo-Antwort die erhaltenen Daten an
+              den Kommunikationspartner zurück
+          \end{itemize}
+        \item Zeitstempel und Zeitstempelantwort (timestamp and timestamp reply)
+          \begin{itemize}
+            \item Dient der Bestimmung von Umlaufzeiten (Round Trip Time, RTT)
+            \item Datagramme umfassen mehrere Felder zur Aufnahme von Zeitstempeln
+              \begin{itemize}
+                \item Damit: Berechnung der Bearbeitungszeiten beim Empfänger und der Verzögerung im
+                  Netz
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      ICMP-Datagramme
+      \begin{itemize}
+        \item Übertragung
+          \begin{itemize}
+            \item Im Datenteil von IP-Datagrammen
+            \item Protocol-Feld im Kopf hat Wert "1"
+          \end{itemize}
+        \item Format ICMP-Datagramm
+          \begin{itemize}
+            \item Type: Typ des Datagramms (z.B. Type = 3 entspricht "Zieladresse nicht erreichbar"
+            \item Code: Genaue Beschreibung des Datagramms (z.B. "Netz nicht erreichbar")
+            \item Checksum: Prüfsumme über gesamtes ICMP-Datagramm
+            \item Info: abhängig von Typ des ICMP-Datagramms (z.B. Felder für Zeitstempel bei
+              "Zeitstempel und Zeitstempelantwort"
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Vermittlungsschicht im Internet}
+      \begin{itemize}
+        \item Sowol im Endsystem als auch im Router vorhanden
+      \end{itemize}
+      Aufgaben der Protokolle
+      \begin{itemize}
+        \item TCP (Transmission Control Protocol)
+          \begin{itemize}
+            \item Stellt zuverlässigen Transportdienst bereit
+          \end{itemize}
+        \item UDP (User Datagramm Protocol)
+          \begin{itemize}
+            \item Stellt unzuverlässigen Transportdienst bereit
+          \end{itemize}
+        \item IP (Internet Protocol)
+          \begin{itemize}
+            \item Unzuverlässige Übertragung/Weiterleitung von IP-Datagrammen
+          \end{itemize}
+        \item ICMP (Internet Control Message Protocol)
+          \begin{itemize}
+            \item Austausch von Kontrollinformationenen innerhalb der Vermittlungsschicht
+          \end{itemize}
+        \item ARP (Address Resolution Protocol)
+          \begin{itemize}
+            \item Zuordnung von IP-Adressen zu Adressen der Sicherungsschicht (MAC-Adressen)
+          \end{itemize}
+        \item RARP (Reverse Address Resolution Protocol)
+          \begin{itemize}
+            \item Stellt Umkehrfunktion von ARP zur Verfügung
+          \end{itemize}
+        \item Routingprotokolle
+          \begin{itemize}
+            \item z.B. RIP (Routing Information Protocol), OSPF (Open Shortest Path First), BGP
+              (Border Gateway Protocol)
+          \end{itemize}
+      \end{itemize}
+    \subsection{Software-Defined Networking}
+      Software-Defined Networking (SDN)
+      \begin{itemize}
+        \item Über vier grundlegende Eigenschaften (E1-E4)
+      \end{itemize}
+      \includegraphics[width=\textwidth]{img/sdn.png}\\
+      Traditionelles IP-Routing
+      \begin{itemize}
+        \item Kontroll- und Datenebene in jedem Router
+        \item Vorteile
+          \begin{itemize}
+            \item Ausfallsicherheit
+              \begin{itemize}
+                \item Selbstorganisiert
+                \item Verteilte Kontrolle, hohe Redundanz
+              \end{itemize}
+            \item Schnelle Reaktion
+              \begin{itemize}
+                \item Hochoptimierte Routinghardware
+                \item Lokale Routingentscheidung
+              \end{itemize}
+            \item Bewährtes Konzept
+          \end{itemize}
+        \item Nachteile
+          \begin{itemize}
+            \item Proprietär
+              \begin{itemize}
+                \item Herstellerspezifische Management-Schnittstellen
+                \item Mischbetrieb schwierig
+              \end{itemize}
+            \item Unflexibel
+              \begin{itemize}
+                \item Einführung neuer Funktion schwierig/langwierig
+                \item Aufwändige Standardisierungsprozesse
+              \end{itemize}
+            \item Teuer
+              \begin{itemize}
+                \item Hochqualifiziertes Personal benötigt
+                \item Overprovisioning (für Lastspitzen)
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      \pagebreak
+      SDN:Kontrollebene in logisch zentralem Kontroller\\\\
+      \includegraphics[width=\textwidth]{img/sdn_controller.png}\\\\
+      Traditionell vs. SDN
+      \begin{itemize}
+        \item Traditioneller IP-Router
+          \begin{itemize}
+            \item Kennt keine Flows
+            \item Weiterleitung über Ziel-IP-Adresse $Longest Prefix Matching$
+          \end{itemize}
+        \item SDN-fähiger Switch
+          \begin{itemize}
+            \item Weiterleitung über Flowtabelle
+            \item Nutzt verschiedene Felder im IP-Kopf
+            \item Speichert Zustand pro Flow
+          \end{itemize}
+      \end{itemize}
+      Proaktive Flow-Programmierung
+      \begin{itemize}
+        \item Controller stellt sicher, dass immer ein passender Eintrag vorhanden ist
+          \begin{enumerate}[label=\arabic*.]
+            \item Controller: programmiert passenden Flow auf Switch
+            \item Endsystem 1: sendet Paket
+            \item Switch: Packet-in (Port 1)
+            \item Switch: Flow-Table Lookup
+            \item Macht $\ra$ \verb!Action: "Output:2"!
+            \item Switch: Paketweiterleitung $\ra$ (von Port 1 nach Port 2)
+          \end{enumerate}
+      \end{itemize}
+      Reaktive Flow-Programmierung
+      \begin{itemize}
+        \item Fall 1: Kein passender Eintrag in Flow-Table vorhanden
+          \begin{enumerate}[label=\arabic*.]
+            \item Endsystem 1: Sendet Paket
+            \item Switch: Packet-in (Port 1)
+            \item Switch: Flow-Table Lookup
+            \item Mismatch
+            \item Switch: Weiterleitung zum Controller
+            \item Controller: Programmiert passenden Flow auf Switch
+            \item Controller: Explizite \verb!Packet-Out! Nachricht an Switch
+            \item Switch: Sendet Paket über Port 2
+          \end{enumerate}
+        \item Fall 2: Passender Eintrag vorhanden
+          \begin{enumerate}[label=\arabic*]
+            \item Endsystem 1: Sendet Paket
+            \item Switch: Packet-in (Port 1)
+            \item Switch: Flow-Table Lookup
+            \item Match $\ra$ \verb!Action: "Output:2"!
+            \item Switch: Paketweiterleitung $\ra$ (von Port 1 nach Port 2)
+          \end{enumerate}
+      \end{itemize}
+      \includegraphics[width=\textwidth]{img/reaktie_flow_programmierung.png}\\\\
+      SDN: Pro und Contra
+      \begin{itemize}
+        \item Pro
+          \begin{itemize}
+            \item Logisch zentralisierte Sicht
+              \begin{itemize}
+                \item Controller hat Überblick über das gesamte Netz
+                \item Einfacher Einsatz von Graphen-Algorithmen
+              \end{itemize}
+            \item Neue Funktionalität in Software
+              \begin{itemize}
+                \item Als App im Controller
+                \item Deutlich kürzere Entwicklungszyklen
+              \end{itemize}
+            \item Trennung von Kontrollebene und Datenenbene
+              \begin{itemize}
+                \item Innovation unabhängig voneinander möglich
+                \item Herstellerunabhängigkeit durch offene Schnittstelle
+              \end{itemize}
+          \end{itemize}
+        \item Contra
+          \begin{itemize}
+            \item Skalierbarkeitn
+            \item "Single Point of Failure"
+            \item Kommunikation mit Controller langsam im Vergleich zum Datenpfad
+            \item Anzahl TCAM Einträge begrenzt
+          \end{itemize}
+      \end{itemize}
