@@ -1,3 +1,970 @@
 \newpage
 \section{Sicherungsschicht}
+  \subsection{Einführung}
+    Sicherungsschicht
+    \begin{itemize}
+      \item Datenaustausch zwischen physikalisch benachbarten Geräten
+        \begin{itemize}
+          \item Pakete werden hier als Rahmen bezeichnet
+        \end{itemize}
+      \item Basiert auf Dienst der physikalischen Schicht\\
+        $\ra$ Diese garantiert keine fehlerfreie Übertragung der Bits zwischen benachbarten Geräten
+      \item Eigenschaften
+        \begin{itemize}
+          \item Bereitstellung zuverlässiger und unzuverlässiger Dienste
+            \begin{itemize}
+              \item Zur Bereitstellung zuverlässiger Dienste Erkennung und Behebung und Fehlern der
+                physikalischen Schicht erforderlich
+            \end{itemize}
+          \item Adressierung der Geräte
+            \begin{itemize}
+              \item An einem physikalischen Medium können mehrere Geräte angeschlossen sein
+            \end{itemize}
+          \item Pufferung der Daten sowohl im sendenden Gerät als auch im empfangenen Gerät
+          \item Strukturierung der Übertragung in Rahmen
+          \item Abstrahierung vom physikalischen Medium
+        \end{itemize}
+    \end{itemize}
+    Broadcast- vs. Punkt-zu-Punkt-Link
+    \begin{itemize}
+      \item Broadcast-Link
+        \begin{itemize}
+          \item Alle an das Broadcast-Medium angeschlossenen Geräte können alle gesendeten Rahmen
+            "sehen"
+        \end{itemize}
+      \item Punkt-zu-Punkt-Link
+        \begin{itemize}
+          \item Zwei Geräte sind über einen dedizierten Link verbunden
+        \end{itemize}
+    \end{itemize}
+    Punkt-zu-Punkt-Link
+    \begin{itemize}
+      \item An einem Punkt-zu-Punkt-Link sind folgende Kommunikationsformen möglich
+        \begin{itemize}
+          \item Simplex
+            \begin{itemize}
+              \item Übertragung nur in einer Richtung
+            \end{itemize}
+          \item Halbduplex
+            \begin{itemize}
+              \item Übertragung in beide Richtungen
+              \item Abwechslend, nicht zeitgleich
+            \end{itemize}
+          \item Duplex (auch Vollduplex genannt)
+            \begin{itemize}
+              \item Übertragung in beide Richtungen
+              \item Zeitgleich
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Wo ist die Sicherungsschicht implementiert?
+    \begin{itemize}
+      \item In End- und Zwischensystemen
+      \item Auf Networkinterface (Network Interface Card, NIC, oder auf Chip)
+        \begin{itemize}
+          \item Ethernet-Adapter
+          \item WLAN-Adapter
+          \item ...
+        \end{itemize}
+      \item An Bus des Geräts angeschlossen (z.B. PCI-Bus)
+      \item Kombination von Hardware, Software, Firmware
+    \end{itemize}
+  \subsection{Netztopologien}
+    \begin{itemize}
+      \item Vollvermaschtes Netz
+        \begin{itemize}
+          \item Jedes Gerät ist über einen separaten physikalischen Link mit jedem anderen Gerät
+            verbundn
+          \item Erfordert bei $N$ Geräten $\frac{N(N-1)}{2}$ Links\\
+            $\ra$ skaliert in großen Netzen nicht
+        \end{itemize}
+      \item Teilvermaschtes Netz
+        \begin{itemize}
+          \item Nur ein Teil der Geräte ist direkt über physikalischen Link verbunden
+          \item Kommunikation zwischen nicht direkt verbunden Geräten muss über andere Geräte erfolgen
+            \begin{itemize}
+              \item Z.B. Gerät A kann mit Gerät B nicht direkt kommunizieren. Kommunikation kann
+                über Gerät E erfolgen (A$\ra$E,E$\ra$B)
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Netztopologien
+    \begin{itemize}
+      \item Hierarchische Topologie / Baum
+      \item Stern
+        \begin{itemize}
+          \item Zentrale Komponente, zu der jedes Gerät einen physikalischen Link hat
+          \item Zentrale Komponente: Single-point-of-failure
+        \end{itemize}
+      \item Ring
+        \begin{itemize}
+          \item Jedes Gerät ist über einen separaten Link mit einem Vorgängergerät und einem
+            Nachfolgergerät verbunden
+          \item Zusammenschluss über RIng ermöglicht Kommunikation zwischen allen Geräten
+          \item Linkausfall: eingeschränkte Kommunikation
+        \end{itemize}
+      \item Bus
+        \begin{itemize}
+          \item Alle Geräte sind mit einem Link verbunden
+          \item Linkausfall: keien Kommunikation
+        \end{itemize}
+    \end{itemize}
+  \subsection{Multiplexverfahren}
+    Multiplexen
+    \begin{itemize}
+      \item Unter Multiplexen versteht man die Nutzung eines physikalischen Mediums durch mehrere
+        Signale
+        \begin{itemize}
+          \item Ziel dabei ist eine optimale Ausnutzung der verfügbaren Ressourcen
+        \end{itemize}
+      \item Multiplexen in mehreren Dimensionen möglich
+        \begin{itemize}
+          \item Raum (r)
+          \item Zeit (t)
+          \item Frequenz (f)
+          \item Code (c)
+        \end{itemize}
+    \end{itemize}
+    Raummultiplexen
+    \begin{itemize}
+      \item Space Division Multiple Access (SDMA)
+      \item Jedem Signal wird je ein Medium exklusiv zur Verfügung gestellt
+        \begin{itemize}
+          \item Drahtgebunden: ein Kabel pro Übertragung (Als "Kupfermultiplex" bezeichnet)
+          \item Drahtlos: gleiche Frequenz mit ausreichendem räumlichen Abstand (Zellenstruktur bei
+            Mobilfunknetzen
+        \end{itemize}
+    \end{itemize}
+    Frequenzmultiplex
+    \begin{itemize}
+      \item Frequency Division Multiple Access (FDMA)
+      \item Zur Verfügung stehende Bandbreite wird in unterschiedliche Frequenzbänder aufgeteilt,
+        denen jeweils ein Signal zugeordnet wird
+      \item Beispiel: Sendefrequenzen Radio, TV, WLAN-Kanäle
+    \end{itemize}
+    Zeitmultiplex
+    \begin{itemize}
+      \item Time Division Multiple Access (TDMA)
+      \item Aufteilung der Zeit in Abschnitte in denen die gesammte (Frequenz-)Bandbreite von einem
+        Signal genutzt werden kann
+        \begin{itemize}
+          \item Signale verwenden das Medium abwechseln
+          \item Jeweilige Nutzungsdauer kann unterschiedlich oder identisch sein
+          \item Zuteilung kann kontrolliert oder konkurrierend erfolgen
+        \end{itemize}
+      \item Beispiel: Ethernet, WLAN, Sprachkanal in Mobilfunknetzen
+      \item Statisch
+        \begin{itemize}
+          \item Wird off-line konfiguriert, änder sich während des Betriebs nicht
+          \item Häufing in der Automatisierungstechnik (Industrial Internet) zu finden
+        \end{itemize}
+      \item Dynamisch
+        \begin{itemize}
+          \item Fest
+            \begin{itemize}
+              \item Wird während des Betriebs signalisiert. Nutzt hierfür spezielle Protokolle,
+                sogenannte Signalisierungsprotokolle
+            \end{itemize}
+          \item Variabel
+            \begin{itemize}
+              \item Zugriff erfolgt on-demand ohne Nutzung eines dedizierten Signalisierungsprotokolls
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    Codemultiplex
+    \begin{itemize}
+      \item Code Division Multiple Access (DCMA)
+      \item Signal wird vom Sender mit einer für ihn eindeutigen Pseudozufallszahl codiert und kann
+        vom Empfänger wiederhergestellt werden. Alle Sender senden gleichzeitig im gleichen
+        Frequenzband
+    \end{itemize}
+  \subsection{Medienzuteilung (MAC: Medium Access Control)}
+    Ausgangssituation
+    \begin{itemize}
+      \item Häufiges Kommunikationsmuster in der traditionellen Datenkommunikation: on-off
+        \begin{itemize}
+          \item On: Daten senden mit höchster verfügbaren Datenrate
+          \item Off: keine Daten zu senden
+          \item Typisch
+            \begin{itemize}
+              \item $t_{off}>>t_{on}$ und
+              \item unklar, zu welchem Zeitpunkt Kommunikation beginnt
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \subsubsection{Aloha}
+      \begin{itemize}
+        \item Erstes MAC-Protokoll für paketbasierte drahtlose Netze
+          \begin{itemize}
+            \item Medienzuteilung
+              \begin{itemize}
+                \item Zeitmultiplex mit variablem, zufälligem Zugriff
+                \item Beim Sendewunsch: senden
+                  \begin{itemize}
+                    \item Keine vorhergehende Medienüberprüfung bzw. Ankündigung des Sendewunsches
+                    \item Geignet für Netze, in denen Parameter $a$ groß ist ($a=\frac{t_a}{t_s}$)
+                  \end{itemize}
+              \end{itemize}
+            \item Problem
+              \begin{itemize}
+                \item Kollisionen mögliche
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Kollisionserkennung bei Aloha
+      \begin{itemize}
+        \item Explizit
+          \begin{itemize}
+            \item Bestätigungen (ACK) durch höhere Schichten
+            \item Seqarater Kommunikationskanal hierfür erfoderlich
+          \end{itemize}
+        \item Implizit
+          \begin{itemize}
+            \item Bei Nutzung von Aloha über Sateliten eingesetzt
+              \begin{itemize}
+                \item Satelit broadcastet empfangene Rahmen an alle
+                \item Sendendes Gerät empfängt Rahmen nach einer Umlaufzeit (RTT) wieder
+              \end{itemize}
+          \end{itemize}
+        \item Reaktion auf Kollision
+          \begin{itemize}
+            \item Sendewiederholung\\
+              ... sollte aber nicht wieder zu einer Kollision führen
+              \begin{itemize}
+                \item Randomisierung des Zeitpunktes der Sendewiederholungen
+                  \begin{itemize}
+                    \item Backoff: Zeit bis zu nächsten Sendewiederholung
+                  \end{itemize}
+                \item Abbruch nach maximaler Anzahl gescheiterter Sendewiederholungen
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Slotted Aloha
+      \begin{itemize}
+        \item Wie Aloha, aber
+          \begin{itemize}
+            \item Nutzung von Zeitschlitzen
+              \begin{itemize}
+                \item Synchronisierter Zugriff nur zu Beginn eines Zeitschlitzes
+              \end{itemize}
+            \item Im Mittel weniger Kollision als Aloha
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{CSMA}
+      Zufälliger Zugriff: CSMA
+      \begin{itemize}
+        \item CSMA: Carrier Sense Multiple Access
+          \begin{itemize}
+            \item Listen before Talk
+              \begin{itemize}
+                \item Gerät prüft vor Senden, ob Medium frei ist
+                \item Medium belegt
+                  \begin{itemize}
+                    \item Senden nicht erlaubt, später erneut versuchen
+                  \end{itemize}
+                \item Medium frei
+                  \begin{itemize}
+                    \item Senden, aber
+                    \item Mehrere Geräte können (fast) gleichzeitig zu senden beginnen $\ra$
+                      Kollisionen möglich
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Zufälliger Zugriff: CSMA/CD
+      \begin{itemize}
+        \item CSMA/CD: Carrier Sense Multiple Access with Collision Detection
+          \begin{itemize}
+            \item Wie zuvor: Listen before Talek
+            \item Zusätzlich noch: Listen while Talk
+              \begin{itemize}
+                \item Kollisionserkennung durch Abhören während des Sendens
+                \item Kollisionsfall
+                  \begin{itemize}
+                    \item Abbruch des Sendens
+                    \item Sendewiederholung zu einem späteren Zeitpunkt (Genaue Regelungen von
+                      jeweiliger Implementierung im Netz abhängig)
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      "Zeitfenster" für potentielle Kollisionen
+      \begin{itemize}
+        \item Wichtiger Parameter
+          \begin{itemize}
+            \item Maximale Ausbreitungsverzögerung $t_{a,max}$ zwischen zwei an das Medium
+              angeschlossenen Geräten
+          \end{itemize}
+        \item Annahme bei CSMA: Parameter $a$ ist klein
+      \end{itemize}
+      Persistenz
+      \begin{itemize}
+        \item Problem
+          \begin{itemize}
+            \item Wann tatsächlich das medium abhören und anfangen zu senden?
+          \end{itemize}
+        \item Zwei grundlegende Strategien
+          \begin{itemize}
+            \item Persistenz (1-persistent)
+              \begin{itemize}
+                \item Gerät hört Medium ab, Medium ist besetzt
+                  \begin{itemize}
+                    \item Gerät hört Medium weiter ab, bis dieses frei ist
+                    \item Gerät fängt unmittelbar an zu senden
+                  \end{itemize}
+                \item Gerät hört Medium ab, Medium ist frei
+                  \begin{itemize}
+                    \item Gerät sendet sofort
+                  \end{itemize}
+              \end{itemize}
+            \item Nicht-Persistent
+              \begin{itemize}
+                \item Gerät hört Medium ab, Medium ist besetzt
+                  \begin{itemize}
+                    \item Gerät wartet zufälliges Zeitintervall
+                  \end{itemize}
+                \item Gerät hört Medium ab, Medium ist frei
+                  \begin{itemize}
+                    \item Gerät sendet sofort
+                    \item Ansosnten wieder zufälliges Zeitintervall warten
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      $p$-Persistenz
+      \begin{itemize}
+        \item Medium als frei erkannt
+          \begin{itemize}
+            \item Sende Rahmen mit Wahrscheinlichkeit $p$ ($0<p\le1$)
+            \item Warte eine "Zeiteinheit" mit Wahrscheinlichkeit $1-p$ ("Zeiteinheit entspricht i.d.R.
+              maximaler Ausbreitungsverzögerung
+          \end{itemize}
+        \item Was ist eine gute Wahl für $p$?
+          \begin{itemize}
+            \item Wahl von $p$ ist Kompromiss zwischen
+              \begin{itemize}
+                \item Gutem Verhalten bei hoher Last
+                  \begin{itemize}
+                    \item $n$ Geräte wollen Daten senden
+                    \item $np>1$ ... mehrere Geräte versuchen gleichzeitig zu senden ($np<1/n$ wählen,
+                      kleines $p$ besser
+                  \end{itemize}
+                \item Geringer Latenz bei niedriger Last
+              \end{itemize}
+            \item ... gute Wahl von $p$ schwierig
+          \end{itemize}
+      \end{itemize}
+      Exponentieller Backoff
+      \begin{itemize}
+        \item Ziel
+          \begin{itemize}
+            \item Vermeiden erneuter Kollisionen bei Sendewiederholungen
+          \end{itemize}
+        \item Grundlegendes Verfahren
+          \begin{itemize}
+            \item Gerät wartet zufällige Zeit $t$ bis zum Start der Sendewiederholung
+              \begin{itemize}
+                \item $t\in\{t_0,\dots,t_m\}$, mit $\Delta t=t_m-t_0=m$\\
+                  $\ra$ Randomisierung
+              \end{itemize}
+            \item Zeitintervall widr bei jeder erfolgreichen Sendewiederholung verdoppelt
+              \begin{itemize}
+                \item 2. Sendewiederholung: $t\in\{t_0,\dots,t_{2m}$, mit $\Delta t=2m$
+                \item 3. Sendewiederholung: $t\in\{t_0,\dots,t_{4m}$, mit $\Delta t=4m$
+                  \item $\ra$ exponentielles Wachstum
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      CSMA-basierte Verfahren
+      \begin{itemize}
+        \item CSMA/CD
+          \begin{itemize}
+            \item .../"Collision Detectoin"
+            \item "Listen before talk, listen while talk"
+            \item Sendendes Gerät kann Kollision durch Mithören erkennen
+            \item Einsatzbeispiel: Ethernet
+          \end{itemize}
+        \item CSMA/CA
+          \begin{itemize}
+            \item .../"Collision Avoidence"
+            \item "Listen before talk"
+            \item Sendendes Gerät schließt auf Kollision bei Ausbleiben einer Quittung
+            \item Einsatzbeispiel: WLAN
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Token-Passing}
+      \begin{itemize}
+        \item Token: sezieller Rahmen zur Vergabe des Senderechts
+          \begin{itemize}
+            \item Token kann frei oder belegt sein
+          \end{itemize}
+        \item Weitergabe des Tokens von Gerät zu Gerät
+        \item Gerät im Besitz eines freien Tokens darf senden
+        \item Token muss nach gewissen Regeln weitrgegeben werden
+          \begin{itemize}
+            \item Zeitdauer, Volumen der gesendeten Daten
+          \end{itemize}
+      \end{itemize}
+      Alllgemeines zum Ablauf
+      \begin{itemize}
+        \item Protokollablauf
+          \begin{itemize}
+            \item Senden ist nur erlaubt, wenn Gerät ein freies Token besitzt
+            \item Maximale Sendezeit ist durch Token Holding Time (THT) begrenzt
+              \begin{itemize}
+                \item Es können in dieser Zeit mehrere Rahmen gesendet werden
+              \end{itemize}
+            \item Kontrollinformationen kann per piggyback zum Sender gesendet werden
+              \begin{itemize}
+                \item Z.B. Quittungen
+              \end{itemize}
+            \item Prioritätmechanismus steht zur Verfügung
+              \begin{itemize}
+                \item 8 Prioritäten
+              \end{itemize}
+          \end{itemize}
+        \item Monitor
+          \begin{itemize}
+            \item Ausgewähltes Gerät zur Überwachung der Funktionsfähigkeit des Rings
+              \begin{itemize}
+                \item Z.B: Token-Verlust, Token-Verdopplung, Ringbuch
+                \item Jedes Gerät kann diese Aufgabe übernehmne
+              \end{itemize}
+            \item Generell: Fehlermanagement recht komplex
+          \end{itemize}
+      \end{itemize}
+      Realisierung Token Ring
+      \begin{itemize}
+        \item ... meist nicht durch Ring mittels direkter Punkt-zu-Punkt-Verbindungen zwischen Gerät,
+          sondern als Stern
+        \item Zentrale Komponente: Ringverteiler
+          \begin{itemize}
+            \item Ausfallende Geräte werden per Relais "abgefangen"
+            \item ... Ring bleibt bei Ausfall geschlossen
+          \end{itemize}
+      \end{itemize}
+      Eigenschaften des Token Ring
+      \begin{itemize}
+        \item Erlaubt strukturierte Verkabelung von Gebäuden
+        \item Zuverlässigkeit
+          \begin{itemize}
+            \item Fehlerhafte Geräte können isoliert und aus dem Ring ausgeschlossen werden
+          \end{itemize}
+        \item Verteilte Token-Steuerung, d.h. dezentrale Zuteilungsstrategie
+        \item Neue Generierung der Rechteckimpulse in jedem Gerät
+          \begin{itemize}
+            \item Dadurch wenig rauschempfindlichkeit
+            \item Große Ringe mit vielen Geräten möglich
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Zentrale Kontrolle}
+      Kollisionsfreier Zugriff
+      \begin{itemize}
+        \item Kontrolle durch zentrales Gerät (Polling)
+          \begin{itemize}
+            \item Jegliche Kommunikation erfolgt über zentrales Gerät
+              \begin{itemize}
+                \item Keine direkte Kommunikation zwischen anderen Geräten
+                \item Zentrales Gerät fragt andere Geräte gemäß Abfragetabelle (Polling Table) ab
+                \item Geräte antworten nur nach Aufforderung
+              \end{itemize}
+            \item Nachteile
+              \begin{itemize}
+                \item Zentrales Gerät kann ausfallen
+                \item Last bei zentralem Gerät kann hoch werden
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+  \subsection{Ethernet}
+    \subsubsection{Standardisierung}
+      Aufgaben der Sicherungsschicht
+      \begin{itemize}
+        \item Typische Aufteilung in lokalen Netzen
+          \begin{itemize}
+            \item 2b Logical Link Control (LLC) (Einheitlich für alle Medien)
+              \begin{itemize}
+                \item Strukturierung der Übertragung
+                \item Sicherung vor Übertragungsfehlern
+                \item Sicherung vor Datenverlust
+                \item Sicherung der Reihenfolge
+                \item Flusskontrolle
+              \end{itemize}
+            \item 2a Media Access Control (MAC) (Zugangskontrolle für geteiltes Medium)
+              \begin{itemize}
+                \item Zufälliger Zugriff
+                \item Kollisionsfreier, kontrollierter Zugriff
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Ethernet
+      \begin{itemize}
+        \item Standardisiert als IEEE 802.3
+          \begin{itemize}
+            \item Medienzuteilung
+              \begin{itemize}
+                \item Zeitmultiplex, variabel, zufälliger Zugriff
+                \item Verwendung von CSMA/CD
+                  \begin{itemize}
+                    \item Kollisionserkennung durch Mithören
+                    \item Exponentieller Zugriff
+                    \item 1-persistent
+                  \end{itemize}
+              \end{itemize}
+            \item Netztopologie
+              \begin{itemize}
+                \item Ursprünglich: Bustopologie, heute: Sterntopologie
+              \end{itemize}
+            \item Verschiedene Datenrate
+              \begin{itemize}
+                \item Zunächst: 10 Mbit/s, heute 100 Gbit/s und mehr
+              \end{itemize}
+            \item Drahtgebunden, unterschiedliche Medien
+              \begin{itemize}
+                \item Zunächst: Koaxialkabel, heute Glasfaser, twisted-pair
+              \end{itemize}
+          \end{itemize}
+        \item Standard umfasst Schicht 1 und 2a (MAC-Protokoll)
+      \end{itemize}
+      MAC-Adressen
+      \begin{itemize}
+        \item Adressen der Sicherungsschicht
+          \begin{itemize}
+            \item 48 Bit lang
+              \begin{itemize}
+                \item 24 Bit durch IEEE an Hersteller zugewiesen
+                \item 24 BIt durch Hersteller durchnummeriert
+              \end{itemize}
+            \item Stehen in ROM der Interfacekarte oder können per Software konfiguriert werden
+            \item Müssen im lokalen Netz eindeutig sein
+            \item Flache Adressierung
+          \end{itemize}
+        \item Format
+          \begin{itemize}
+            \item Darstellung meist hexadezimal: \verb!24-5G-EA-76-CC-48!
+              \begin{itemize}
+                \item Jede Stelle repräsentiert 4 Bit
+                \item Bindestrich ist Trennzwischen zur leichteren Lesbarkeit
+              \end{itemize}
+            \item Broadcast MAC-Adresse: \verb!FF-FF-FF-FF-FF-FF!
+              \begin{itemize}
+                \item Rahmen wird von allen angeschlossenen Geräten empfangen
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Typen von Adressen
+      \begin{itemize}
+        \item Unicast-Adresse
+          \begin{itemize}
+            \item Adressiert ein spezielles Gerät
+            \item Nur dieses Gerät empfängt die Daten
+          \end{itemize}
+        \item Multicast-Adresse
+          \begin{itemize}
+            \item Adressiert eine Gruppe von Geräten
+            \item Alle Geräte in der Gruppe empfangen die Daten
+          \end{itemize}
+        \item Broadcast-Adresse
+          \begin{itemize}
+            \item Alle Geräte im Netz empfangen die Daten
+          \end{itemize}
+        \item Anycast-Adresse
+          \begin{itemize}
+            \item Adressiert eine Gruppe von Geräten
+            \item Ein ausgewähltes Gerät daraus empfängt die Daten
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Protokoll}
+      Zufälliger Zugriff
+      \begin{itemize}
+        \item Umsetzung bei Ethernet
+          \begin{itemize}
+            \item Bei Kollisionserkennung
+              \begin{itemize}
+                \item Abbruch des Sendevorgangs
+                \item Senden von Jamming-Signal
+                \item Wiederholtes Senden regelt Backoff-Algorithmus
+              \end{itemize}
+            \item Voraussetzung für Kollisionserkennung
+              \begin{itemize}
+                \item Senden der Rahmen darf nach Signallaufzeit durch Medium und zurück noch nicht
+                  beendet sein
+                \item Mindestlänge der Rahmen erforderlich
+                  \begin{itemize}
+                    \item Abhängig von maximaler Ausdehnung des Netzes und 
+                      Ausbreitungsgeschwindigkeit
+                  \end{itemize}
+                \item Bei zu kleinem Rahmen: Auffüllen auf Mindestlänge durch (inhaltslose) Stopfbits
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Exponentieller Backoff
+      \begin{itemize}
+        \item Regelt Wartezeit bis zur nächsten Sendewiederholung
+          \begin{itemize}
+            \item Station wählr randomisiert Anzahl zu wartender Zeitschlitze nach folgendem Schema
+              \begin{itemize}
+                \item 1. Kollision: 0/1 Zeitschlitze Wartezeit
+                \item 2. Kollision: 0/1/2/3 Zeitschlitze Wartezeit
+                \item $i$. Kollision: 0/1/.../$2^i-1$ Zeitschlitze Wartezeit
+              \end{itemize}
+            \item $i$ ist anch oben begrenzt auf 16, danach wird Systemfehler angenommen
+          \end{itemize}
+      \end{itemize}
+      Zeitschlitz
+      \begin{itemize}
+        \item Kanal wird logisch in Zeitschlitze fester Länge aufgeteilt
+          \begin{itemize}
+            \item Dauer entspricht minimaler Länge eines Rahmens
+            \item Eventuell Kollision kann vor Ende des Zeitschlitzes erkannt werden
+          \end{itemize}
+        \item Bei 10Base5 Ethernet (10 Mbit/s)
+          \begin{itemize}
+            \item Länge Zeitschlitz: 512 Bitzeilen = 51,2 $\mu s$ = Länge minimaler Rahmen
+            \item Parameter zur Netzkonfiguration
+              \begin{itemize}
+                \item Maximale Länge: 500 m
+                \item Maximale Anzahl Repeater: 4
+                \item Damit maximale Gesamtlänge: 2,5 km
+                \item Maximale Ausbreitungsverzögerung im Medium: 
+                  $t_{a,max}=\frac{2,5 km}{2/3c }=12,5\mu s$
+                  \begin{itemize}
+                    \item Maximale Umlaufzeit im Medium: 25 $\mu$s
+                  \end{itemize}
+                \item Plus Verzögerung in Repeatern, Präambel, IFS ...: auf 51,2 $\mu$s erhöht
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Ethernet-Rahmen\\\\
+      \includegraphics[width=\textwidth]{img/ethernet_rahmen.png}
+      \begin{itemize}
+        \item PR = Präambel zur Synchronisierung (1010101010...)
+        \item SD = Start-of-frame Delimeter zeigt Beginn an (10101011)
+        \item DA = Destination Address, Zieladresse
+        \item SA = Source Address, Queladresse
+        \item Type/Length
+          \begin{itemize}
+            \item Typ = darüber liegendes Protokoll
+            \item Length = Länge der Nutzdaten
+          \end{itemize}
+        \item Data = Datenpfad
+        \item PAD = Padding
+        \item FCS = Frame Check Sequence
+      \end{itemize}
+      Type vs. Length
+      \begin{itemize}
+        \item Type
+          \begin{itemize}
+            \item Ursprüngliches Format
+            \item Identifiziert Protokoll oberhalb von Ethernet (z.B. IP, AplleTalk ...)
+            \item Keine Nutzung von LLC
+          \end{itemize}
+        \item Length
+          \begin{itemize}
+            \item Länge der Nutzdaten (PAD-Feld damit einfach identifizierbar
+            \item Bei IEE 802.3 verwendet
+            \item Nutzung von LLC Identifikation des oberhlab genutzen Protokolls
+          \end{itemize}
+        \item In der Praxis: Koexistent
+          \begin{itemize}
+            \item Werte von 0 bis 1500 repräsentieren Länge
+            \item Werte von 1536 bis 65535 repräsentieren Type
+            \item IEEE 802.3 unterstützt heute beide Varianten
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Kopplung von Ethernets}
+      Kopplung auf Schicht 1
+      \begin{itemize}
+        \item Kopplung von mehreren Ethernet-Netzbereichen auf Schicht 1
+          \begin{itemize}
+            \item Zwischensysteme verstärken Signal
+              \begin{itemize}
+                \item Bezeichung: Repeater, Hub
+              \end{itemize}
+            \item Rahmen werden in allen Ethernet-Netzbereichen weitergeleitet
+          \end{itemize}
+      \end{itemize}
+      Kopplung auf Schicht 2
+      \begin{itemize}
+        \item Switches und Brücken koppeln mehrere lokale Netze (z.B. Ethernet) auf Schicht 2
+        \item Ethernet-Rahmen werden weitergeleitet und ggfs. zwischengepuffert
+        \item Trennung on Internetz- und Internetz-Verkehr
+          \begin{itemize}
+            \item Erhöht Netzkapazität
+          \end{itemize}
+        \item Switches/Brücken sind transparent für Endsysteme
+          \begin{itemize}
+            \item Endsysteme wissen nicht, ob Switches/Brücken auf dem Pfad liegen
+          \end{itemize}
+      \end{itemize}
+      Ethernet-Switch
+      \begin{itemize}
+        \item Endsysteme haben direkten, dedizierten Link zum Switch
+        \item Ethernet-Protokoll auf den Links
+          \begin{itemize}
+            \item Bei Vollduplex-Links keine Kollisionen
+          \end{itemize}
+        \item Switching
+          \begin{itemize}
+            \item Weiterleitung von Eingangs-Interface an Ausgangs-Interface
+            \item Simultane Übertragungen möglich z.B: A nach A', B nach B' und C nach C'
+          \end{itemize}
+      \end{itemize}
+      Halbduplex vs. Duplex
+      \begin{itemize}
+        \item Anschluss der Endsysteme per Punkt-zu-Punkt-Verbindung
+          \begin{itemize}
+            \item Halbduplex-Betrieb dieser Punkt-zu-Punkt-Verbindung
+              \begin{itemize}
+                \item Nutzung von CSMA/CD
+                \item Kollision (während des Sendens wird zu empfangender Rahmen erkannt
+              \end{itemize}
+            \item Duplex-Betrieb dieser Punkt-zu-Punkt-Verbindung
+              \begin{itemize}
+                \item Kein CSMA/CD erfoderlich
+                \item Separater Kanal für Sende- und Empfangsrichtung (z.B. separate Adernpaare)
+                \item Minimale Länge des Rahmens eigentlich nicht erfolderlich
+                  \begin{itemize}
+                    \item Aus Interoperabillitätsgründen aber noch vorhanden
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Vernetzung von Switches
+      \begin{itemize}
+        \item Plug-and-play
+          \begin{itemize}
+            \item Keine manuelle Konfiguration durch Administrator erfoderlich
+            \item Switches sind selbstlernend
+          \end{itemize}
+        \item Aufgaben
+          \begin{itemize}
+            \item Etablierung einer Netztopologie ohne schleifen $\ra$ Spanning Tree Algorithmus
+            \item Zielorientierte Weiterleitung zwischen Endsystemen $\ra$ Selbstlernende Switches
+          \end{itemize}
+      \end{itemize}
+      Selbstlernende Switches
+      \begin{itemize}
+        \item Ziel: "Wege" etablieren
+        \item Vorgaben
+          \begin{enumerate}[label=\arabic*)]
+            \item Empfang eines Rahmens mit Quell-Adresse Q
+              \begin{itemize}
+                \item Lerne "Lokation" des Endsystems mit Adresse Q, falls noch nicht bekannt
+                \item Merke, dass Endsystem über dieses Interface erreichbar ist
+                \item Eintrag in Tabelle <MAC-Adresse, Interface, Lebenszeit>
+                \item Falls Quell-ADresse bereits bekannt: Interface und Lebenszeit aktualisieren
+              \end{itemize}
+            \item Weiterleung eines Rahmens
+              \begin{enumerate}
+                \item Switch kennt Ziel-Adresse
+                  \begin{itemize}
+                    \item Leitet Rahmen über entsprechendes Interface weiter
+                  \end{itemize}
+                \item Switch kennt Ziel-Adresse nicht
+                  \begin{itemize}
+                    \item Flutet Rahmen auf allen aktiven Interfaces
+                  \end{itemize}
+              \end{enumerate}
+          \end{enumerate}
+      \end{itemize}
+    \subsubsection{Kollisoinsdomäne}
+      \begin{itemize}
+        \item Unter einer Kollisionsdomäne versteht man denjenigen Bereich des Netzes, der von
+          Auftreten einer Kollision betroffen ist
+        \item Bei Bustopologie: Gemeinsames Broadcast-Medium (CSMA/CD regelt Zugriff)
+        \item Kopplung busbasierter Netzbereich
+          \begin{itemize}
+            \item Mit Repeatern (Kollisionsdomäne erstreckt sich auf komplettes Netz
+            \item Mit Brücke (getrennte Kollisionsdomänen
+          \end{itemize}
+        \item bei Sterntopologie
+          \begin{itemize}
+            \item Mit Hub (Eine Kollisionsdomäne
+            \item Mit Switch (Mehrere Kollisionsdomänen
+          \end{itemize}
+        \item Mehrere Teilnetze verknüpft mit Switches
+      \end{itemize}
+    \subsubsection{Technische Varianten}
+      Ethernet im Wandel der Zeit
+      \begin{itemize}
+        \item Konfiguration/Betriebsarten von Ethernet im Laufe der Zeit stark verändert
+        \item Zu Beginn
+          \begin{itemize}
+            \item Ethernet mit getiltem Broadcast-Medium (Bus)
+            \item Eine Kollisionsdomäne, Halbduplexbetrieb
+          \end{itemize}
+        \item Einführung von Brücken
+          \begin{itemize}
+            \item Verbinden mehrerer Ethernets
+          \end{itemize}
+        \item Heute: sternförmige Verkabelung
+          \begin{itemize}
+            \item Switches, Punkt-zu-Punkt-Medien, häufig vollduplex
+              \begin{itemize}
+                \item Bei Vollduplex-Links kein CSMA/CD mehr erfolderlich
+              \end{itemize}
+            \item Flexible Verkabelung, hohes Kabelaufkommen
+          \end{itemize}
+        \item Invariante
+          \begin{itemize}
+            \item Ethernet-Rahmen (hat sich nicht geändert)
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{ARP -- Address Resolution Protocol}
+      \begin{itemize}
+        \item Ziel
+          \begin{itemize}
+            \item Ermittle MAC-Adresse des Interfaces das zu einer bekannten IP-Adresse gehört
+          \end{itemize}
+        \item Vorgehensweise
+          \begin{itemize}
+            \item Kleine Tabelle (ARP-Cache bzw. ARP-Table) in jedem System
+              \begin{itemize}
+                \item Eintrag <IP-Adresse; MAC-Adresse; Max. Lebenszeit>
+                \item Einträge werden bei Bedarf gelernt
+                \item Maximale Lebensdauer der Einträge (typischerweise 20 Minute)
+              \end{itemize}
+            \item Nutzt Broadcast-Fähigkeit lokaler Netze
+          \end{itemize}
+      \end{itemize}
+      ARP-Paketformat
+      \begin{itemize}
+        \item Kopf des ARP-Pakets
+      \end{itemize}
+      \includegraphics[width=\textwidth]{img/arp_paketkopf.png}\\\\
+      Adressaufläsung mit ARP - lokal
+      \begin{itemize}
+        \item Szenario 1: A sendet IP-Datagramm an B im gleichen Subnetz
+          \begin{itemize}
+            \item Falls Eintrag im lokalen ARP-Cache von A vorhanden
+              \begin{itemize}
+                \item Paket an die dort enthaltene MAC-Adresse weiterleiten
+                \item Timeout neu setzen
+              \end{itemize}
+            \item Falls kein Eintrag im lokalen ARP-Cache von A vorhanden
+              \begin{itemize}
+                \item Broadcast eines ARP-Request (enthält IP-Adresse von B)
+                  \begin{itemize}
+                    \item Ziel-MAC-Adresse: FF-FF-FF-FF-FF-FF
+                  \end{itemize}
+                \item Jeder Knoten liest ARP-Request und überprüft IP-Adresse
+                  \begin{itemize}
+                    \item Falls eigene IP-Adresse, dann ARP-Reply
+                    \item Antwort auf MAC-Adresse von A, enthält MAC-Adresse von B
+                  \end{itemize}
+                \item Suchende Instanz (also A) trägt Information in ihren ARP-Cache ein
+                  \begin{itemize}
+                    \item Wird nach Timeout gelöscht
+                  \end{itemize}
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Adressauflösung mit ARP -- anderes Subnetz
+      \begin{itemize}
+        \item Szenario 2: A sendet IP-Datagramm an B in anderem Subnetz
+          \begin{itemize}
+            \item A benötigt MAC-Adresse des Routers R
+              \begin{itemize}
+                \item A sendet ARP-Request für Router R (IP-Adresse R) wie gehabt
+              \end{itemize}
+            \item sendet IP-Datagramm mit
+              \begin{itemize}
+                \item Ziel IP-Adresse = IP-Adresse von B und
+                \item Ziel-Mac-Adresse = MAC-Adresse von entsprechendem Interface von R
+                  entsprech
+              \end{itemize}
+          \end{itemize}
+        \item Szenario 2: Router empfängt das IP-Datagramm
+          \begin{itemize}
+            \item Setzt Ziel- und Sender-MAC-Adresse auf Adressen von B und R
+            \item Leitet Datagramm in anderem Subnetz weiter
+          \end{itemize}
+        \item Szenario 2: Endsystem B empfängt das IP-Datagramm
+      \end{itemize}
+      ARP und Angriff
+      \begin{itemize}
+        \item DoS-Angriff in lokalem Netz
+          \begin{itemize}
+            \item Bösartiges Endsystem sendet zufällig Antwortn zu ARP-Request
+            \item Belasten alle ARP-Caches der angeschlossenen Systeme\\
+              $\ra$ bösartiges Endsystem muss entfernt werden
+              \begin{itemize}
+                \item In drahtgebundenem Netz relativ einfach
+                \item In drahtlosem Netz eher schwierig
+              \end{itemize}
+          \end{itemize}
+        \item Man-in-the-middle Angriff (ARP Spoofing)
+          \begin{itemize}
+            \item Endsystem 10.0.1.9 sei bösartig -- will alle Pakete der Endsysteme 10.0.1.22 und
+              10.0.1.8 empfangen und verändern
+            \item Sendet gefälschte ARP-Replies, auf deren Basis diese Endsysteme die MAC-Adresse von
+              10.0.1.9 fälschlicherweise nutzen
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Virtuelle LANs (VLANs)}
+      VLAN (Virtual Local Area Networ)
+      \begin{itemize}
+        \item Ein VLAN ist ein virtuelles Netz innerhalb des physischen Netzes
+        \item Auf Ethernet-Ebene wird der Datenverkehr logisch getrennt
+        \item Wieso werden VLANs eingesetzt?
+          \begin{itemize}
+            \item Sicherheit
+              \begin{itemize}
+                \item Jedes angeschlossene Gerät kann am Broadcast-Medium mithören
+                \item Trennung eines physikalischen Mediums in logische Medien ermöglicht gezielte
+                  Gruppierung von Geräten
+                \item Bessere Kontrolle über Größe und Zusammensetzung eine Netzes
+              \end{itemize}
+            \item Flexibilität
+              \begin{itemize}
+                \item Einfache Reorganisation der logischen Medien möglich
+                \item Keine Änderung an physikalischem Medium z.B. neue Verkabelung, notwendig
+              \end{itemize}
+            \item Performance
+              \begin{itemize}
+                \item Broadcast-Last eines Netzes sinkt, wenn physikalisches Medium in mehrere
+                  logische Medien aufgeteilt wird
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      Interface-basierte VLANs
+      \begin{itemize}
+        \item Interfaces des Switches sind per Software so konfiguriert, dass ein einzelner
+          physikalischer Swtich wie mehrere virtuelle Switches arbeitet
+        \item Verkehrsisolation
+          \begin{itemize}
+            \item Rahmen von den Interfaces 1-8 können nur die Interfaces 1-8 erreichen $\ra$
+              Sicherheit, Performance
+          \end{itemize}
+        \item Dynamische Zuweisung: Intrefaces können dynamisch zu anderen VLANs zugewiesen werden
+          $\ra$ Flexibilität
+        \item Weiterleitung zwischen VLANs erfolgt über Routing
+          \begin{itemize}
+            \item Oftmals über einen Router, der im Switch integriert ist
+          \end{itemize}
+      \end{itemize}
+      VLANs über mehrere Swichtes
+      \begin{itemize}
+        \item VLAN-Trunks: Transportieren Rahmen zwischen VLANs, die durch mehrere physikalische
+          Swichtes erzeugt werden
+          \begin{itemize}
+            \item Jedes VLAN erhält eindeutige Kennung (VLAN-ID)
+            \item Tagging von Ethernet-Rahmen mit VLAN-ID
+            \item Switches fügehn VLAN-Tag hinzu bzw. entfernen es
+          \end{itemize}
+        \item Protokolle zur Unterstützung von VLANs
+          \begin{itemize}
+            \item IEEE 802.1q
+            \item Cisco Inter-Switch Link (ISL)
+          \end{itemize}
+      \end{itemize}
+  \subsection{Zusammenspiel der Schichten}
+    Protokolle im Überblick
+    \begin{itemize}
+      \item Einordnung der diskutierten Protokolle in das Referenzmodell
+    \end{itemize}
+    \includegraphics[width=\textwidth]{img/protokoll_übersicht.png}\\\\
+    Konstruktion der Pakte\\\\
+    \includegraphics[width=\textwidth]{img/paket_konstruktion.png}
+
 
