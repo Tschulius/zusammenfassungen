@@ -1,3 +1,268 @@
 \newpage
 \section{Protokollmechanismen 2}
-
+  \subsection{Einführung}
+    Fehlerhäufigkeit
+    \begin{itemize}
+      \item Die Bitfehlerrate (bit error rate, BER) ist ein Maß für die Fehlerhäufigkeit. Sie wird
+        durch das Verhältnis gestörter Bits zu übertragenen Bits berechnet:
+        $$\text{Bitfehlerrate}=\frac{\sum\text{ gestörte Bits}}{\sum\text{ übertragene Bits}}$$
+    \end{itemize}
+    Redundanz
+    \begin{itemize}
+      \item Einführung von Redundanz um Fehler zu erkennen und ggfs zu beheben
+        \begin{itemize}
+          \item Fehlererkennung
+          \begin{itemize}
+            \item Redundanz zu Daten hinzufügen
+            \item Verwende Codewörter, die sich hinreichend unterscheiden
+            \item Beispiel
+              \begin{itemize}
+                \item "t" und "d" manchmal schwer unterscheidbar
+                \item Verwende Nato-Alphabet "Tango" und "Delta"
+              \end{itemize}
+          \end{itemize}
+        \item Fehlerkorrektur
+          \begin{itemize}
+            \item Falls Fehler erknannt, versuche mittels Redundanz zu korrigieren
+          \end{itemize}
+        \end{itemize}
+    \end{itemize}
+  \subsection{Erkennung von Bitfehlern}
+    Erkennung von Bitfehlern
+    \begin{itemize}
+       \item Problem
+         \begin{itemize}
+           \item Wie können Bitfehler beim Empfänger erkannt werden?
+         \end{itemize}
+       \item Grundlegender Ansataz
+         \begin{itemize}
+           \item Hinzufügen redundanter Bits
+             \begin{itemize}
+               \item Bits, die nicht den Nutzdaten zugeordnet werden können und die nicht für
+                 Kontrollzwecke benötigt werden
+             \end{itemize}
+         \end{itemize}
+       \item Typische Beispiele in Rechnernetzen
+         \begin{itemize}
+           \item Paritätsbits
+           \item Prüfsumme
+         \end{itemize}
+    \end{itemize}
+    \subsubsection{Grundlagen}
+      Hamming-Abstand (Hamming-Distanz)
+      \begin{itemize}
+        \item Es seien $C$ ein Code fester Länge und $v_1,v_2$ zwei Codewörter aus $C$. Der
+          Hamming-Abstand $\Delta(v_1,v_2)$ ist die Anzahl an Positionen, an denen sich die
+          Symbole in $v_1$ und $v_2$ unterschiedlich sind
+          \begin{itemize}
+            \item entspricht Anzahl der Eins-Bits von $v_1\oplus v_2$
+          \end{itemize}
+      \end{itemize}
+      Code-Abstand
+      \begin{itemize}
+        \item Für einen Code $C$ fester Länge ist der Code-Abstand $\Delta C$ die minimale
+          Distanz zwishen zwei Codewörtern
+          $$\Delta C:=\min\{\Delta(v_1,v_2)\mid v_1,v_2\in C,v_1\neq v_2\}$$
+      \end{itemize}
+      Fehlererkennender, -korrigierender Code
+      \begin{itemize}
+        \item Ein Code ist $r$-fehlererkennend, wenn der Empfänger jedes Codewort, in dem
+          bis zu $r$ Symbole verfälscht wurden, als fehlerhaft identifizert
+        \item Ein Code ist $r$-fehlerkorrigierend, wenn der Empfänger jedes Codewort, in
+          dem bis zu $r$ Symbole verfälscht wurden, wieder herstellten kann
+      \end{itemize}
+      Hamming-Kugel
+      \begin{itemize}
+        \item Es seien $C\subseteq\Pi^n$ ein Coded fester Länge, $v\in C$ und $r\in\nat$. Die Menge
+          $$K_r(v):=\{w\in C\mid\Delta(v,w)\le r\}$$
+          wird als Hamming-Kugel von Codewort $v$ mit Radius $r$ bezeichnet
+        \item $K_r(v)$ enthält genau diejenigen Codewörter
+          \begin{itemize}
+            \item die sich von $v$ an höchstens $r$ Positionen unterscheiden
+            \item d.h. deren Distanz zu $v$ beträgt höchstens $r$
+          \end{itemize}
+        \item Anschaulich
+          \begin{itemize}
+            \item Kugel um $v$ mit Radius $r$ im $n$-dimensionalen Raum
+          \end{itemize}
+      \end{itemize}
+      Code ist nicht $r$-fehlererkennend
+      \begin{itemize}
+        \item Codewort einer Hamming-Kugel liebt
+          \begin{itemize}
+            \item auf dem Rand einer Hamming-Kugel eines anderen Codeworts
+            \item oder innerhalb der Hamming-Kugel eines anderen Codewortes
+            \item $\ra$ Codewort kann durch Ändern von $r$ oder weniger Bits in anderes, gültiges
+              Codewort überführt werden
+          \end{itemize}
+      \end{itemize}
+      Code ist $r$-fehlererkennend
+      \begin{itemize}
+        \item Code-ABstand größer als $r$
+          \begin{itemize}
+            \item d.h. Codewörter sind weiter als $r$ voneinander entfernt
+            \item Hamming-Kugeln sind frei von anderen Codewörtern
+            \item $\ra$ Codewort kann durch ändern von $r$ oder weniger Bits nicht in anderes,
+              gültiges Codewort überführt werden
+          \end{itemize}
+      \end{itemize}
+      Code ist nicht $r$-fehlerkorrigierend
+      \begin{itemize}
+        \item Zwei Hamming-Kugeln sind so nah zusammen, dass sie sich
+          \begin{itemize}
+            \item berühren
+            \item oder schneiden
+            \item $\ra$ Codewörter in der Schnittmenge können durch ändern von $r$ oder
+              weniger Bits aus beiden Codewörtern entstanden sein
+          \end{itemize}
+      \end{itemize}
+      Code ist $r$-fehlerkorrigierend
+      \begin{itemize}
+        \item Code-Abstand größer als $2r$
+      \end{itemize}
+      Fehlererkennd / -korrigierend
+      \begin{itemize}
+        \item Für einen Code $C$ fester Länge gilt
+          \begin{itemize}
+            \item $C$ ist $r$-fehlererkennend $\Leftrightarrow$ $\Delta C >r$
+            \item $C$ ist $r$-fehlererkorrigierend $\Leftrightarrow$ $\Delta C >2r$
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Paritätsbits}
+      Einfache Paritätsprüfung
+      \begin{itemize}
+        \item Fehlererkennung von einzelnen Bitfehlern: Paritätsbit
+          \begin{itemize}
+            \item Nutzdaten: $x=(x_1,x_2,\dots,x_k)$
+            \item Paritätsbits: $p=f(x)=(x_1+\dots+x_k)\mod 2$
+            \item Codewort: $z=(xp)$
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Hamming-Code}
+      \begin{itemize}
+        \item Eigenschaften
+          \begin{itemize}
+            \item Linearer $(n,k)$ Code
+              \begin{itemize}
+                \item $n$: Länge des Codewortes
+                \item $k$: Anzahl der Nutzdatenbits im Codewort
+                \item Anzahl der verwendeten Paritätsbits: $n-k$
+              \end{itemize}
+            \item Code-Abstand von 3
+            \item Kann Einzelbitfehler korrigieren
+            \item Mit einfachen Harwareschaltungen implementierbar
+          \end{itemize}
+      \end{itemize}
+    \subsubsection{Cyclic Redundancy Check (CRC)}
+      \begin{itemize}
+        \item Ein linearer Code heißt zyklisch, wenn jede zyklische Verschiebung eines Codeworts
+          ebenfalls ein Codewort ist
+        \item Wenn $(a_1,a_2,\dots,a_n)$ Codewort von $C$ ist, dann sind dies auch\\
+          $(a_2,a_3,\dots,a_n,a_1),(a_3,a_4,\dots,a_1,a_2),\dots$
+        \item Zusammenhang zwischen Codewörtern und Polynomen
+          \begin{itemize}
+            \item Symbole eines Codeworts werden als Koeffizienten eines Polynoms interpretiert
+          \end{itemize}
+          \item Quellenaplphabet $\Sigma$ sei endlicher Körper $\mathbb{F}$
+            \begin{itemize}
+              \item Jedes Codewort $v$ der Länge $n$ lässt sich als Polynom $v(x)\in\mathbb{F}[x]$
+                mit $\deg v(x)<n$ einem Codewort $v$ der Länge $n$
+            \end{itemize}
+          \item CRC häufig in der Praxis eingesetzt (z.B. Ethernet, WLAN)
+      \end{itemize}
+      Generatorpolynom
+      \begin{itemize}
+        \item Es seien $g(x)$ ein Polynom aus der Menge $\mathbb{F}[x]$ und $n\in\nat^+$. Der von
+          $g(x)$ generierte Code der Länge $n$ ist die Menge
+          $$C:=\{v(x)\mid\deg v/x)<n\text{ und }g(x)\text{ teilt }v(x)\text{ ohne Rest}\}$$
+          $g(x)$ heißt das Generatorpolynom von $C$
+        \item Das Generatorpolynom $g(x)$ erzeugt genau dann einen zyklischen Code der Länge $n$, wenn
+          es die folgende Teilbarkeitsregel aufweist:
+          $$g(x)\text{ teilt }x^n+1\text{ ohne Rest}$$
+      \end{itemize}
+      Berechnung CRC
+      \begin{itemize}
+        \item Wie werden die Codewörter erzeugt?
+          \begin{itemize}
+            \item Codewort der Länge $n$
+            \item $r$ Prüfbits werden an die zu übertragenen Nutzdaten angehängt
+              \begin{itemize}
+                \item Damit $n-r$ Nutzdaten enthalten
+              \end{itemize}
+          \end{itemize}
+        \item Seien
+          \begin{itemize}
+            \item $v(x)$: Codewortpolynom
+            \item $u(x)$: Nutzdatenpolynom
+            \item Dann gilt
+              \begin{itemize}
+                \item Die ersten $n-r$ Koeffizienten des Codewortpolynoms $v(x)$ müssen mit dem
+                  Polynom $x^ru(x)$ übereinstimmen
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+      CRC-Algorithmus (Sender)
+      \begin{itemize}
+        \item Gegeben: Generatorpolynom $g(x)$ mit $\deg g(x)=r$, Nutzdatenpolynom $u(x)$ mit 
+          $\deg u(c)<n-r$
+        \item Gesucht: Codewortpolynom $v(x)$ mit $\deg v(x)<n$
+        \item Ablauf
+          \begin{enumerate}[label=\arabic*)]
+            \item Multipliziere Nutzdatenpolynom $u(x)$ mit $x^r$
+            \item Dividiere $x^ru(x)$ durch Generatorpolynom $g(x)$
+            \item Berechne Summe aus Divisionsrest $r(x)$ und $x^ru(x)$
+          \end{enumerate}
+      \end{itemize}
+      CRC-Algorithmus (Empfänger)
+      \begin{itemize}
+        \item Gegeben: Generatorpolynom $g(x)$ mit $\deg g(x)=r$, Codewortpolynom $u(x)$ mit 
+          $\deg u(c)<n-r$
+        \item Gesucht: Nutzdatenpolynom $v(x)$ mit $\deg v(x)<n$
+        \item Ablauf
+          \begin{enumerate}[label=\arabic*)]
+            \item Dividiere Empfangswort durch Generatorpolynom $g(x)$
+            \item Kein Rest $\ra$ keine Fehler festgestellt\\
+              Rest $\ra$ Übertragung war fehlerhaft
+          \end{enumerate}
+      \end{itemize}
+      CRC-Implementierung in Hardware
+      \begin{itemize}
+        \item Realisierung in Hardware
+          \begin{itemize}
+            \item Benutzung von rückgekoppelten Schieberegistern
+            \item CRC wird während des "Durchschiebens" durch das Schieberegister berechnet
+          \end{itemize}
+        \item Vorgehensweise
+          \begin{itemize}
+            \item Daten durchlaufen bitweise das Schieberegister
+            \item XOR-Gatter an Stellen von "1"-Bits in $g(x)$
+            \item An höchstem Bit Rückkopplung, falls "1" durchgeschoben wird
+            \item Nach Durchschieben von $v(x)$ steht Prüfsumme im Register
+              \begin{itemize}
+                \item Zu beachten: Soll Prüfsumme ebenfalls "aus dem Register geschoben werden", ist
+                  noch etwas mehr Schaltungslogik nötig
+              \end{itemize}
+          \end{itemize}
+      \end{itemize}
+  \subsection{Vorwärtsfehlerkorrektur}
+    Vorwärtsfehlerkorrektur (Forward Error Correction -- FEC)
+    \begin{itemize}
+      \item Ziel
+        \begin{itemize}
+          \item Empfänger kann Paketfehler korrigieren ohne Sendewiederholung anzufordern
+          \item Sender sendet hierzu redundante Pakete
+        \end{itemize}
+      \item Vorteil
+        \begin{itemize}
+          \item Reduziert die Verzögerung bis Daten beim Dienstnutzer abgeliefert werden können
+        \end{itemize}
+      \item Nachteil
+        \begin{itemize}
+          \item Redundante Information wird unabhängig von evtl. auftretendem Fehler gesendet
+        \end{itemize}
+      \item Hier: "verlorenes" Paket
+        \begin{itemize}
+          \item Paket kommt nie beim Empfänger an oder
+          \item Paket kommt zu spät beim Empfänger an
+        \end{itemize}
+    \end{itemize}
